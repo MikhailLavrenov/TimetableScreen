@@ -3,9 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimetableScreen", "TimetableScreen\TimetableScreen.csproj", "{95BD2D4E-6B5F-44AE-85EB-1DFDAF3EC554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimetableScreen.Configurator", "TimetableScreen.Configurator\TimetableScreen.Configurator.csproj", "{95BD2D4E-6B5F-44AE-85EB-1DFDAF3EC554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A876D737-20EE-4260-8370-89D217B7A528}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{A876D737-20EE-4260-8370-89D217B7A528}"
+	ProjectSection(ProjectDependencies) = postProject
+		{95BD2D4E-6B5F-44AE-85EB-1DFDAF3EC554} = {95BD2D4E-6B5F-44AE-85EB-1DFDAF3EC554}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

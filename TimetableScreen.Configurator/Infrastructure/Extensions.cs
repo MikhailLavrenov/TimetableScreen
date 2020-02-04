@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TimetableScreen.Infrastructure
+namespace TimetableScreen.Configurator.Infrastructure
 {
     public static class Extensions
     {

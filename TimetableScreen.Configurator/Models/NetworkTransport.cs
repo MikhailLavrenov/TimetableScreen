@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using TimetableScreen.Infrastructure;
 
-namespace TimetableScreen.Models
+namespace TimetableScreen.Configurator.Models
 {
     public class NetworkTransport
     {
-        string statusMessage = "success";
-
         public string LocalAddress { get; set; } = "127.0.0.1";
-        public string RemoteHost { get; set; } = "127.0.0.1";
+        public string RemoteAddress { get; set; } = "127.0.0.1";
         public int Port { get; set; } = 8642;
         public bool recieveNewConnections { get; set; } = true;
 
         public event EventHandler<ResponseEventArgs> DataRecieved;
-
 
         public void Send(byte[] data)
         {
@@ -23,19 +19,15 @@ namespace TimetableScreen.Models
             {
                 var client = new TcpClient();
 
-                client.Connect(RemoteHost, Port);
+                client.Connect(RemoteAddress, Port);
 
                 var stream = client.GetStream();
 
+                byte[] size = BitConverter.GetBytes(data.Length);
+
+                stream.Write(size, 0, size.Length);
                 stream.Write(data, 0, data.Length);
 
-                byte[] resBytes = new byte[statusMessage.Length];
-                stream.Read(resBytes, 0, resBytes.Length);
-
-                if (resBytes.GetString() != statusMessage)
-                    throw new SocketException();
-
-                stream.Close();
                 client.Close();
             }
             catch (Exception)
@@ -53,15 +45,22 @@ namespace TimetableScreen.Models
 
                 while (recieveNewConnections)
                 {
-                    var socket = listener.AcceptSocket();
+                    var client = listener.AcceptTcpClient();
+                    var stream = client.GetStream();
 
-                    var buffer = new byte[socket.Available];
-                    socket.Receive(buffer);
+                    var lengthBytes = new byte[sizeof(int)];
 
-                    DataRecieved(null, new ResponseEventArgs(buffer));
-                    socket.Send(statusMessage.GetBytes());
+                    stream.Read(lengthBytes, 0, lengthBytes.Length);
 
-                    socket.Close();
+                    var length = BitConverter.ToInt32(lengthBytes);
+
+                    var data = new byte[length];
+
+                    stream.Read(data, 0, length);
+
+                    DataRecieved(null, new ResponseEventArgs(data));
+
+                    client.Close();
                 }
 
                 listener.Stop();

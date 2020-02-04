@@ -1,15 +1,10 @@
 ﻿using Prism.DryIoc;
 using Prism.Ioc;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using TimetableScreen.Views;
+using TimetableScreen.Configurator.Models;
+using TimetableScreen.Configurator.Views;
 
-namespace TimetableScreen
+namespace TimetableScreen.Configurator
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -23,6 +18,10 @@ namespace TimetableScreen
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance(Settings.Load());
+
+            containerRegistry.RegisterForNavigation<DepartmentsView>();
+            containerRegistry.RegisterForNavigation<PhysiciansView>();
         }
     }
 }
