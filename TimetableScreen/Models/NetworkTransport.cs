@@ -1,38 +1,41 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-
+using TimetableScreen.Infrastructure;
 
 namespace TimetableScreen.Models
 {
     public class NetworkTransport
     {
+        string statusMessage = "success";
+
         public string LocalAddress { get; set; } = "127.0.0.1";
-        public int LocalPort { get; set; } = 9753;
         public string RemoteHost { get; set; } = "127.0.0.1";
-        public int RemotePort { get; set; } = 8642;
-        public bool recieveConnections { get; set; } = true;
+        public int Port { get; set; } = 8642;
+        public bool recieveNewConnections { get; set; } = true;
 
         public event EventHandler<ResponseEventArgs> DataRecieved;
 
 
         public void Send(byte[] data)
         {
-
-
             try
             {
                 var client = new TcpClient();
 
-                client.Connect(RemoteHost, RemotePort);
+                client.Connect(RemoteHost, Port);
 
                 var stream = client.GetStream();
 
                 stream.Write(data, 0, data.Length);
 
-                //byte[] bb = new byte[100];
-                //int k = stream.Read(bb, 0, 100);
+                byte[] resBytes = new byte[statusMessage.Length];
+                stream.Read(resBytes, 0, resBytes.Length);
 
+                if (resBytes.GetString() != statusMessage)
+                    throw new SocketException();
+
+                stream.Close();
                 client.Close();
             }
             catch (Exception)
@@ -44,21 +47,19 @@ namespace TimetableScreen.Models
             try
             {
                 var ipAddress = IPAddress.Parse(LocalAddress);
-                var listener = new TcpListener(ipAddress, LocalPort);
+                var listener = new TcpListener(ipAddress, Port);
 
                 listener.Start();
 
-                while (recieveConnections)
+                while (recieveNewConnections)
                 {
                     var socket = listener.AcceptSocket();
 
-                    byte[] buffer = new byte[int.MaxValue];
-                    int k = socket.Receive(buffer);
+                    var buffer = new byte[socket.Available];
+                    socket.Receive(buffer);
 
                     DataRecieved(null, new ResponseEventArgs(buffer));
-
-                    //var encoder = new ASCIIEncoding();
-                    //socket.Send(encoder.GetBytes("The string was recieved by the server."));
+                    socket.Send(statusMessage.GetBytes());
 
                     socket.Close();
                 }
@@ -66,8 +67,7 @@ namespace TimetableScreen.Models
                 listener.Stop();
             }
             catch (Exception)
-            {
-            }
+            { }
         }
 
     }
@@ -79,8 +79,15 @@ namespace TimetableScreen.Models
 
         public ResponseEventArgs(byte[] buffer)
         {
-            this.Buffer = buffer;
+            Buffer = buffer;
         }
+    }
+
+    public enum ConnectionStatus
+    {
+        None = 0,
+        Success = 1,
+        Fail = 2,
     }
 
 }

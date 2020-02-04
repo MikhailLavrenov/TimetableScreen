@@ -8,14 +8,14 @@ namespace TimetableScreen.ViewModels
 {
     public class ShellViewModel : BindableBase
     {
-        string clientText;
+        string clientText = "Hello";
         string serverText;
         NetworkTransport client;
         NetworkTransport server;
         Task task;
 
 
-        public string ClientText { get => clientText; set => SetProperty(ref clientText, value); }
+        public string ClientText { get => clientText; set => SetProperty(ref clientText, value); } 
         public string ServerText { get => serverText; set => SetProperty(ref serverText, value); }
 
         public DelegateCommand ClientSendCommand { get; }
@@ -36,10 +36,11 @@ namespace TimetableScreen.ViewModels
         private void ClientSendExecute()
         {
             client.Send(clientText.GetBytes());
+            
         }
         private void DataRecievedHandler(object obj, ResponseEventArgs args)
         {
-            serverText = args.Buffer.ToString();
+            ServerText = args.Buffer.GetString();
         }
     }
 }
