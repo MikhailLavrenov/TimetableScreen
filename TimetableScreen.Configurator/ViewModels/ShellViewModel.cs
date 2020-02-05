@@ -13,7 +13,7 @@ namespace TimetableScreen.Configurator.ViewModels
         public Settings Settings { get; set; }
 
         public DelegateCommand<Type> NavigateCommand { get; }
-        public DelegateCommand<Type> SaveSettingsCommand { get; }
+        public DelegateCommand SaveSettingsCommand { get; }
 
         public ShellViewModel(IRegionManager regionManager, Settings settings)
         {
@@ -21,6 +21,7 @@ namespace TimetableScreen.Configurator.ViewModels
             Settings = settings;
 
             NavigateCommand = new DelegateCommand<Type>(NavigateExecute);
+            SaveSettingsCommand = new DelegateCommand(() => Settings.Save());;
         }
 
         private void NavigateExecute(Type viewType)

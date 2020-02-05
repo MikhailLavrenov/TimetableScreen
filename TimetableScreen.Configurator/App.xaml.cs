@@ -22,6 +22,7 @@ namespace TimetableScreen.Configurator
 
             containerRegistry.RegisterForNavigation<DepartmentsView>();
             containerRegistry.RegisterForNavigation<PhysiciansView>();
+            containerRegistry.RegisterForNavigation<SettingsView>();
         }
     }
 }

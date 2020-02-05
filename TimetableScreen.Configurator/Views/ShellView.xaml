@@ -13,9 +13,9 @@
         WindowStartupLocation="CenterScreen"
         Title="{Binding ApplicationTitle}"
         Height="600"
-        Width="850"
+        Width="1000"
         MinHeight="600"
-        MinWidth="850"
+        MinWidth="1000"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -23,10 +23,18 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         prism:ViewModelLocator.AutoWireViewModel="True">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/WindowStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary >
+    </Window.Resources>
+    
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding NavigateCommand}"
-                                   CommandParameter="{x:Type v:DepartmentsView}" />
+                                   CommandParameter="{x:Type v:PhysiciansView}" />
         </b:EventTrigger>
 
         <b:EventTrigger EventName="Closing">
@@ -34,27 +42,31 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
-    <Grid d:DataContext="{d:DesignInstance  vm:ShellViewModel }">
+    <DockPanel d:DataContext="{d:DesignInstance  vm:ShellViewModel }" Margin="20">
 
-        <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
 
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <RadioButton Content="Разное"
+                         Style="{StaticResource TabRadioButton}"
+                         Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:SettingsView}"/>
 
-                <!--<Button Content="Общие" Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:DepartmentsView}"/>-->
+            <RadioButton Content="Отделения"
+                         Style="{StaticResource TabRadioButton}"
+                         Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:DepartmentsView}"/>
 
-                <Button Content="Отделения" Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:DepartmentsView}"/>
-
-                <Button Content="Расписания" Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:PhysiciansView}"/>
+            <RadioButton Content="Расписания"
+                         IsChecked="True"
+                         Style="{StaticResource TabRadioButton}"
+                         Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:PhysiciansView}"/>
 
             </StackPanel>
 
-            <ContentControl prism:RegionManager.RegionName="MainRegion" />
+        <FrameworkElement DockPanel.Dock="Top" Style="{StaticResource Separator}" />
+
+        <ContentControl prism:RegionManager.RegionName="MainRegion" />
 
         </DockPanel>
 
 
 
-
-
-    </Grid>
 </Window>

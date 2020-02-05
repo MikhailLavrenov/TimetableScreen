@@ -29,4 +29,94 @@
                 Value="7" />
     </Style>
 
+    <!-- Separator-->
+
+    <Style TargetType="FrameworkElement"
+           x:Key="Separator">
+        <Setter Property="Width"
+                Value="0" />
+        <Setter Property="Height"
+                Value="0" />
+        <Setter Property="Margin"
+                Value="30,10,30,10" />
+    </Style>
+
+    <!--ComboBox-->
+
+    <Style TargetType="{x:Type ComboBox}"
+           BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Setter Property="Margin"
+                Value="5" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+    </Style>
+
+    <!--Buttons-->
+
+    <Style BasedOn="{StaticResource {x:Type Button}}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Margin"
+                Value="5" />
+        <Setter Property="Padding"
+                Value="5,0,5,0" />
+        <!--<Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />-->
+        <Setter Property="MinWidth"
+                Value="120" />
+        <Setter Property="FontWeight"
+                Value="Regular" />
+    </Style>
+
+
+    <Style x:Key="IconButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="MinWidth"
+                Value="0" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Width"
+                Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="true">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource PrimaryHueMidBrush}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="false">
+                <Setter Property="Foreground"
+                        Value="DimGray" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--RadioButton-->
+
+    <Style x:Key="TabRadioButton"
+           TargetType="{x:Type RadioButton}"
+           BasedOn="{StaticResource  MaterialDesignTabRadioButton}">
+        <Setter Property="MinWidth"
+                Value="0" />
+        <Setter Property="Margin"
+                Value="5,5,15,5" />
+        <Setter Property="Padding"
+                Value="0,5,0,5" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource PrimaryHueMidBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="true">
+                <Setter Property="Cursor"
+                        Value="Hand" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>
