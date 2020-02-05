@@ -38,6 +38,16 @@
 
         <DockPanel>
 
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+
+                <!--<Button Content="Общие" Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:DepartmentsView}"/>-->
+
+                <Button Content="Отделения" Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:DepartmentsView}"/>
+
+                <Button Content="Расписания" Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:PhysiciansView}"/>
+
+            </StackPanel>
+
             <ContentControl prism:RegionManager.RegionName="MainRegion" />
 
         </DockPanel>

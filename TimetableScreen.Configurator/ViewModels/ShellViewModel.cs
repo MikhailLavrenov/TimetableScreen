@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
+using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen.Configurator.ViewModels
 {
@@ -9,11 +10,15 @@ namespace TimetableScreen.Configurator.ViewModels
     {
         IRegionManager regionManager;
 
-        public DelegateCommand<Type> NavigateCommand { get; }
+        public Settings Settings { get; set; }
 
-        public ShellViewModel(IRegionManager regionManager)
+        public DelegateCommand<Type> NavigateCommand { get; }
+        public DelegateCommand<Type> SaveSettingsCommand { get; }
+
+        public ShellViewModel(IRegionManager regionManager, Settings settings)
         {
             this.regionManager = regionManager;
+            Settings = settings;
 
             NavigateCommand = new DelegateCommand<Type>(NavigateExecute);
         }

@@ -19,9 +19,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+
         </Grid.RowDefinitions>
 
         <DataGrid Grid.Row="0"
@@ -31,8 +29,8 @@
 
             <DataGrid.Columns>
                 
-                <DataGridTextColumn Header="Название подразделения"
-                                    Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Название отделения"
+                                    Binding="{Binding Name}" Width="*" />
                 
             </DataGrid.Columns>
 
