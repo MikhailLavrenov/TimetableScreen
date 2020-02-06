@@ -21,7 +21,7 @@ namespace TimetableScreen.Configurator.ViewModels
             Settings = settings;
 
             NavigateCommand = new DelegateCommand<Type>(NavigateExecute);
-            SaveSettingsCommand = new DelegateCommand(() => Settings.Save());;
+            SaveSettingsCommand = new DelegateCommand(() => Settings.Save());
         }
 
         private void NavigateExecute(Type viewType)
