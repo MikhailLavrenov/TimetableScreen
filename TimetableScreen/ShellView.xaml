@@ -18,7 +18,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        prism:ViewModelLocator.AutoWireViewModel="True">
+        prism:ViewModelLocator.AutoWireViewModel="True" Cursor="None">
 
     <Window.Style>
 
@@ -55,7 +55,7 @@
 
     <Grid>
 
-        <Button Panel.ZIndex="1"
+        <Button Panel.ZIndex="2"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
                 Style="{StaticResource MaterialDesignFlatButton}"
@@ -63,6 +63,75 @@
                 Margin="0"
                 Command="{Binding CloseCommand}"
                 Cursor="Hand" />
+
+        <Border Background="Transparent" BorderThickness="0"
+                Panel.ZIndex="1"
+                Cursor="None" />
+
+        <ListView ItemsSource="{Binding Settings.Departments}" Margin="20" >
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Name}" Margin="5" HorizontalAlignment="Center" />
+
+                        <ListView ItemsSource="{Binding PhysicianTimetables}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+
+                                        <GridViewColumn Header="Должность"
+                                                        DisplayMemberBinding="{Binding Specialty}" />
+
+                                        <GridViewColumn Header="ФИО"
+                                                        DisplayMemberBinding="{Binding FullName}" />
+
+                                        <GridViewColumn Header="Каб."
+                                                        DisplayMemberBinding="{Binding Cabinet}" />
+
+                                        <GridViewColumn Header="Участок"
+                                                        DisplayMemberBinding="{Binding Site}" />
+
+                                        <GridViewColumn Header="Понедельник"
+                                                        DisplayMemberBinding="{Binding Monday}" />
+
+                                        <GridViewColumn Header="Вторник"
+                                                        DisplayMemberBinding="{Binding Tuesday}" />
+
+                                        <GridViewColumn Header="Среда"
+                                                        DisplayMemberBinding="{Binding Wednesday}" />
+
+                                        <GridViewColumn Header="Четверг"
+                                                        DisplayMemberBinding="{Binding Thursday}" />
+
+                                        <GridViewColumn Header="Пятница"
+                                                        DisplayMemberBinding="{Binding Friday}" />
+
+                                        <GridViewColumn Header="Суббота"
+                                                        DisplayMemberBinding="{Binding Saturday}" />
+
+                                        <GridViewColumn Header="Воскресенье"
+                                                        DisplayMemberBinding="{Binding Sunday}" />
+
+                                        <GridViewColumn Header="Примечание"
+                                                        DisplayMemberBinding="{Binding Note}" />
+
+
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                            
+                        </ListView>
+                        
+                    </DockPanel>
+                </DataTemplate>
+                
+                
+            </ListView.ItemTemplate>
+            
+            
+        </ListView>
 
 
 
