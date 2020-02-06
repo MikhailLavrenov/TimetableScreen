@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TimetableScreen"                
+        xmlns:local="clr-namespace:TimetableScreen"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
@@ -54,12 +54,21 @@
     </Window.Resources>
 
     <Grid>
-        
-        
-        
-        
-        
+
+        <Button Panel.ZIndex="1"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Content="X" Foreground="White"
+                Margin="0"
+                Command="{Binding CloseCommand}"
+                Cursor="Hand" />
+
+
+
+
+
 
     </Grid>
-    
+
 </Window>

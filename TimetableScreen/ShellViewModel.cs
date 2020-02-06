@@ -1,8 +1,9 @@
-﻿using Prism.Ioc;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Serialization;
 using TimetableScreen.Configurator.Models;
 
@@ -12,18 +13,20 @@ namespace TimetableScreen
     {
         private Settings settings;
         private NetworkTransport networkTransport;
-        private IContainerRegistry containerRegistry;
 
         public Settings Settings { get => settings; set => SetProperty(ref settings, value); }
 
-        public ShellViewModel(Settings settings, IContainerRegistry containerRegistry)
+        public DelegateCommand CloseCommand { get; }
+
+        public ShellViewModel(Settings settings)
         {
             Settings = settings;
-            this.containerRegistry = containerRegistry;
 
             networkTransport = new NetworkTransport();
             networkTransport.DataRecieved += DataRecievedHandler;
-            Task.Run(() => networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort));
+            networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort);
+
+            CloseCommand = new DelegateCommand(CloseExecute);
         }
 
         private void DataRecievedHandler(object oject, ResponseEventArgs args)
@@ -35,10 +38,14 @@ namespace TimetableScreen
             Settings = (Settings)formatter.Deserialize(stream);
 
             Settings.Save();
-            containerRegistry.RegisterInstance(Settings);
 
             networkTransport.StopServer();
-            Task.Run(() => networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort));
+            networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort);
+        }
+        private void CloseExecute()
+        {
+            networkTransport.StopServer();
+            Application.Current.Shutdown();
         }
 
 

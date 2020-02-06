@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace Test
 {
@@ -6,7 +7,14 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            while (true)
+            {
+                var str = Console.ReadLine();
+
+                var address = Dns.GetHostAddresses(str)[0];
+
+                Console.WriteLine(address.ToString());
+            }
         }
     }
 }

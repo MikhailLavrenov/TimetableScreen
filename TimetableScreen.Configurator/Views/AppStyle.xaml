@@ -61,10 +61,10 @@
                 Value="5" />
         <Setter Property="Padding"
                 Value="5,0,5,0" />
-        <!--<Setter Property="HorizontalAlignment"
+        <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="VerticalAlignment"
-                Value="Center" />-->
+                Value="Center" />
         <Setter Property="MinWidth"
                 Value="120" />
         <Setter Property="FontWeight"

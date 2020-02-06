@@ -30,7 +30,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary >
     </Window.Resources>
-    
+
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding NavigateCommand}"
@@ -42,30 +42,41 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
-    <DockPanel d:DataContext="{d:DesignInstance  vm:ShellViewModel }" Margin="20">
+    <DockPanel d:DataContext="{d:DesignInstance  vm:ShellViewModel }"
+               Margin="20">
 
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+        <Button DockPanel.Dock="Top"                
+                Content="Отправить настройки"
+                Command="{Binding ApplySettings}"
+                Cursor="Hand" />
+
+        <StackPanel Orientation="Horizontal" 
+                    DockPanel.Dock="Top">
 
             <RadioButton Content="Разное"
                          Style="{StaticResource TabRadioButton}"
-                         Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:SettingsView}"/>
+                         Command="{Binding NavigateCommand}"
+                         CommandParameter="{x:Type v:SettingsView}" />
 
             <RadioButton Content="Отделения"
                          Style="{StaticResource TabRadioButton}"
-                         Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:DepartmentsView}"/>
+                         Command="{Binding NavigateCommand}"
+                         CommandParameter="{x:Type v:DepartmentsView}" />
 
             <RadioButton Content="Расписания"
                          IsChecked="True"
                          Style="{StaticResource TabRadioButton}"
-                         Command="{Binding NavigateCommand}" CommandParameter="{x:Type v:PhysiciansView}"/>
+                         Command="{Binding NavigateCommand}"
+                         CommandParameter="{x:Type v:PhysiciansView}" />
 
-            </StackPanel>
+        </StackPanel>
 
-        <FrameworkElement DockPanel.Dock="Top" Style="{StaticResource Separator}" />
+        <FrameworkElement DockPanel.Dock="Top"
+                          Style="{StaticResource Separator}" />
 
         <ContentControl prism:RegionManager.RegionName="MainRegion" />
 
-        </DockPanel>
+    </DockPanel>
 
 
 
