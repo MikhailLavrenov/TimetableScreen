@@ -6,7 +6,7 @@ namespace TimetableScreen.Configurator.Models
 {
     public class NetworkTransport
     {
-        public string LocalAddress { get; set; } = "127.0.0.1";
+        public IPAddress RecieveAddress { get; set; } = IPAddress.Any;
         public string RemoteAddress { get; set; } = "127.0.0.1";
         public int Port { get; set; } = 8642;
         public bool recieveNewConnections { get; set; } = true;
@@ -34,12 +34,11 @@ namespace TimetableScreen.Configurator.Models
             { }
         }
 
-        public void Recieve()
+        public void BeginRecieve()
         {
             try
             {
-                var ipAddress = IPAddress.Parse(LocalAddress);
-                var listener = new TcpListener(ipAddress, Port);
+                var listener = new TcpListener(RecieveAddress, Port);
 
                 listener.Start();
 

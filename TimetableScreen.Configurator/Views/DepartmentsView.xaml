@@ -10,21 +10,26 @@
              d:DesignHeight="600"
              d:DesignWidth="800"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
+    
+    <DockPanel>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+        <StackPanel DockPanel.Dock="Right"  Grid.Row="2" Grid.Column="3"
+                     Margin="4"
+                     VerticalAlignment="Center">
 
-        <Grid.RowDefinitions>
-            <RowDefinition />
+            <Button Style="{StaticResource IconButton}"
+                    Command="{Binding MoveUpCommand}"
+                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                    Content="{materialDesign:PackIcon ArrowUpThick}" />
 
-        </Grid.RowDefinitions>
+            <Button Style="{StaticResource IconButton}"
+                    Command="{Binding MoveDownCommand}"
+                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                    Content="{materialDesign:PackIcon ArrowDownThick}" />
 
-        <DataGrid Grid.Row="0"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="2"
+        </StackPanel>
+
+        <DataGrid x:Name="DataGrid1"
                   ItemsSource="{Binding Settings.Departments}">
 
             <DataGrid.Columns>
@@ -37,5 +42,5 @@
 
         </DataGrid>
 
-    </Grid>
+    </DockPanel>
 </UserControl>

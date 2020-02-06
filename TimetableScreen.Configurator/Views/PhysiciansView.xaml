@@ -33,7 +33,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
-
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
