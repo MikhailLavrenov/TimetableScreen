@@ -32,7 +32,7 @@ namespace TimetableScreen.Configurator.Models
         }
 
         public void StartServer(IPAddress iPAddress, ushort port)
-        {           
+        {
             Task.Run(() =>
             {
                 listener = new TcpListener(iPAddress, port);
@@ -41,7 +41,9 @@ namespace TimetableScreen.Configurator.Models
 
                 while (isRunning)
                 {
-                        var client = listener.AcceptTcpClient();
+                    try
+                    {
+                        using var client = listener.AcceptTcpClient();
                         var stream = client.GetStream();
 
                         var lengthBytes = new byte[sizeof(int)];
@@ -58,14 +60,17 @@ namespace TimetableScreen.Configurator.Models
                         client.Close();
 
                         DataRecieved(null, new ResponseEventArgs(data));
+                    }
+                    catch (SocketException ex) when (ex.ErrorCode==10004)
+                    { }
                 }
             });
         }
 
         public void StopServer()
         {
-            isRunning = false;
-            listener?.Stop();
+                isRunning = false;
+                listener?.Stop();
         }
     }
 
