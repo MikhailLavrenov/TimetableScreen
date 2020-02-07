@@ -47,7 +47,7 @@
 
         <Button DockPanel.Dock="Top"                
                 Content="Отправить настройки"
-                Command="{Binding ApplySettings}"
+                Command="{Binding SendSettingsCommand}"
                 Cursor="Hand" />
 
         <StackPanel Orientation="Horizontal" 

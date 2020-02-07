@@ -1,10 +1,12 @@
 ﻿using Prism.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Xml.Serialization;
 
 namespace TimetableScreen.Configurator.Models
 {
+    [Serializable]
     public class Settings : BindableBase
     {
         private static readonly string fileName = "Settings.xml";
@@ -42,7 +44,7 @@ namespace TimetableScreen.Configurator.Models
                 }
             }
             else
-                return new Settings();
+                return new Settings() { TimetableAddress="127.0.0.1", TimetablePort=8642 };
         }
     }
 }

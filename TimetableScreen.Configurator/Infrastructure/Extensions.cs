@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Text;
 
 namespace TimetableScreen.Configurator.Infrastructure
@@ -16,5 +15,18 @@ namespace TimetableScreen.Configurator.Infrastructure
             return Encoding.UTF8.GetBytes(str);
         }
 
+        public static string StreamToString(Stream stream)
+        {
+            stream.Position = 0;
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+
+            return reader.ReadToEnd();
+        }
+
+        public static Stream StringToStream(string src)
+        {
+            byte[] byteArray = Encoding.UTF8.GetBytes(src);
+            return new MemoryStream(byteArray);
+        }
     }
 }

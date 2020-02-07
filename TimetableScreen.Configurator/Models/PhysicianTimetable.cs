@@ -1,7 +1,9 @@
 ﻿using Prism.Mvvm;
+using System;
 
 namespace TimetableScreen.Configurator.Models
 {
+    [Serializable]
     public class PhysicianTimetable : BindableBase
     {
         private string fullName;

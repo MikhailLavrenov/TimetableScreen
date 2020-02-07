@@ -3,7 +3,12 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Xml.Serialization;
 using TimetableScreen.Configurator.Models;
 
@@ -17,7 +22,7 @@ namespace TimetableScreen.Configurator.ViewModels
 
         public DelegateCommand<Type> NavigateCommand { get; }
         public DelegateCommand SaveSettingsCommand { get; }
-        public DelegateCommand ApplySettingsCommand { get; }
+        public DelegateCommand SendSettingsCommand { get; }
 
         public ShellViewModel(IRegionManager regionManager, Settings settings)
         {
@@ -26,22 +31,23 @@ namespace TimetableScreen.Configurator.ViewModels
 
             NavigateCommand = new DelegateCommand<Type>(NavigateExecute);
             SaveSettingsCommand = new DelegateCommand(() => Settings.Save());
-            ApplySettingsCommand = new DelegateCommand(ApplySettingsExecute);
+            SendSettingsCommand = new DelegateCommand(SendSettingsExecute);
         }
 
         private void NavigateExecute(Type viewType)
         {
             regionManager.RequestNavigate("MainRegion", viewType.Name);
         }
-        private void ApplySettingsExecute()
+        private void SendSettingsExecute()
         {
             var stream = new MemoryStream();
             var formatter = new XmlSerializer(Settings.GetType());
             formatter.Serialize(stream, Settings);
+
             var bytes = stream.ToArray();
 
             //мб socketException
-            var address = Dns.GetHostAddresses(Settings.TimetableAddress)[0];
+            var address = Dns.GetHostAddresses(Settings.TimetableAddress).First(x=>x.AddressFamily == AddressFamily.InterNetwork);
 
             NetworkTransport.Send(address, Settings.TimetablePort, bytes);
         }

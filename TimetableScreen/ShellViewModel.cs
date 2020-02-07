@@ -2,6 +2,9 @@
 using Prism.Mvvm;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
@@ -33,8 +36,9 @@ namespace TimetableScreen
         {
             var stream = new MemoryStream();
             stream.Write(args.Buffer, 0, args.Buffer.Length);
+            stream.Position = 0;
 
-            var formatter = new XmlSerializer(typeof(Settings));
+            var formatter = new XmlSerializer(Settings.GetType());
             Settings = (Settings)formatter.Deserialize(stream);
 
             Settings.Save();
