@@ -13,17 +13,15 @@ namespace TimetableScreen.Configurator.Models
         private ObservableCollection<Department> departments;
         private string timetableAddress;
         private ushort timetablePort;
-        private int fontSize;
-        private int specialtyWidth;
-        private int fullNameWidth;
+        private int scale;
+        private int specialistWidth;
         private int cabinetWidth;
         private int siteWidth;
         private int dayOfWeekWidth;
         private int noteWidth;
 
-        public int FontSize { get => fontSize; set => SetProperty(ref fontSize, value); }
-        public int SpecialtyWidth { get => specialtyWidth; set => SetProperty(ref specialtyWidth, value); }
-        public int FullNameWidth { get => fullNameWidth; set => SetProperty(ref fullNameWidth, value); }        
+        public int Scale { get => scale; set => SetProperty(ref scale, value); }
+        public int SpecialistWidth { get => specialistWidth; set => SetProperty(ref specialistWidth, value); }   
         public int CabinetWidth { get => cabinetWidth; set => SetProperty(ref cabinetWidth, value); }
         public int SiteWidth { get => siteWidth; set => SetProperty(ref siteWidth, value); }
         public int DayOfWeekWidth { get => dayOfWeekWidth; set => SetProperty(ref dayOfWeekWidth, value); }
@@ -62,13 +60,12 @@ namespace TimetableScreen.Configurator.Models
                 return new Settings() { 
                     TimetableAddress="127.0.0.1", 
                     TimetablePort=8642, 
-                    FontSize=14, 
-                    SpecialtyWidth=200,
-                    FullNameWidth=250,
-                    CabinetWidth=70,
-                    SiteWidth=70,
-                    DayOfWeekWidth=120,
-                    NoteWidth=150
+                    Scale=1,
+                    SiteWidth = 120,
+                    CabinetWidth = 100,                    
+                    SpecialistWidth =450,
+                    DayOfWeekWidth=130,
+                    NoteWidth=250
                 };
         }
     }

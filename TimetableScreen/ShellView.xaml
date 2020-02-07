@@ -9,8 +9,8 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Height="600"
-        Width="1000"
+        Height="900"
+        Width="1920"
         MinHeight="600"
         MinWidth="1000"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,16 +18,43 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        prism:ViewModelLocator.AutoWireViewModel="True" Cursor="None">
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Cursor="None">
 
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/WindowStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="ListView" BasedOn="{StaticResource {x:Type ListView}}">
-                <Setter Property="FontSize" Value="{Binding DataContext.Settings.FontSize, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"/>
+
+            <Style x:Key="MaterialDesignGridViewItem"
+                   TargetType="ListViewItem">
+                <Setter Property="SnapsToDevicePixels"
+                        Value="True" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="True" />
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderBrush"
+                        Value="Transparent" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border x:Name="Border"
+                                    Padding="{Binding RelativeSource={RelativeSource Self}, Path=(materialDesign:ListViewAssist.ListViewItemPadding)}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="0,0,0,1"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
+
         </ResourceDictionary >
     </Window.Resources>
 
@@ -57,7 +84,7 @@
     </Window.Style>
 
     <b:Interaction.Behaviors>
-        <local:DragWindowBehaviour/>
+        <local:DragWindowBehaviour />
     </b:Interaction.Behaviors>
 
     <Grid d:DataContext="{d:DesignInstance  local:ShellViewModel }">
@@ -66,77 +93,166 @@
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                Content="X" Foreground="White"
+                Content="X"
+                Foreground="White"
                 Margin="0"
                 Command="{Binding CloseCommand}"
                 Cursor="Hand" />
 
-        <Border Background="Transparent" BorderThickness="0"
-                Panel.ZIndex="1"
+        <Border Panel.ZIndex="1"
+                BorderThickness="0"
+                Background="Transparent"
                 Cursor="None" />
 
-        <FrameworkElement x:Name="proxyElement" />
-
-        <ListView ItemsSource="{Binding Settings.Departments}" Margin="20" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+        <ListView ItemsSource="{Binding Settings.Departments}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
 
-                        <TextBlock DockPanel.Dock="Top" Text="{Binding Name}" Margin="5" HorizontalAlignment="Center" />
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="{Binding Name}"
+                                   FontSize="32"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center" />
 
-                        <ListView ItemsSource="{Binding PhysicianTimetables}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView ItemsSource="{Binding PhysicianTimetables}"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  Margin="0,20,0,45"
+                                  FontSize="26"
+                                  FontWeight="Normal"
+                                  ItemContainerStyle="{StaticResource MaterialDesignGridViewItem}">
+
+
                             <ListView.View>
                                 <GridView>
                                     <GridView.Columns>
 
-                                        <GridViewColumn Header="Должность" 
-                                                        Width="{Binding DataContext.Settings.SpecialtyWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Specialty}" />
+                                        <GridViewColumn Header="Участ"
+                                                        Width="{Binding DataContext.Settings.SiteWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Site}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="ФИО"
-                                                        Width="{Binding DataContext.Settings.FullNameWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding FullName}" />
 
-                                        <GridViewColumn Header="Каб." 
-                                                        Width="{Binding DataContext.Settings.CabinetWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Cabinet}" />
+                                        <GridViewColumn Header="Каб"
+                                                        Width="{Binding DataContext.Settings.CabinetWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Cabinet}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Участ." 
-                                                        Width="{Binding DataContext.Settings.SiteWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Site}" />
+                                        <GridViewColumn Header="Специалист"
+                                                        Width="{Binding DataContext.Settings.SpecialistWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding FullName}" />
+                                                        <TextBlock Text="{Binding Specialty}"
+                                                                   FontWeight="Light" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Понедельник" 
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Monday}" />
+                                        <GridViewColumn Header="Пн"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding MondayBegin}" />
+                                                        <TextBlock Text="{Binding MondayEnd}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Вторник"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Tuesday}" />
+                                        <GridViewColumn Header="Вт"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding TuesdayBegin}" />
+                                                        <TextBlock Text="{Binding TuesdayEnd}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Среда" 
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Wednesday}" />
+                                        <GridViewColumn Header="Ср"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding WednesdayBegin}" />
+                                                        <TextBlock Text="{Binding WednesdayEnd}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Четверг" 
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Thursday}" />
+                                        <GridViewColumn Header="Чт"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding ThursdayBegin}" />
+                                                        <TextBlock Text="{Binding ThursdayEnd}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Пятница" 
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Friday}" />
+                                        <GridViewColumn Header="Пт"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding FridayBegin}" />
+                                                        <TextBlock Text="{Binding FridayEnd}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Суббота" 
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Saturday}" />
+                                        <GridViewColumn Header="Сб"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding SaturdayBegin}" />
+                                                        <TextBlock Text="{Binding SaturdayEnd}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Воскресенье" 
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Sunday}" />
+                                        <GridViewColumn Header="Вс"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="{Binding SundayBegin}" />
+                                                        <TextBlock Text="{Binding SundayEnd}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                        <GridViewColumn Header="Примечание" 
-                                                        Width="{Binding DataContext.Settings.NoteWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
-                                                        DisplayMemberBinding="{Binding Note}" />
+                                        <GridViewColumn Header="Примечание"
+                                                        Width="{Binding DataContext.Settings.NoteWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Note}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
 
                                     </GridView.Columns>

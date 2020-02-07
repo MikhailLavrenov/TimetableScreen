@@ -69,26 +69,40 @@
                 <DataGridTextColumn Header="Уч."
                                     Binding="{Binding Site}" />
 
-                <DataGridTextColumn Header="Понедельник"
-                                    Binding="{Binding Monday}" />
+                <DataGridTextColumn Header="Пн от"
+                                    Binding="{Binding MondayBegin}" />
+                <DataGridTextColumn Header="до"
+                                    Binding="{Binding MondayEnd}" />
 
-                <DataGridTextColumn Header="Вторник"
-                                    Binding="{Binding Tuesday}" />
+                <DataGridTextColumn Header="Вт от"
+                                    Binding="{Binding TuesdayBegin}" />
+                <DataGridTextColumn Header="до"
+                                    Binding="{Binding TuesdayEnd}" />
 
-                <DataGridTextColumn Header="Среда"
-                                    Binding="{Binding Wednesday}" />
+                <DataGridTextColumn Header="Ср от"
+                                    Binding="{Binding WednesdayBegin}" />
+                <DataGridTextColumn Header="до"
+                                    Binding="{Binding WednesdayEnd}" />
 
-                <DataGridTextColumn Header="Четверг"
-                                    Binding="{Binding Thursday}" />
+                <DataGridTextColumn Header="Чт от"
+                                    Binding="{Binding ThursdayBegin}" />
+                <DataGridTextColumn Header="до"
+                                    Binding="{Binding ThursdayEnd}" />
 
-                <DataGridTextColumn Header="Пятница"
-                                    Binding="{Binding Friday}" />
+                <DataGridTextColumn Header="Пт от"
+                                    Binding="{Binding FridayBegin}" />
+                <DataGridTextColumn Header="до"
+                                    Binding="{Binding FridayEnd}" />
 
-                <DataGridTextColumn Header="Суббота"
-                                    Binding="{Binding Saturday}" />
+                <DataGridTextColumn Header="Сб от"
+                                    Binding="{Binding SaturdayBegin}" />
+                <DataGridTextColumn Header="до"
+                                    Binding="{Binding SaturdayEnd}" />
 
-                <DataGridTextColumn Header="Воскресенье"
-                                    Binding="{Binding Sunday}" />
+                <DataGridTextColumn Header="Вс от"
+                                    Binding="{Binding SundayBegin}" />
+                <DataGridTextColumn Header="до"
+                                    Binding="{Binding SundayEnd}" />
 
                 <DataGridTextColumn Header="Прмечание"
                                     Binding="{Binding Note}" />
