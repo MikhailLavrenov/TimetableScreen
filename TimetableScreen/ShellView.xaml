@@ -25,8 +25,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/WindowStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
-                <Setter Property="FontSize" Value="{Binding Settings.FontSize}"/>
+            <Style TargetType="ListView" BasedOn="{StaticResource {x:Type ListView}}">
+                <Setter Property="FontSize" Value="{Binding DataContext.Settings.FontSize, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"/>
             </Style>
         </ResourceDictionary >
     </Window.Resources>
