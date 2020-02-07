@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
+using System.Linq;
 using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen.Configurator.ViewModels
@@ -28,6 +29,8 @@ namespace TimetableScreen.Configurator.ViewModels
         public PhysiciansViewModel(Settings settings)
         {
             Settings = settings;
+
+            SelectedDepartment = Settings.Departments.FirstOrDefault();
 
             MoveUpCommand = new DelegateCommand<PhysicianTimetable>(MoveUpExecute);
             MoveDownCommand = new DelegateCommand<PhysicianTimetable>(MoveDownExecute);

@@ -20,6 +20,17 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         prism:ViewModelLocator.AutoWireViewModel="True" Cursor="None">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/WindowStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                <Setter Property="FontSize" Value="{Binding Settings.FontSize}"/>
+            </Style>
+        </ResourceDictionary >
+    </Window.Resources>
+
     <Window.Style>
 
         <!--Убирает стандартную рамку и заголовок окна -->
@@ -45,15 +56,11 @@
 
     </Window.Style>
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/WindowStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary >
-    </Window.Resources>
+    <b:Interaction.Behaviors>
+        <local:DragWindowBehaviour/>
+    </b:Interaction.Behaviors>
 
-    <Grid>
+    <Grid d:DataContext="{d:DesignInstance  local:ShellViewModel }">
 
         <Button Panel.ZIndex="2"
                 VerticalAlignment="Top"
@@ -68,69 +75,83 @@
                 Panel.ZIndex="1"
                 Cursor="None" />
 
-        <ListView ItemsSource="{Binding Settings.Departments}" Margin="20" >
+        <FrameworkElement x:Name="proxyElement" />
+
+        <ListView ItemsSource="{Binding Settings.Departments}" Margin="20" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
-                        
+
                         <TextBlock DockPanel.Dock="Top" Text="{Binding Name}" Margin="5" HorizontalAlignment="Center" />
 
-                        <ListView ItemsSource="{Binding PhysicianTimetables}">
+                        <ListView ItemsSource="{Binding PhysicianTimetables}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListView.View>
                                 <GridView>
                                     <GridView.Columns>
 
-                                        <GridViewColumn Header="Должность"
+                                        <GridViewColumn Header="Должность" 
+                                                        Width="{Binding DataContext.Settings.SpecialtyWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Specialty}" />
 
                                         <GridViewColumn Header="ФИО"
+                                                        Width="{Binding DataContext.Settings.FullNameWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding FullName}" />
 
-                                        <GridViewColumn Header="Каб."
+                                        <GridViewColumn Header="Каб." 
+                                                        Width="{Binding DataContext.Settings.CabinetWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Cabinet}" />
 
-                                        <GridViewColumn Header="Участок"
+                                        <GridViewColumn Header="Участ." 
+                                                        Width="{Binding DataContext.Settings.SiteWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Site}" />
 
-                                        <GridViewColumn Header="Понедельник"
+                                        <GridViewColumn Header="Понедельник" 
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Monday}" />
 
                                         <GridViewColumn Header="Вторник"
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Tuesday}" />
 
-                                        <GridViewColumn Header="Среда"
+                                        <GridViewColumn Header="Среда" 
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Wednesday}" />
 
-                                        <GridViewColumn Header="Четверг"
+                                        <GridViewColumn Header="Четверг" 
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Thursday}" />
 
-                                        <GridViewColumn Header="Пятница"
+                                        <GridViewColumn Header="Пятница" 
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Friday}" />
 
-                                        <GridViewColumn Header="Суббота"
+                                        <GridViewColumn Header="Суббота" 
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Saturday}" />
 
-                                        <GridViewColumn Header="Воскресенье"
+                                        <GridViewColumn Header="Воскресенье" 
+                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Sunday}" />
 
-                                        <GridViewColumn Header="Примечание"
+                                        <GridViewColumn Header="Примечание" 
+                                                        Width="{Binding DataContext.Settings.NoteWidth, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type Window }}}"
                                                         DisplayMemberBinding="{Binding Note}" />
 
 
                                     </GridView.Columns>
                                 </GridView>
                             </ListView.View>
-                            
+
                         </ListView>
-                        
+
                     </DockPanel>
                 </DataTemplate>
-                
-                
+
+
             </ListView.ItemTemplate>
-            
-            
+
+
         </ListView>
 
 

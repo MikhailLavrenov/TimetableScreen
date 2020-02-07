@@ -25,6 +25,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <FrameworkElement Grid.Column="1" Style="{StaticResource Separator}"/>
@@ -38,6 +45,33 @@
             <TextBox Grid.Column="0"  Text="{Binding Settings.TimetableAddress}"/>
             <TextBox  Grid.Column="1"   Text="{Binding Settings.TimetablePort}"/>
         </Grid>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Размер шрифта"/>
+        <TextBox Grid.Row="1" Grid.Column="2"  Text="{Binding Settings.FontSize}"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ширина солбцов" Margin="5,10,5,10"/>
+        
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Cпециальность"/>
+        <TextBox Grid.Row="3" Grid.Column="2"  Text="{Binding Settings.SpecialtyWidth}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="ФИО"/>
+        <TextBox Grid.Row="4" Grid.Column="2"  Text="{Binding Settings.FullNameWidth}"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Кабинет"/>
+        <TextBox Grid.Row="5" Grid.Column="2"  Text="{Binding Settings.CabinetWidth}"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Участок"/>
+        <TextBox Grid.Row="6" Grid.Column="2"  Text="{Binding Settings.SiteWidth}"/>
+
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Дни недели"/>
+        <TextBox Grid.Row="7" Grid.Column="2"  Text="{Binding Settings.DayOfWeekWidth}"/>
+
+        <TextBlock Grid.Row="8" Grid.Column="0" Text="Примечание"/>
+        <TextBox Grid.Row="8" Grid.Column="2"  Text="{Binding Settings.NoteWidth}"/>
+
+
+
+
     </Grid>
 
 </UserControl>

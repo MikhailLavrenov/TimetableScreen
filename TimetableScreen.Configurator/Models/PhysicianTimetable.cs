@@ -6,8 +6,8 @@ namespace TimetableScreen.Configurator.Models
     [Serializable]
     public class PhysicianTimetable : BindableBase
     {
-        private string fullName;
         private string specialty;
+        private string fullName;        
         private string cabinet;
         private string site;
         private string monday;
@@ -19,8 +19,8 @@ namespace TimetableScreen.Configurator.Models
         private string sunday;
         private string note;
 
-        public string FullName { get => fullName; set => SetProperty(ref fullName, value); }
         public string Specialty { get => specialty; set => SetProperty(ref specialty, value); }
+        public string FullName { get => fullName; set => SetProperty(ref fullName, value); }        
         public string Cabinet { get => cabinet; set => SetProperty(ref cabinet, value); }
         public string Site { get => site; set => SetProperty(ref site, value); }
         public string Monday { get => monday; set => SetProperty(ref monday, value); }
