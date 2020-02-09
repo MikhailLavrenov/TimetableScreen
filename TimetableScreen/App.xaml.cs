@@ -12,7 +12,7 @@ namespace TimetableScreen
     {
         protected override Window CreateShell()
         {
-            return Container.Resolve<ShellView>();
+            return Container.Resolve<ScreenView>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

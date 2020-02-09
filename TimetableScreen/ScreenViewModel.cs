@@ -12,7 +12,7 @@ using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen
 {
-    public class ShellViewModel : BindableBase
+    public class ScreenViewModel : BindableBase
     {
         private Settings settings;
         private NetworkTransport networkTransport;
@@ -21,7 +21,7 @@ namespace TimetableScreen
 
         public DelegateCommand CloseCommand { get; }
 
-        public ShellViewModel(Settings settings)
+        public ScreenViewModel(Settings settings)
         {
             Settings = settings;
 

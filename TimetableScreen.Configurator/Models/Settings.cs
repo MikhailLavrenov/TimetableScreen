@@ -13,14 +13,14 @@ namespace TimetableScreen.Configurator.Models
         private ObservableCollection<Department> departments;
         private string timetableAddress;
         private ushort timetablePort;
-        private int scale;
+        private double scale;
         private int specialistWidth;
         private int cabinetWidth;
         private int siteWidth;
         private int dayOfWeekWidth;
         private int noteWidth;
 
-        public int Scale { get => scale; set => SetProperty(ref scale, value); }
+        public double Scale { get => scale; set => SetProperty(ref scale, value); }
         public int SpecialistWidth { get => specialistWidth; set => SetProperty(ref specialistWidth, value); }   
         public int CabinetWidth { get => cabinetWidth; set => SetProperty(ref cabinetWidth, value); }
         public int SiteWidth { get => siteWidth; set => SetProperty(ref siteWidth, value); }

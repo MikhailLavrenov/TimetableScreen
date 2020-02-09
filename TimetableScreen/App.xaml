@@ -5,16 +5,15 @@
                         xmlns:prism="http://prismlibrary.com/"
                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <Application.Resources>
+    <!--<Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:CustomColorTheme BaseTheme="Light"
                                                  PrimaryColor="#FF0067B8"
                                                  SecondaryColor="White" />
-                <ResourceDictionary  Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/TimetableScreen.Configurator;component/Views/AppStyle.xaml" />
+                <ResourceDictionary  Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Application.Resources>
+    </Application.Resources>-->
 
 </prism:PrismApplication>

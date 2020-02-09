@@ -66,17 +66,17 @@
 
         <TextBlock Grid.Row="3"
                    Grid.Column="0"
-                   Text="Кабинет" />
+                   Text="Участок" />
         <TextBox Grid.Row="3"
                  Grid.Column="2"
-                 Text="{Binding Settings.CabinetWidth}" />
-
+                 Text="{Binding Settings.SiteWidth}" />
+        
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
-                   Text="Участок" />
+                   Text="Кабинет" />
         <TextBox Grid.Row="4"
                  Grid.Column="2"
-                 Text="{Binding Settings.SiteWidth}" />
+                 Text="{Binding Settings.CabinetWidth}" />
 
         <TextBlock Grid.Row="5"
                    Grid.Column="0"

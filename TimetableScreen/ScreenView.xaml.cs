@@ -18,9 +18,9 @@ namespace TimetableScreen
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ShellView : Window
+    public partial class ScreenView : Window
     {
-        public ShellView()
+        public ScreenView()
         {
             InitializeComponent();
         }
