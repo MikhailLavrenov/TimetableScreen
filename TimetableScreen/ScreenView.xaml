@@ -53,7 +53,7 @@
     </Window.Style>
 
     <b:Interaction.Behaviors>
-        <local:DragWindowBehaviour />
+        <local:DragWindowBehavior />
     </b:Interaction.Behaviors>
 
     <Grid d:DataContext="{d:DesignInstance  local:ScreenViewModel }">
@@ -67,7 +67,7 @@
                 Background="Transparent"
                 Cursor="None" />-->
 
-        <ListView  ItemsSource="{Binding Settings.Departments}">
+        <ListView  ItemsSource="{Binding CurrentPage}">
 
             <ListView.RenderTransform>
                 <ScaleTransform ScaleX="{Binding Settings.Scale}"
@@ -96,6 +96,12 @@
                         <ListView ItemsSource="{Binding PhysicianTimetables}"
                                   ItemContainerStyle="{StaticResource GridViewItemStyle}"
                                   Margin="0,0,0,10">
+                            
+                            
+
+                            <b:Interaction.Behaviors>
+                                <local:PagingBehavior />
+                            </b:Interaction.Behaviors>
 
                             <ListView.View>
                                 <GridView>

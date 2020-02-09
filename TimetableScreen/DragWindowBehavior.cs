@@ -7,7 +7,7 @@ namespace TimetableScreen
     /// <summary>
     /// Позволяет перемещать окно мышью.
     /// </summary>
-    public class DragWindowBehaviour : Behavior<FrameworkElement>
+    public class DragWindowBehavior : Behavior<FrameworkElement>
     {
         private Window window;
 

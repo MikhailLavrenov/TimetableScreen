@@ -1,5 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using System.Runtime.Serialization;
@@ -16,8 +18,12 @@ namespace TimetableScreen
     {
         private Settings settings;
         private NetworkTransport networkTransport;
+        private List<ObservableCollection<Department>> pages;
+        private ObservableCollection<Department> currentPage;
 
         public Settings Settings { get => settings; set => SetProperty(ref settings, value); }
+        public List<ObservableCollection<Department>> Pages { get => pages; set => SetProperty(ref pages, value); }
+        public ObservableCollection<Department> CurrentPage { get => currentPage; set => SetProperty(ref currentPage, value); }
 
         public DelegateCommand CloseCommand { get; }
 

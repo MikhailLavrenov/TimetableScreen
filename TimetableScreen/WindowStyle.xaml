@@ -106,7 +106,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Border x:Name="Border"
+                    <Border x:Name="RowBorder"
                             Padding="0,4,0,4"
                             
                             Background="{StaticResource RowBackground}"
