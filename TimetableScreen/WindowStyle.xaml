@@ -52,6 +52,10 @@
                 Value="Normal" />
         <Setter Property="BorderThickness"
                 Value="0" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="RenderTransformOrigin"
+                Value="0.5,0" />
     </Style>
 
 

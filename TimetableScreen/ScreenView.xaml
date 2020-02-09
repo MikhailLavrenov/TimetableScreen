@@ -80,7 +80,7 @@
 
                         <Border DockPanel.Dock="Top"
                                 BorderBrush="Transparent"
-                                BorderThickness="0,0,0,1"                               
+                                BorderThickness="0,0,0,1"
                                 Padding="6"
                                 Background="{StaticResource DepartmentBackground}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
