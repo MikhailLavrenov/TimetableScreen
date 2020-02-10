@@ -10,6 +10,7 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        Name="ScreenWindow"
         Height="1040"
         Width="1080"
         MinHeight="600"
@@ -62,10 +63,10 @@
                 Style="{StaticResource CloseButton}"
                 Command="{Binding CloseCommand}" />
 
-        <!--<Border Panel.ZIndex="1"
+        <Border Panel.ZIndex="1"
                 BorderThickness="0"
                 Background="Transparent"
-                Cursor="None" />-->
+                Cursor="None" />
 
         <ListView  ItemsSource="{Binding CurrentPage}">
 
@@ -73,6 +74,10 @@
                 <ScaleTransform ScaleX="{Binding Settings.Scale}"
                                 ScaleY="{Binding Settings.Scale}" />
             </ListView.RenderTransform>
+
+            <b:Interaction.Behaviors>
+                <local:CircleAnimationBehavior AnimationParametersTarget="ScreenWindow" />
+            </b:Interaction.Behaviors>
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -96,9 +101,7 @@
                         <ListView ItemsSource="{Binding PhysicianTimetables}"
                                   ItemContainerStyle="{StaticResource GridViewItemStyle}"
                                   Margin="0,0,0,10">
-                            
-                            
-
+                                                       
                             <b:Interaction.Behaviors>
                                 <local:PagingBehavior />
                             </b:Interaction.Behaviors>

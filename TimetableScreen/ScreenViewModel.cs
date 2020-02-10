@@ -25,6 +25,7 @@ namespace TimetableScreen
         public Settings Settings { get => settings; set => SetProperty(ref settings, value); }
         public List<ObservableCollection<Department>> Pages { get => pages; set => SetProperty(ref pages, value); }
         public ObservableCollection<Department> CurrentPage { get => currentPage; set => SetProperty(ref currentPage, value); }
+        public int CurrentPageIndex { get => currentPageIndex; set => SetProperty(ref currentPageIndex, value); }
 
         public DelegateCommand CloseCommand { get; }
         public DelegateCommand<PhysicianTimetable> MoveToNextPageCommand { get; }
@@ -73,13 +74,13 @@ namespace TimetableScreen
         {
             ObservableCollection<Department> nextPage;
 
-            if (Pages.Count - 1 == currentPageIndex)
+            if (Pages.Count - 1 == CurrentPageIndex)
             {
                 nextPage = new ObservableCollection<Department>();
                 Pages.Add(nextPage);
             }
             else
-                nextPage = Pages[currentPageIndex + 1];
+                nextPage = Pages[CurrentPageIndex + 1];
 
             Department movingDepartment = null;
 
@@ -113,7 +114,7 @@ namespace TimetableScreen
             CurrentPage.AddRange(Settings.Departments);
             Pages = new List<ObservableCollection<Department>>();
             Pages.Add(CurrentPage);
-            currentPageIndex = 0;
+            CurrentPageIndex = 0;
 
             timer.Interval = TimeSpan.FromSeconds(Settings.ShowPageTime);
             timer.Start();
