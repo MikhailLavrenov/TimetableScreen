@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -20,12 +21,15 @@ namespace TimetableScreen
         private NetworkTransport networkTransport;
         private List<ObservableCollection<Department>> pages;
         private ObservableCollection<Department> currentPage;
+        private Queue<Department> onPageQueue;
 
         public Settings Settings { get => settings; set => SetProperty(ref settings, value); }
         public List<ObservableCollection<Department>> Pages { get => pages; set => SetProperty(ref pages, value); }
         public ObservableCollection<Department> CurrentPage { get => currentPage; set => SetProperty(ref currentPage, value); }
 
         public DelegateCommand CloseCommand { get; }
+        public DelegateCommand<PhysicianTimetable> MoveOnNextPageCommand { get; }
+
 
         public ScreenViewModel(Settings settings)
         {
@@ -35,7 +39,15 @@ namespace TimetableScreen
             networkTransport.DataRecieved += DataRecievedHandler;
             networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort);
 
+            
+            CurrentPage = new ObservableCollection<Department>();
+            CurrentPage.AddRange(Settings.Departments);
+            Pages = new List<ObservableCollection<Department>>();
+            Pages.Add(CurrentPage);
+            
+
             CloseCommand = new DelegateCommand(CloseExecute);
+            MoveOnNextPageCommand = new DelegateCommand<PhysicianTimetable>(MoveNextPageExecute);
         }
 
         private void DataRecievedHandler(object oject, ResponseEventArgs args)
@@ -57,6 +69,15 @@ namespace TimetableScreen
             networkTransport.StopServer();
             Application.Current.Shutdown();
         }
+        private void MoveNextPageExecute(PhysicianTimetable physician)
+        {
+
+
+
+
+
+        }
+
 
 
     }

@@ -1,40 +1,42 @@
 ﻿using Microsoft.Xaml.Behaviors;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen
 {
     public class PagingBehavior : Behavior<FrameworkElement>
     {
+        private ListView parentListView;
         private ListView listView;
+        private ICommand MoveOnNextPageCommand;
 
         protected override void OnAttached()
         {
             listView = AssociatedObject as ListView;
+            parentListView = FindVisualParent<ListView>(listView);
+            MoveOnNextPageCommand = ((ScreenViewModel)FindVisualParent<Window>(parentListView).DataContext).MoveOnNextPageCommand;
 
-            listView.Loaded += SourceUpdatedHandler;
+            listView.Items.CurrentChanged += SourceUpdatedHandler;
         }
 
-        private void SourceUpdatedHandler(object sender, RoutedEventArgs e)
+        private void SourceUpdatedHandler(object sender, EventArgs e)
         {
-            var parentListView = FindVisualParent<ListView>(listView);
             var rows = new List<Border>();
             FindVisualChild(listView, "RowBorder", ref rows);
 
             foreach (var row in rows)
-            {
-                var visible = IsOnScreenVisible(row, parentListView);
-               
-                
-
-            }
+                if (!IsOnScreenVisible(row, parentListView))
+                    MoveOnNextPageCommand.Execute(row.DataContext as PhysicianTimetable);
         }
 
         protected override void OnDetaching()
         {
-            listView.Loaded -= SourceUpdatedHandler;
+            listView.Items.CurrentChanged -= SourceUpdatedHandler;
         }
 
 
