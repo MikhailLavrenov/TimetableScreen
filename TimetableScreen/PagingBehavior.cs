@@ -14,73 +14,69 @@ namespace TimetableScreen
         private ListView parentListView;
         private ListView listView;
         private ICommand MoveOnNextPageCommand;
+        private double scaleY;
 
         protected override void OnAttached()
         {
             listView = AssociatedObject as ListView;
             parentListView = FindVisualParent<ListView>(listView);
-            MoveOnNextPageCommand = ((ScreenViewModel)FindVisualParent<Window>(parentListView).DataContext).MoveOnNextPageCommand;
+            scaleY = (parentListView.RenderTransform as ScaleTransform).ScaleY;
+            MoveOnNextPageCommand = ((ScreenViewModel)FindVisualParent<Window>(parentListView).DataContext).MoveToNextPageCommand;
 
-            listView.Items.CurrentChanged += SourceUpdatedHandler;
+            listView.Items.CurrentChanged += ItemChangedHandler;
+            listView.Loaded += LoadedHandler;
+
         }
 
-        private void SourceUpdatedHandler(object sender, EventArgs e)
+        private void LoadedHandler(object sender, RoutedEventArgs e) => Handler();
+
+        private void ItemChangedHandler(object sender, EventArgs e) => Handler();
+
+        private void Handler()
         {
             var rows = new List<Border>();
-            FindVisualChild(listView, "RowBorder", ref rows);
+            var row = FindVisualChild<Border>(listView, "RowBorder");
 
-            foreach (var row in rows)
-                if (!IsOnScreenVisible(row, parentListView))
-                    MoveOnNextPageCommand.Execute(row.DataContext as PhysicianTimetable);
+            if (!IsOnScreenVisible(row, parentListView))
+                MoveOnNextPageCommand.Execute(row.DataContext as PhysicianTimetable);
         }
 
         protected override void OnDetaching()
         {
-            listView.Items.CurrentChanged -= SourceUpdatedHandler;
+            listView.Items.CurrentChanged -= ItemChangedHandler;
+            listView.Loaded -= LoadedHandler;
         }
 
 
 
-        //private bool IsOnScreenVisible(FrameworkElement element, FrameworkElement container)
-        //{
-        //    if (!element.IsVisible)
-        //        return false;
-
-        //    Point elementTopLeft;
-        //    element.TranslatePoint(elementTopLeft, container);
-        //    var elementBottomRight = new Point(elementTopLeft.X + element.Width, elementTopLeft.Y + element.ActualHeight);
-
-        //    if (elementTopLeft.X >= 0 && elementTopLeft.Y >= 0 && elementBottomRight.X <= container.ActualWidth && elementBottomRight.Y <= container.ActualHeight)
-        //        return true;
-
-        //    return false;
-        //}
-
-        private static bool IsOnScreenVisible(FrameworkElement element, FrameworkElement container)
+        private bool IsOnScreenVisible(FrameworkElement element, FrameworkElement container)
         {
             if (!element.IsVisible)
                 return false;
 
-            var elementRect = element.TransformToAncestor(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
-            var rect = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
-            return rect.Contains(elementRect);
-        }
+            Point elementTopLeft = new Point(0, 0);
+            var y = element.TranslatePoint(new Point(0, element.ActualHeight), container).Y * scaleY;
 
+            if (y > container.ActualHeight)
+                return false;
+
+            return true;
+        }
 
         public static T FindVisualParent<T>(FrameworkElement element) where T : FrameworkElement
         {
             while (element != null)
             {
+                element = VisualTreeHelper.GetParent(element) as FrameworkElement;
+
                 if (element is T correctlyTyped)
                     return correctlyTyped;
-
-                element = VisualTreeHelper.GetParent(element) as FrameworkElement;
             }
 
             return null;
         }
 
-        public void FindVisualChild<T>(FrameworkElement element, string name, ref List<T> result) where T : FrameworkElement
+        public T FindVisualChild<T>(FrameworkElement element, string name) where T : FrameworkElement
         {
             int childrenCount = VisualTreeHelper.GetChildrenCount(element);
 
@@ -89,11 +85,15 @@ namespace TimetableScreen
                 var child = VisualTreeHelper.GetChild(element, i) as FrameworkElement;
 
                 if (child is T correctlyTyped && child.Name == name)
-                    result.Add(correctlyTyped);
-                else
-                    FindVisualChild<T>(child, name, ref result);
+                    return correctlyTyped;
+
+                var result = FindVisualChild<T>(child, name);
+
+                if (result != null)
+                    return result;
             }
 
+            return null;
         }
     }
 }

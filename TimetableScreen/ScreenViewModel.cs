@@ -1,15 +1,13 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using System.Xml.Serialization;
 using TimetableScreen.Configurator.Models;
 
@@ -21,15 +19,15 @@ namespace TimetableScreen
         private NetworkTransport networkTransport;
         private List<ObservableCollection<Department>> pages;
         private ObservableCollection<Department> currentPage;
-        private Queue<Department> onPageQueue;
+        private int currentPageIndex;
+        private DispatcherTimer timer;
 
         public Settings Settings { get => settings; set => SetProperty(ref settings, value); }
         public List<ObservableCollection<Department>> Pages { get => pages; set => SetProperty(ref pages, value); }
         public ObservableCollection<Department> CurrentPage { get => currentPage; set => SetProperty(ref currentPage, value); }
 
         public DelegateCommand CloseCommand { get; }
-        public DelegateCommand<PhysicianTimetable> MoveOnNextPageCommand { get; }
-
+        public DelegateCommand<PhysicianTimetable> MoveToNextPageCommand { get; }
 
         public ScreenViewModel(Settings settings)
         {
@@ -39,19 +37,19 @@ namespace TimetableScreen
             networkTransport.DataRecieved += DataRecievedHandler;
             networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort);
 
-            
-            CurrentPage = new ObservableCollection<Department>();
-            CurrentPage.AddRange(Settings.Departments);
-            Pages = new List<ObservableCollection<Department>>();
-            Pages.Add(CurrentPage);
-            
+            timer = new DispatcherTimer();
+            timer.Tick += TimerTick;
 
             CloseCommand = new DelegateCommand(CloseExecute);
-            MoveOnNextPageCommand = new DelegateCommand<PhysicianTimetable>(MoveNextPageExecute);
+            MoveToNextPageCommand = new DelegateCommand<PhysicianTimetable>(MoveToNextPageExecute);
+
+            Initialize();
         }
 
         private void DataRecievedHandler(object oject, ResponseEventArgs args)
         {
+            timer.Stop();
+
             var stream = new MemoryStream();
             stream.Write(args.Buffer, 0, args.Buffer.Length);
             stream.Position = 0;
@@ -63,22 +61,71 @@ namespace TimetableScreen
 
             networkTransport.StopServer();
             networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort);
+
+            Initialize();
         }
         private void CloseExecute()
         {
             networkTransport.StopServer();
             Application.Current.Shutdown();
         }
-        private void MoveNextPageExecute(PhysicianTimetable physician)
+        private void MoveToNextPageExecute(PhysicianTimetable movingPhysician)
         {
+            ObservableCollection<Department> nextPage;
 
+            if (Pages.Count - 1 == currentPageIndex)
+            {
+                nextPage = new ObservableCollection<Department>();
+                Pages.Add(nextPage);
+            }
+            else
+                nextPage = Pages[currentPageIndex + 1];
 
+            Department movingDepartment = null;
 
+            foreach (var department in CurrentPage)
+            {
+                if (department.PhysicianTimetables.Any(x => x == movingPhysician))
+                {
+                    movingDepartment = department;
+                    break;
+                }
+            }
 
+            if (movingDepartment.PhysicianTimetables.Count <= 1)
+                CurrentPage.Remove(movingDepartment);
+            else
+                movingDepartment.PhysicianTimetables.Remove(movingPhysician);
 
+            var nextPageDepartment = nextPage.FirstOrDefault(x => x.Name == movingDepartment.Name);
+
+            if (nextPageDepartment == null)
+            {
+                nextPageDepartment = new Department { Name = movingDepartment.Name };
+                nextPage.Add(nextPageDepartment);
+            }
+
+            nextPageDepartment.PhysicianTimetables.Add(movingPhysician);
         }
+        private void Initialize()
+        {
+            CurrentPage = new ObservableCollection<Department>();
+            CurrentPage.AddRange(Settings.Departments);
+            Pages = new List<ObservableCollection<Department>>();
+            Pages.Add(CurrentPage);
+            currentPageIndex = 0;
 
+            timer.Interval = TimeSpan.FromSeconds(Settings.ShowPageTime);
+            timer.Start();
+        }
+        private void TimerTick(object sender, EventArgs e)
+        {
+            if (Pages.Count == 1)
+                return;
 
+            currentPageIndex = currentPageIndex == Pages.Count - 1 ? 0 : currentPageIndex + 1;
 
+            CurrentPage = Pages[currentPageIndex];
+        }
     }
 }

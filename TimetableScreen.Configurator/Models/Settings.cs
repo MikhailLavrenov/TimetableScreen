@@ -14,6 +14,7 @@ namespace TimetableScreen.Configurator.Models
         private string timetableAddress;
         private ushort timetablePort;
         private double scale;
+        private int showPageTime;
         private int specialistWidth;
         private int cabinetWidth;
         private int siteWidth;
@@ -21,6 +22,7 @@ namespace TimetableScreen.Configurator.Models
         private int noteWidth;
 
         public double Scale { get => scale; set => SetProperty(ref scale, value); }
+        public int ShowPageTime { get => showPageTime; set => SetProperty(ref showPageTime, value); }
         public int SpecialistWidth { get => specialistWidth; set => SetProperty(ref specialistWidth, value); }   
         public int CabinetWidth { get => cabinetWidth; set => SetProperty(ref cabinetWidth, value); }
         public int SiteWidth { get => siteWidth; set => SetProperty(ref siteWidth, value); }

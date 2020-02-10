@@ -61,41 +61,48 @@
 
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
-                   Text="Ширина солбцов"
-                   Margin="5,10,5,10" />
+                   Text="Время показа страницы (секунд)" />
+        <TextBox Grid.Row="2"
+                 Grid.Column="2"
+                 Text="{Binding Settings.ShowPageTime}" />
 
         <TextBlock Grid.Row="3"
                    Grid.Column="0"
+                   Text="Ширина солбцов"
+                   Margin="5,10,5,10" />
+
+        <TextBlock Grid.Row="4"
+                   Grid.Column="0"
                    Text="Участок" />
-        <TextBox Grid.Row="3"
+        <TextBox Grid.Row="4"
                  Grid.Column="2"
                  Text="{Binding Settings.SiteWidth}" />
         
-        <TextBlock Grid.Row="4"
+        <TextBlock Grid.Row="5"
                    Grid.Column="0"
                    Text="Кабинет" />
-        <TextBox Grid.Row="4"
+        <TextBox Grid.Row="5"
                  Grid.Column="2"
                  Text="{Binding Settings.CabinetWidth}" />
 
-        <TextBlock Grid.Row="5"
+        <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    Text="Специалист" />
-        <TextBox Grid.Row="5"
+        <TextBox Grid.Row="6"
                  Grid.Column="2"
                  Text="{Binding Settings.SpecialistWidth}" />
 
-        <TextBlock Grid.Row="6"
+        <TextBlock Grid.Row="7"
                    Grid.Column="0"
                    Text="Дни недели" />
-        <TextBox Grid.Row="6"
+        <TextBox Grid.Row="7"
                  Grid.Column="2"
                  Text="{Binding Settings.DayOfWeekWidth}" />
 
-        <TextBlock Grid.Row="7"
+        <TextBlock Grid.Row="8"
                    Grid.Column="0"
                    Text="Примечание" />
-        <TextBox Grid.Row="7"
+        <TextBox Grid.Row="8"
                  Grid.Column="2"
                  Text="{Binding Settings.NoteWidth}" />
 
