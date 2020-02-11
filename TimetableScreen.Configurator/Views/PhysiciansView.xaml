@@ -55,19 +55,18 @@
 
             <DataGrid.Columns>
 
-                <!--<DataGridTextColumn Header="Отделение" />-->
+                <DataGridTextColumn Header="Уч."
+                                    Binding="{Binding Site}" />
+
+                <DataGridTextColumn Header="Каб."
+                                    Binding="{Binding Cabinet}" />
+                
+                <DataGridTextColumn Header="Специальность"
+                                    Binding="{Binding Specialty}" />
 
                 <DataGridTextColumn Header="ФИО"
                                     Binding="{Binding FullName}" />
 
-                <DataGridTextColumn Header="Специальность"
-                                    Binding="{Binding Specialty}" />
-
-                <DataGridTextColumn Header="Каб."
-                                    Binding="{Binding Cabinet}" />
-
-                <DataGridTextColumn Header="Уч."
-                                    Binding="{Binding Site}" />
 
                 <DataGridTextColumn Header="Пн от"
                                     Binding="{Binding MondayBegin}" />

@@ -13,8 +13,8 @@
         Name="ScreenWindow"
         Height="1040"
         Width="1080"
-        MinHeight="600"
-        MinWidth="500"
+        MinHeight="400"
+        MinWidth="400"
         TextElement.Foreground="DarkGray"
         Background="White"
         TextElement.FontWeight="Medium"
@@ -67,7 +67,7 @@
                 BorderThickness="0"
                 Background="Transparent"
                 Cursor="None" />
-
+        
         <ListView  ItemsSource="{Binding CurrentPage}">
 
             <ListView.RenderTransform>

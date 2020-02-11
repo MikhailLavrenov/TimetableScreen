@@ -15,18 +15,17 @@ namespace TimetableScreen
         private ListView parentListView;
         private ListView listView;
         private ICommand MoveOnNextPageCommand;
-        private double scaleY;
+        private ScreenViewModel dataContext;
 
         protected override void OnAttached()
         {
             listView = AssociatedObject as ListView;
             parentListView = listView.FindVisualParent<ListView>();
-            scaleY = ((ScaleTransform)parentListView.RenderTransform).ScaleY;
-            MoveOnNextPageCommand = ((ScreenViewModel)parentListView.DataContext).MoveToNextPageCommand;
+            dataContext = (ScreenViewModel)parentListView.DataContext;
+            MoveOnNextPageCommand = dataContext.MoveToNextPageCommand;
 
             listView.Items.CurrentChanged += ItemChangedHandler;
             listView.Loaded += LoadedHandler;
-
         }
 
         private void LoadedHandler(object sender, RoutedEventArgs e) => Handler();
@@ -35,31 +34,18 @@ namespace TimetableScreen
 
         private void Handler()
         {
-            var rows = new List<Border>();
             var row = listView.FindVisualChild<Border>( "RowBorder");
 
-            if (!IsOnScreenVisible(row, parentListView))
-                MoveOnNextPageCommand.Execute(row.DataContext as PhysicianTimetable);
+            var y = listView.TranslatePoint(new Point(0, listView.ActualHeight), parentListView).Y * dataContext.Settings.Scale;
+
+            if (y > parentListView.ActualHeight)
+                MoveOnNextPageCommand.Execute((PhysicianTimetable)row.DataContext);
         }
 
         protected override void OnDetaching()
         {
             listView.Items.CurrentChanged -= ItemChangedHandler;
             listView.Loaded -= LoadedHandler;
-        }
-
-        private bool IsOnScreenVisible(FrameworkElement element, FrameworkElement container)
-        {
-            if (!element.IsVisible)
-                return false;
-
-            Point elementTopLeft = new Point(0, 0);
-            var y = element.TranslatePoint(new Point(0, element.ActualHeight), container).Y * scaleY;
-
-            if (y > container.ActualHeight)
-                return false;
-
-            return true;
         }
     }
 }
