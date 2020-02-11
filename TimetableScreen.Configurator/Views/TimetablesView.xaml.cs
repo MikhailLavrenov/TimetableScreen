@@ -16,9 +16,9 @@ namespace TimetableScreen.Configurator.Views
     /// <summary>
     /// Логика взаимодействия для PhysicianTimetablesView.xaml
     /// </summary>
-    public partial class PhysiciansView : UserControl
+    public partial class TimetablesView : UserControl
     {
-        public PhysiciansView()
+        public TimetablesView()
         {
             InitializeComponent();
         }

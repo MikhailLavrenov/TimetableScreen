@@ -39,7 +39,7 @@ namespace TimetableScreen
             var y = listView.TranslatePoint(new Point(0, listView.ActualHeight), parentListView).Y * dataContext.Settings.Scale;
 
             if (y > parentListView.ActualHeight)
-                MoveOnNextPageCommand.Execute((PhysicianTimetable)row.DataContext);
+                MoveOnNextPageCommand.Execute((Timetable)row.DataContext);
         }
 
         protected override void OnDetaching()

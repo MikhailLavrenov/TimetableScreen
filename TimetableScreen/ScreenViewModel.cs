@@ -9,6 +9,7 @@ using System.Net;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml.Serialization;
+using TimetableScreen.Configurator.Infrastructure;
 using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen
@@ -28,7 +29,7 @@ namespace TimetableScreen
         public int CurrentPageIndex { get => currentPageIndex; set => SetProperty(ref currentPageIndex, value); }
 
         public DelegateCommand CloseCommand { get; }
-        public DelegateCommand<PhysicianTimetable> MoveToNextPageCommand { get; }
+        public DelegateCommand<Timetable> MoveToNextPageCommand { get; }
 
         public ScreenViewModel(Settings settings)
         {
@@ -36,13 +37,13 @@ namespace TimetableScreen
 
             networkTransport = new NetworkTransport();
             networkTransport.DataRecieved += DataRecievedHandler;
-            networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort);
+            networkTransport.StartServer(IPAddress.Any, Settings.ScreenPort);
 
             timer = new DispatcherTimer();
             timer.Tick += TimerTick;
 
             CloseCommand = new DelegateCommand(CloseExecute);
-            MoveToNextPageCommand = new DelegateCommand<PhysicianTimetable>(MoveToNextPageExecute);
+            MoveToNextPageCommand = new DelegateCommand<Timetable>(MoveToNextPageExecute);
 
             Initialize();
         }
@@ -61,7 +62,7 @@ namespace TimetableScreen
             Settings.Save();
 
             networkTransport.StopServer();
-            networkTransport.StartServer(IPAddress.Any, Settings.TimetablePort);
+            networkTransport.StartServer(IPAddress.Any, Settings.ScreenPort);
 
             Initialize();
         }
@@ -70,7 +71,7 @@ namespace TimetableScreen
             networkTransport.StopServer();
             Application.Current.Shutdown();
         }
-        private void MoveToNextPageExecute(PhysicianTimetable movingPhysician)
+        private void MoveToNextPageExecute(Timetable movingPhysician)
         {
             ObservableCollection<Department> nextPage;
 
@@ -86,17 +87,17 @@ namespace TimetableScreen
 
             foreach (var department in CurrentPage)
             {
-                if (department.PhysicianTimetables.Any(x => x == movingPhysician))
+                if (department.Timetables.Any(x => x == movingPhysician))
                 {
                     movingDepartment = department;
                     break;
                 }
             }
 
-            if (movingDepartment.PhysicianTimetables.Count <= 1)
+            if (movingDepartment.Timetables.Count <= 1)
                 CurrentPage.Remove(movingDepartment);
             else
-                movingDepartment.PhysicianTimetables.Remove(movingPhysician);
+                movingDepartment.Timetables.Remove(movingPhysician);
 
             var nextPageDepartment = nextPage.FirstOrDefault(x => x.Name == movingDepartment.Name);
 
@@ -106,7 +107,7 @@ namespace TimetableScreen
                 nextPage.Add(nextPageDepartment);
             }
 
-            nextPageDepartment.PhysicianTimetables.Add(movingPhysician);
+            nextPageDepartment.Timetables.Add(movingPhysician);
         }
         private void Initialize()
         {

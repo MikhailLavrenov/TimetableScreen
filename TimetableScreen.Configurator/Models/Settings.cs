@@ -11,8 +11,8 @@ namespace TimetableScreen.Configurator.Models
     {
         private static readonly string fileName = "Settings.xml";
         private ObservableCollection<Department> departments;
-        private string timetableAddress;
-        private ushort timetablePort;
+        private string screenAddress;
+        private ushort screenPort;
         private double scale;
         private int showPageTime;
         private int specialistWidth;
@@ -30,8 +30,8 @@ namespace TimetableScreen.Configurator.Models
         public int NoteWidth { get => noteWidth; set => SetProperty(ref noteWidth, value); }
 
         public ObservableCollection<Department> Departments { get => departments; set => SetProperty(ref departments, value); }
-        public string TimetableAddress { get => timetableAddress; set => SetProperty(ref timetableAddress, value); }
-        public ushort TimetablePort { get => timetablePort; set => SetProperty(ref timetablePort, value); }       
+        public string ScreenAddress { get => screenAddress; set => SetProperty(ref screenAddress, value); }
+        public ushort ScreenPort { get => screenPort; set => SetProperty(ref screenPort, value); }       
 
         public Settings()
         {
@@ -60,14 +60,15 @@ namespace TimetableScreen.Configurator.Models
             }
             else
                 return new Settings() { 
-                    TimetableAddress="127.0.0.1", 
-                    TimetablePort=8642, 
+                    ScreenAddress="127.0.0.1", 
+                    ScreenPort=8642, 
                     Scale=1,
-                    SiteWidth = 120,
-                    CabinetWidth = 100,                    
-                    SpecialistWidth =450,
-                    DayOfWeekWidth=130,
-                    NoteWidth=250
+                    ShowPageTime=60,
+                    SiteWidth = 0,
+                    CabinetWidth = 40,                    
+                    SpecialistWidth =240,
+                    DayOfWeekWidth=50,
+                    NoteWidth=0
                 };
         }
     }

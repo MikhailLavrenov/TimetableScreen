@@ -4,7 +4,7 @@ using System;
 namespace TimetableScreen.Configurator.Models
 {
     [Serializable]
-    public class PhysicianTimetable : BindableBase
+    public class Timetable : BindableBase
     {
         private string specialty;
         private string fullName;        

@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Serialization;
+using TimetableScreen.Configurator.Infrastructure;
 using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen.Configurator.ViewModels
@@ -47,9 +48,9 @@ namespace TimetableScreen.Configurator.ViewModels
             var bytes = stream.ToArray();
 
             //мб socketException
-            var address = Dns.GetHostAddresses(Settings.TimetableAddress).First(x=>x.AddressFamily == AddressFamily.InterNetwork);
+            var address = Dns.GetHostAddresses(Settings.ScreenAddress).First(x=>x.AddressFamily == AddressFamily.InterNetwork);
 
-            NetworkTransport.Send(address, Settings.TimetablePort, bytes);
+            NetworkTransport.Send(address, Settings.ScreenPort, bytes);
         }
 
     }
