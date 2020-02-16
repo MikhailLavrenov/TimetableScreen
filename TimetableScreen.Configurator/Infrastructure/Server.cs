@@ -45,46 +45,67 @@ namespace TimetableScreen.Configurator.Infrastructure
 
         private void AcceptClient(TcpClient client)
         {
-            var stream = client.GetStream();
-
-            var operation = (Operation)stream.ReadByte();
-
-            var type = stream.ReadWithSize();
-            var typeName = Encoding.UTF8.GetString(type);
-            var objectType = Type.GetType(typeName);
-
-            var args = new NetworkTransmissionEventArgs(operation, objectType);
-
-            if (operation == Operation.SendToServer)
+            try
             {
-                var data = stream.ReadWithSize();
-                args.Object = data.Deserialize(objectType);
+                var stream = client.GetStream();
 
-                stream.Close();
+                var operation = (Operation)stream.ReadByte();
+
+                if (operation != Operation.RecieveFromServer && operation != Operation.SendToServer)
+                {
+                    client.Close();
+                    return;
+                }
+
+                var type = stream.ReadWithSize();
+                var typeName = Encoding.UTF8.GetString(type);
+                var objectType = Type.GetType(typeName);
+
+                var args = new NetworkTransmissionEventArgs(operation, objectType);
+
+                if (operation == Operation.SendToServer)
+                {
+                    var data = stream.ReadWithSize();
+                    args.Object = data.Deserialize(objectType);
+
+                    client.Close();
+                }
+                else if (operation == Operation.RecieveFromServer)
+                {
+                    args.RequestId = nextId;
+                    awaitingClients.Add(nextId, client);
+                    nextId++;
+                }
+                else return;
+
+                NetworkTransmissionEvent(null, args);
+            }
+            catch (Exception)
+            {
                 client.Close();
             }
-            else
-            {
-                args.RequestId = nextId;
-                awaitingClients.Add(nextId, client);
-                nextId++;
-            }
-
-            NetworkTransmissionEvent(null, args);
         }
 
         public void SendRequestedObject<T>(object recipient, T obj) where T : class
         {
-            var index = (int)recipient;
-            var client = awaitingClients[index];
-            var stream = client.GetStream();
-            awaitingClients.Remove(index);
+            TcpClient client = null;
 
-            var data = obj.Serialize();
-            stream.WriteWithSize(data);
+            try
+            {
+                var index = (int)recipient;
+                client = awaitingClients[index];
+                var stream = client.GetStream();
+                awaitingClients.Remove(index);
 
-            stream.Close();
-            client.Close();
+                var data = obj.Serialize();
+                stream.WriteWithSize(data);
+            }
+            catch (Exception)
+            { }
+            finally
+            {
+                client?.Close();
+            }
         }
 
         public void Stop()

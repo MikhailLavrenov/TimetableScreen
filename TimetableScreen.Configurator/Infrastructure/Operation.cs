@@ -8,5 +8,6 @@ namespace TimetableScreen.Configurator.Infrastructure
     {
         SendToServer = 1,
         RecieveFromServer = 2,
+        TestConnection=3
     }
 }
