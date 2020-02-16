@@ -4,11 +4,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen.Configurator.Infrastructure
 {
-
     public class Server
     {
         private TcpListener listener;
@@ -51,31 +49,16 @@ namespace TimetableScreen.Configurator.Infrastructure
 
             var operation = (Operation)stream.ReadByte();
 
-            var bytes = new byte[sizeof(int)];
-            stream.Read(bytes, 0, bytes.Length);
-            var size = BitConverter.ToInt32(bytes);
-
-            bytes = new byte[size];
-            stream.Read(bytes, 0, bytes.Length);
-            var typeName = Encoding.UTF8.GetString(bytes);
+            var type = stream.ReadWithSize();
+            var typeName = Encoding.UTF8.GetString(type);
             var objectType = Type.GetType(typeName);
 
-            var args = new NetworkTransmissionEventArgs
+            var args = new NetworkTransmissionEventArgs(operation, objectType);
+
+            if (operation == Operation.SendToServer)
             {
-                Procedure = operation,
-                ObjectType = objectType,
-            };
-
-            if (operation == Operation.serverMustRecieve)
-            {
-                bytes = new byte[sizeof(int)];
-                stream.Read(bytes, 0, bytes.Length);
-                size = BitConverter.ToInt32(bytes);
-
-                bytes = new byte[size];
-                stream.Read(bytes, 0, bytes.Length);
-
-                args.Object = bytes.Deserialize(objectType);
+                var data = stream.ReadWithSize();
+                args.Object = data.Deserialize(objectType);
 
                 stream.Close();
                 client.Close();
@@ -92,17 +75,13 @@ namespace TimetableScreen.Configurator.Infrastructure
 
         public void SendRequestedObject<T>(object recipient, T obj) where T : class
         {
-            var data = obj.Serialize();
-
             var index = (int)recipient;
             var client = awaitingClients[index];
             var stream = client.GetStream();
             awaitingClients.Remove(index);
 
-            var size = BitConverter.GetBytes(data.Length);
-
-            stream.Write(size, 0, size.Length);
-            stream.Write(data, 0, data.Length);
+            var data = obj.Serialize();
+            stream.WriteWithSize(data);
 
             stream.Close();
             client.Close();

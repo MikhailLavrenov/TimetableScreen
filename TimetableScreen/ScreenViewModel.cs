@@ -50,9 +50,9 @@ namespace TimetableScreen
 
         private void OnNetworkTransmission(object obj, NetworkTransmissionEventArgs args)
         {
-            if (args.Procedure == Operation.serverMustSend && args.ObjectType == typeof(Settings))
+            if (args.Operation == Operation.RecieveFromServer && args.ObjectType == typeof(Settings))
                 server.SendRequestedObject(args.RequestId, Settings);
-            else if (args.Procedure == Operation.serverMustRecieve && args.ObjectType == typeof(Settings))
+            else if (args.Operation == Operation.SendToServer && args.ObjectType == typeof(Settings))
             {
                 timer.Stop();
 

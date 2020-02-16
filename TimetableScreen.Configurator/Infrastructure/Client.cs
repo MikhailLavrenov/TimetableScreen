@@ -23,19 +23,14 @@ namespace TimetableScreen.Configurator.Infrastructure
             client.Connect(GetIpAddress(address), port);
             var stream = client.GetStream();
 
+            stream.WriteByte((byte)Operation.SendToServer);
+
             var typeName = typeof(T).FullName;
             var type = Encoding.UTF8.GetBytes(typeName);
-            var size = BitConverter.GetBytes(type.Length);
-
-            stream.WriteByte((byte)Operation.serverMustRecieve);
-            stream.Write(size, 0, size.Length);
-            stream.Write(type, 0, type.Length);
+            stream.WriteWithSize(type);
 
             var data = obj.Serialize();
-            size = BitConverter.GetBytes(data.Length);            
-
-            stream.Write(size, 0, size.Length);
-            stream.Write(data, 0, data.Length);
+            stream.WriteWithSize(data);
 
             stream.Close();
             client.Close();
@@ -46,26 +41,19 @@ namespace TimetableScreen.Configurator.Infrastructure
             var client = new TcpClient();
             client.Connect(GetIpAddress(address), port);
             var stream = client.GetStream();
-           
+
+            stream.WriteByte((byte)Operation.RecieveFromServer);
+
             var typeName = typeof(T).FullName;
             var type = Encoding.UTF8.GetBytes(typeName);
-            var size = BitConverter.GetBytes(type.Length);
+            stream.WriteWithSize(type);
 
-            stream.WriteByte((byte)Operation.serverMustSend);
-            stream.Write(size, 0, size.Length);
-            stream.Write(type, 0, type.Length);
-
-            size = new byte[sizeof(int)];
-            stream.Read(size, 0, size.Length);
-            var length = BitConverter.ToInt32(size);
-
-            var bytes = new byte[length];
-            stream.Read(bytes,0,bytes.Length);
+            var data = stream.ReadWithSize();
 
             stream.Close();
             client.Close();
 
-            return (T)bytes.Deserialize(typeof(T));
+            return (T)data.Deserialize(typeof(T));
         }
     }
 }

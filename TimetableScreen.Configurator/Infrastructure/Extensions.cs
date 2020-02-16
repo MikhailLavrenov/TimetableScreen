@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -79,22 +80,42 @@ namespace TimetableScreen.Configurator.Infrastructure
             return null;
         }
 
-        public static object Deserialize (this byte[] array, Type type) 
+        public static object Deserialize(this byte[] array, Type type)
         {
             var mStream = new MemoryStream();
             mStream.Write(array, 0, array.Length);
             mStream.Position = 0;
 
             var formatter = new XmlSerializer(type);
-            return  formatter.Deserialize(mStream);
+            return formatter.Deserialize(mStream);
         }
 
-        public static byte[] Serialize<T> (this T obj) where T:class
+        public static byte[] Serialize<T>(this T obj) where T : class
         {
             var mStream = new MemoryStream();
             var formatter = new XmlSerializer(typeof(T));
             formatter.Serialize(mStream, obj);
             return mStream.ToArray();
+        }
+
+        public static void WriteWithSize(this NetworkStream stream, byte[] data)
+        {
+            var size = BitConverter.GetBytes(data.Length);
+
+            stream.Write(size, 0, size.Length);
+            stream.Write(data, 0, data.Length);
+        }
+
+        public static byte[] ReadWithSize(this NetworkStream stream)
+        {
+            var sBytes = new byte[sizeof(int)];
+            stream.Read(sBytes, 0, sBytes.Length);
+            var size = BitConverter.ToInt32(sBytes);
+
+            var data = new byte[size];
+            stream.Read(data, 0, data.Length);
+
+            return data;
         }
     }
 }

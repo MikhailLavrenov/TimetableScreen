@@ -6,7 +6,7 @@ namespace TimetableScreen.Configurator.Infrastructure
 {
     public enum Operation : byte
     {
-        serverMustRecieve = 1,
-        serverMustSend = 2,
+        SendToServer = 1,
+        RecieveFromServer = 2,
     }
 }

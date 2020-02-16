@@ -11,6 +11,8 @@ namespace TimetableScreen.Configurator.ViewModels
     public class ShellViewModel : BindableBase
     {
         IRegionManager regionManager;
+        IContainer container;
+        Type lastNavigation;
 
         public Settings Settings { get; set; }
 
@@ -19,8 +21,9 @@ namespace TimetableScreen.Configurator.ViewModels
         public DelegateCommand SendSettingsCommand { get; }
         public DelegateCommand RecieveSettingsCommand { get; }
 
-        public ShellViewModel(IRegionManager regionManager, Settings settings)
+        public ShellViewModel(IRegionManager regionManager, Settings settings, IContainer container)
         {
+            this.container = container;
             this.regionManager = regionManager;
             Settings = settings;
 
@@ -32,6 +35,7 @@ namespace TimetableScreen.Configurator.ViewModels
 
         private void NavigateExecute(Type viewType)
         {
+            lastNavigation = viewType;
             regionManager.RequestNavigate("MainRegion", viewType.Name);
         }
 
@@ -43,6 +47,13 @@ namespace TimetableScreen.Configurator.ViewModels
         private void RecieveSettingsExecute()
         {
             Settings= Client.Recieve<Settings>(Settings.ScreenAddress, Settings.ScreenPort);
+            container.UseInstance(typeof(Settings), Settings);
+
+            if (lastNavigation != default)
+            {
+                regionManager.Regions["MainRegion"].RemoveAll();
+                NavigateExecute(lastNavigation);
+            }
         }
 
     }
