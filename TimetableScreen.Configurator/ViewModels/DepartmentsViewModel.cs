@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,8 +8,9 @@ using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen.Configurator.ViewModels
 {
-    public class DepartmentsViewModel:BindableBase
+    public class DepartmentsViewModel:BindableBase, IRegionMemberLifetime
     {
+        public bool KeepAlive { get => false; }
         public Settings Settings { get; set; }
 
         public DelegateCommand<Department> MoveUpCommand { get; }

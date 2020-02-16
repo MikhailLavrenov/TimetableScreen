@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
+using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen.Configurator.Infrastructure
 {
@@ -10,24 +13,14 @@ namespace TimetableScreen.Configurator.Infrastructure
     {
         private TcpListener listener;
         private bool isRunning;
+        private int nextId = 0;
+        private Dictionary<int, TcpClient> awaitingClients;
 
-        public event EventHandler<ResponseEventArgs> DataRecieved;
+        public event EventHandler<NetworkTransmissionEventArgs> NetworkTransmissionEvent;
 
-        public static void Send(IPAddress iPAddress, ushort port, byte[] data)
+        public Server()
         {
-            using var client = new TcpClient();
-
-            client.Connect(iPAddress, port);
-
-            var stream = client.GetStream();
-
-            byte[] size = BitConverter.GetBytes(data.Length);
-
-            stream.Write(size, 0, size.Length);
-            stream.Write(data, 0, data.Length);
-
-            stream.Close();
-            client.Close();
+            awaitingClients = new Dictionary<int, TcpClient>();
         }
 
         public void Start(IPAddress iPAddress, ushort port)
@@ -43,7 +36,8 @@ namespace TimetableScreen.Configurator.Infrastructure
                     try
                     {
                         using var client = listener.AcceptTcpClient();
-                        Task.Run(() => ProcessConnection(client));
+                        //Task.Run(() => AcceptClient(client));
+                        AcceptClient(client);
                     }
                     catch (SocketException ex) when (ex.ErrorCode == 10004)
                     { }
@@ -51,25 +45,67 @@ namespace TimetableScreen.Configurator.Infrastructure
             });
         }
 
-        private void ProcessConnection(TcpClient client)
+        private void AcceptClient(TcpClient client)
         {
             var stream = client.GetStream();
 
-            var lengthBytes = new byte[sizeof(int)];
-            var procedureBytes = new byte[sizeof(int)];
+            var operation = (Operation)stream.ReadByte();
 
-            stream.Read(procedureBytes, 0, procedureBytes.Length);
+            var bytes = new byte[sizeof(int)];
+            stream.Read(bytes, 0, bytes.Length);
+            var size = BitConverter.ToInt32(bytes);
 
-            var procedureId = BitConverter.ToInt32(lengthBytes);
+            bytes = new byte[size];
+            stream.Read(bytes, 0, bytes.Length);
+            var typeName = Encoding.UTF8.GetString(bytes);
+            var objectType = Type.GetType(typeName);
 
-            var data = new byte[length];
+            var args = new NetworkTransmissionEventArgs
+            {
+                Procedure = operation,
+                ObjectType = objectType,
+            };
 
-            stream.Read(data, 0, length);
+            if (operation == Operation.serverMustRecieve)
+            {
+                bytes = new byte[sizeof(int)];
+                stream.Read(bytes, 0, bytes.Length);
+                size = BitConverter.ToInt32(bytes);
+
+                bytes = new byte[size];
+                stream.Read(bytes, 0, bytes.Length);
+
+                args.Object = bytes.Deserialize(objectType);
+
+                stream.Close();
+                client.Close();
+            }
+            else
+            {
+                args.RequestId = nextId;
+                awaitingClients.Add(nextId, client);
+                nextId++;
+            }
+
+            NetworkTransmissionEvent(null, args);
+        }
+
+        public void SendRequestedObject<T>(object recipient, T obj) where T : class
+        {
+            var data = obj.Serialize();
+
+            var index = (int)recipient;
+            var client = awaitingClients[index];
+            var stream = client.GetStream();
+            awaitingClients.Remove(index);
+
+            var size = BitConverter.GetBytes(data.Length);
+
+            stream.Write(size, 0, size.Length);
+            stream.Write(data, 0, data.Length);
 
             stream.Close();
             client.Close();
-
-            DataRecieved(null, new ResponseEventArgs(data));
         }
 
         public void Stop()
@@ -79,22 +115,6 @@ namespace TimetableScreen.Configurator.Infrastructure
         }
     }
 
-    public class ResponseEventArgs : EventArgs
-    {
-        public byte[] Buffer { get; set; }
-
-        public ResponseEventArgs(byte[] buffer)
-        {
-            Buffer = buffer;
-        }
-    }
-
-    public enum Procedures : int
-    {
-        none=0,
-        recieve=1,
-
-    }
 }
 
 

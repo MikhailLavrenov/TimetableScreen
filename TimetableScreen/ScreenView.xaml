@@ -105,7 +105,7 @@
 
                         </Border>
 
-                        <ListView ItemsSource="{Binding PhysicianTimetables}"
+                        <ListView ItemsSource="{Binding Timetables}"
                                   ItemContainerStyle="{StaticResource GridViewItemStyle}"
                                   Margin="0,0,0,10">
 

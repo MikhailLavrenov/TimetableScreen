@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace TimetableScreen.Configurator.Infrastructure
 {
@@ -77,6 +79,22 @@ namespace TimetableScreen.Configurator.Infrastructure
             return null;
         }
 
+        public static object Deserialize (this byte[] array, Type type) 
+        {
+            var mStream = new MemoryStream();
+            mStream.Write(array, 0, array.Length);
+            mStream.Position = 0;
 
+            var formatter = new XmlSerializer(type);
+            return  formatter.Deserialize(mStream);
+        }
+
+        public static byte[] Serialize<T> (this T obj) where T:class
+        {
+            var mStream = new MemoryStream();
+            var formatter = new XmlSerializer(typeof(T));
+            formatter.Serialize(mStream, obj);
+            return mStream.ToArray();
+        }
     }
 }

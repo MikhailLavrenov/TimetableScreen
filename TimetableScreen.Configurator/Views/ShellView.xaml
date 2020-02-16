@@ -45,10 +45,19 @@
     <DockPanel d:DataContext="{d:DesignInstance  vm:ShellViewModel }"
                Margin="20">
 
-        <Button DockPanel.Dock="Top"                
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            
+        <Button                
                 Content="Отправить настройки"
                 Command="{Binding SendSettingsCommand}"
                 Cursor="Hand" />
+
+            <Button 
+                    Content="Получить настройки"
+                    Command="{Binding RecieveSettingsCommand}"
+                    Cursor="Hand" />
+
+        </StackPanel>
 
         <StackPanel Orientation="Horizontal" 
                     DockPanel.Dock="Top">

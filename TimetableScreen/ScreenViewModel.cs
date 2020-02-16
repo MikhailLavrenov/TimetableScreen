@@ -17,7 +17,7 @@ namespace TimetableScreen
     public class ScreenViewModel : BindableBase
     {
         private Settings settings;
-        private NetworkTransport networkTransport;
+        private Server server;
         private List<ObservableCollection<Department>> pages;
         private ObservableCollection<Department> currentPage;
         private int currentPageIndex;
@@ -35,9 +35,9 @@ namespace TimetableScreen
         {
             Settings = settings;
 
-            networkTransport = new NetworkTransport();
-            networkTransport.DataRecieved += DataRecievedHandler;
-            networkTransport.StartServer(IPAddress.Any, Settings.ScreenPort);
+            server = new Server();
+            server.NetworkTransmissionEvent += OnNetworkTransmission;
+            server.Start(IPAddress.Any, Settings.ScreenPort);
 
             timer = new DispatcherTimer();
             timer.Tick += TimerTick;
@@ -48,27 +48,26 @@ namespace TimetableScreen
             Initialize();
         }
 
-        private void DataRecievedHandler(object oject, ResponseEventArgs args)
+        private void OnNetworkTransmission(object obj, NetworkTransmissionEventArgs args)
         {
-            timer.Stop();
+            if (args.Procedure == Operation.serverMustSend && args.ObjectType == typeof(Settings))
+                server.SendRequestedObject(args.RequestId, Settings);
+            else if (args.Procedure == Operation.serverMustRecieve && args.ObjectType == typeof(Settings))
+            {
+                timer.Stop();
 
-            var stream = new MemoryStream();
-            stream.Write(args.Buffer, 0, args.Buffer.Length);
-            stream.Position = 0;
+                Settings = (Settings)args.Object;
+                Settings.Save();
 
-            var formatter = new XmlSerializer(Settings.GetType());
-            Settings = (Settings)formatter.Deserialize(stream);
+                server.Stop();
+                server.Start(IPAddress.Any, Settings.ScreenPort);
 
-            Settings.Save();
-
-            networkTransport.StopServer();
-            networkTransport.StartServer(IPAddress.Any, Settings.ScreenPort);
-
-            Initialize();
+                Initialize();
+            }
         }
         private void CloseExecute()
         {
-            networkTransport.StopServer();
+            server.Stop();
             Application.Current.Shutdown();
         }
         private void MoveToNextPageExecute(Timetable movingPhysician)

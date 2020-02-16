@@ -1,16 +1,18 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System.Collections.ObjectModel;
 using System.Linq;
 using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen.Configurator.ViewModels
 {
-    class TimetablesViewModel : BindableBase
+    class TimetablesViewModel : BindableBase, IRegionMemberLifetime
     {
         private Department selectedDepartment;
         private ObservableCollection<Timetable> timetables;
 
+        public bool KeepAlive { get => false; }
         public Settings Settings { get; set; }
         public Department SelectedDepartment
         {
