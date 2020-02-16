@@ -12,12 +12,20 @@
              d:DesignWidth="800"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/WindowStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary >
+    </UserControl.Resources>
+
     <Grid d:DataContext="{d:DesignInstance vm:SettingsViewModel }">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 

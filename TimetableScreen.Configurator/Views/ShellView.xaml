@@ -11,7 +11,7 @@
         xmlns:v="clr-namespace:TimetableScreen.Configurator.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding ApplicationTitle}"
+        Title="Конфигуратор табло"
         Height="600"
         Width="1000"
         MinHeight="600"
@@ -42,48 +42,52 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
-    <DockPanel d:DataContext="{d:DesignInstance  vm:ShellViewModel }"
-               Margin="20">
+    <DockPanel d:DataContext="{d:DesignInstance  vm:ShellViewModel }">
 
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+        <materialDesign:Card DockPanel.Dock="Top">
+
+            <StackPanel Orientation="Vertical" Margin="20,20,20,10">
+
+            <StackPanel  Orientation="Horizontal">
+
+                <Button Content="Отправить настройки"
+                        Command="{Binding SendSettingsCommand}"
+                        Cursor="Hand" />
+
+                <Button Content="Получить настройки"
+                        Command="{Binding RecieveSettingsCommand}"
+                        Cursor="Hand" />
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+
+                <RadioButton Content="Разное"
+                             Style="{StaticResource TabRadioButton}"
+                             Command="{Binding NavigateCommand}"
+                             CommandParameter="{x:Type v:SettingsView}" />
+
+                <RadioButton Content="Отделения"
+                             Style="{StaticResource TabRadioButton}"
+                             Command="{Binding NavigateCommand}"
+                             CommandParameter="{x:Type v:DepartmentsView}" />
+
+                <RadioButton Content="Расписания"
+                             IsChecked="True"
+                             Style="{StaticResource TabRadioButton}"
+                             Command="{Binding NavigateCommand}"
+                             CommandParameter="{x:Type v:TimetablesView}" />
+
+            </StackPanel>
+
+            </StackPanel>
             
-        <Button                
-                Content="Отправить настройки"
-                Command="{Binding SendSettingsCommand}"
-                Cursor="Hand" />
-
-            <Button 
-                    Content="Получить настройки"
-                    Command="{Binding RecieveSettingsCommand}"
-                    Cursor="Hand" />
-
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal" 
-                    DockPanel.Dock="Top">
-
-            <RadioButton Content="Разное"
-                         Style="{StaticResource TabRadioButton}"
-                         Command="{Binding NavigateCommand}"
-                         CommandParameter="{x:Type v:SettingsView}" />
-
-            <RadioButton Content="Отделения"
-                         Style="{StaticResource TabRadioButton}"
-                         Command="{Binding NavigateCommand}"
-                         CommandParameter="{x:Type v:DepartmentsView}" />
-
-            <RadioButton Content="Расписания"
-                         IsChecked="True"
-                         Style="{StaticResource TabRadioButton}"
-                         Command="{Binding NavigateCommand}"
-                         CommandParameter="{x:Type v:TimetablesView}" />
-
-        </StackPanel>
+        </materialDesign:Card>
 
         <FrameworkElement DockPanel.Dock="Top"
                           Style="{StaticResource Separator}" />
 
-        <ContentControl prism:RegionManager.RegionName="MainRegion" />
+        <ContentControl prism:RegionManager.RegionName="MainRegion" Margin="20,0,20,20"/>
 
     </DockPanel>
 

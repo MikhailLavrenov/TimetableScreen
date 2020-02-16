@@ -10,8 +10,17 @@
              d:DesignHeight="600"
              d:DesignWidth="800"
              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/WindowStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary >
+    </UserControl.Resources>
     
-    <DockPanel>
+
+    <DockPanel Width="450" HorizontalAlignment="Left">
 
         <StackPanel DockPanel.Dock="Right"  Grid.Row="2" Grid.Column="3"
                      Margin="4"
