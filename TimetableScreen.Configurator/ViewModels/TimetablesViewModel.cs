@@ -20,7 +20,7 @@ namespace TimetableScreen.Configurator.ViewModels
             set
             {
                 SetProperty(ref selectedDepartment, value);
-                Timetables = SelectedDepartment.Timetables;
+                Timetables = SelectedDepartment?.Timetables;
             }
         }
         public ObservableCollection<Timetable> Timetables { get => timetables; set => SetProperty(ref timetables, value); }

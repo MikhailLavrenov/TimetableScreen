@@ -23,10 +23,13 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Cursor="None">
-    <!--WindowStyle="None" 
+
+    <!--
+    WindowStyle="None" 
         ResizeMode="NoResize"     
         WindowState="Maximized"
-        Topmost="True"-->
+        Topmost="True"
+    -->
 
     <Window.Resources>
         <ResourceDictionary>
@@ -36,7 +39,7 @@
         </ResourceDictionary >
     </Window.Resources>
 
-    <Window.Style>
+    <!--<Window.Style>
         <Style>
             <Setter Property="WindowChrome.WindowChrome">
                 <Setter.Value>
@@ -48,7 +51,9 @@
                 </Setter.Value>
             </Setter>
 
-            <!--Устраняет растягивание окна на панель задач и выход окна за пределы экрана-->
+            -->
+    <!--Устраняет растягивание окна на панель задач и выход окна за пределы экрана-->
+    <!--
 
             <Style.Triggers>
                 <Trigger Property="Window.WindowState"
@@ -58,7 +63,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-    </Window.Style>
+    </Window.Style>-->
 
     <b:Interaction.Behaviors>
         <local:DragWindowBehavior />
