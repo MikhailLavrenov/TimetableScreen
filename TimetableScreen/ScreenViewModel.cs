@@ -3,13 +3,10 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Threading;
-using System.Xml.Serialization;
 using TimetableScreen.Configurator.Infrastructure;
 using TimetableScreen.Configurator.Models;
 
@@ -30,6 +27,7 @@ namespace TimetableScreen
         public int CurrentPageIndex { get => currentPageIndex; set => SetProperty(ref currentPageIndex, value); }
 
         public DelegateCommand CloseCommand { get; }
+        public DelegateCommand MinimizeCommand { get; }
         public DelegateCommand<Timetable> MoveToNextPageCommand { get; }
 
         public ScreenViewModel(Settings settings)
@@ -37,18 +35,18 @@ namespace TimetableScreen
             Settings = settings;
 
             server = new Server();
-            server.NetworkTransmissionEvent += OnNetworkTransmission;
-            server.Start(IPAddress.Any, Settings.ScreenPort);
+            server.NetworkTransmissionEvent += OnNetworkTransmission;           
 
             timer = new DispatcherTimer();
             timer.Tick += TimerTick;
 
             CloseCommand = new DelegateCommand(CloseExecute);
+            MinimizeCommand = new DelegateCommand(() => System.Windows.Application.Current.MainWindow.WindowState = WindowState.Minimized);
             MoveToNextPageCommand = new DelegateCommand<Timetable>(MoveToNextPageExecute);
 
             Initialize();
 
-            var screens=Screen.AllScreens;
+            SleepMode.PreventOn();
         }
 
         private void OnNetworkTransmission(object obj, NetworkTransmissionEventArgs args)
@@ -60,10 +58,7 @@ namespace TimetableScreen
                 timer.Stop();
 
                 Settings = (Settings)args.Object;
-                Settings.Save();
-
-                server.Stop();
-                server.Start(IPAddress.Any, Settings.ScreenPort);
+                Settings.Save();             
 
                 Initialize();
             }
@@ -71,6 +66,7 @@ namespace TimetableScreen
         private void CloseExecute()
         {
             server.Stop();
+            SleepMode.PreventOff();
             System.Windows.Application.Current.Shutdown();
         }
         private void MoveToNextPageExecute(Timetable movingPhysician)
@@ -118,6 +114,14 @@ namespace TimetableScreen
             Pages = new List<ObservableCollection<Department>>();
             Pages.Add(CurrentPage);
             CurrentPageIndex = 0;
+
+            if (Settings.AutoLoad)
+                ApplicationStartUpManager.AddToStartup();
+            else
+                ApplicationStartUpManager.DeleteFromStartup();
+
+            server.Stop();
+            server.Start(IPAddress.Any, Settings.ScreenPort);
 
             timer.Interval = TimeSpan.FromSeconds(Settings.ShowPageTime);
             timer.Start();

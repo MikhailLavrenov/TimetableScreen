@@ -11,19 +11,26 @@ namespace TimetableScreen.Configurator.Models
     {
         private static readonly string fileName = "Settings.xml";
         private ObservableCollection<Department> departments;
-        private string screenAddress;
-        private ushort screenPort;
-        private double scale;
-        private int showPageTime;
-        private int specialistWidth;
-        private int cabinetWidth;
-        private int siteWidth;
-        private int dayOfWeekWidth;
-        private int noteWidth;
+        private string screenAddress = "127.0.0.1";
+        private ushort screenPort = 8642;
+        private double scale = 1;
+        private int showPageTime = 60;
+        private int specialistWidth = 240;
+        private int cabinetWidth = 40;
+        private int siteWidth = 0;
+        private int dayOfWeekWidth = 50;
+        private int noteWidth = 0;
+        private int useDisplay = 1;
+        private bool topMost = true;
+        private bool autoLoad = true;
 
+
+        public int UseDisplay { get => useDisplay; set => SetProperty(ref useDisplay, value); }
+        public bool TopMost { get => topMost; set => SetProperty(ref topMost, value); }
+        public bool AutoLoad { get => autoLoad; set => SetProperty(ref autoLoad, value); }
         public double Scale { get => scale; set => SetProperty(ref scale, value); }
         public int ShowPageTime { get => showPageTime; set => SetProperty(ref showPageTime, value); }
-        public int SpecialistWidth { get => specialistWidth; set => SetProperty(ref specialistWidth, value); }   
+        public int SpecialistWidth { get => specialistWidth; set => SetProperty(ref specialistWidth, value); }
         public int CabinetWidth { get => cabinetWidth; set => SetProperty(ref cabinetWidth, value); }
         public int SiteWidth { get => siteWidth; set => SetProperty(ref siteWidth, value); }
         public int DayOfWeekWidth { get => dayOfWeekWidth; set => SetProperty(ref dayOfWeekWidth, value); }
@@ -31,7 +38,7 @@ namespace TimetableScreen.Configurator.Models
 
         public ObservableCollection<Department> Departments { get => departments; set => SetProperty(ref departments, value); }
         public string ScreenAddress { get => screenAddress; set => SetProperty(ref screenAddress, value); }
-        public ushort ScreenPort { get => screenPort; set => SetProperty(ref screenPort, value); }       
+        public ushort ScreenPort { get => screenPort; set => SetProperty(ref screenPort, value); }
 
         public Settings()
         {
@@ -59,17 +66,7 @@ namespace TimetableScreen.Configurator.Models
                 }
             }
             else
-                return new Settings() { 
-                    ScreenAddress="127.0.0.1", 
-                    ScreenPort=8642, 
-                    Scale=1,
-                    ShowPageTime=60,
-                    SiteWidth = 0,
-                    CabinetWidth = 40,                    
-                    SpecialistWidth =240,
-                    DayOfWeekWidth=50,
-                    NoteWidth=0
-                };
+                return new Settings();
         }
     }
 }

@@ -47,7 +47,7 @@ namespace TimetableScreen
                 var radius = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
                 animatedElement.Clip = elipseGeometry;
 
-                var duration = TimeSpan.FromMilliseconds(1000);
+                var duration = TimeSpan.FromMilliseconds(1500);
 
                 var ease = new ExponentialEase
                 {

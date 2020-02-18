@@ -40,6 +40,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <FrameworkElement Grid.Column="1"
@@ -62,55 +65,76 @@
 
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
-                   Text="Масштаб" />
+                   Text="Номер дисплея (1-основной)" />
         <TextBox Grid.Row="1"
                  Grid.Column="2"
-                 Text="{Binding Settings.Scale}" />
+                 Text="{Binding Settings.UseDisplay}" />
 
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
+                   Text="Поверх всех окон" />
+        <CheckBox Grid.Row="2"
+                 Grid.Column="2"
+                 IsChecked="{Binding Settings.TopMost}" />
+
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   Text="Автозапуск" />
+        <CheckBox Grid.Row="3"
+                  Grid.Column="2"
+                  IsChecked="{Binding Settings.AutoLoad}" />
+
+        <TextBlock Grid.Row="4"
+                   Grid.Column="0"
+                   Text="Масштаб" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="2"
+                 Text="{Binding Settings.Scale}" />
+
+        <TextBlock Grid.Row="5"
+                   Grid.Column="0"
                    Text="Время показа страницы (секунд)" />
-        <TextBox Grid.Row="2"
+        <TextBox Grid.Row="5"
                  Grid.Column="2"
                  Text="{Binding Settings.ShowPageTime}" />
 
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    Text="Ширина солбцов"
                    Margin="5,10,5,10" />
 
-        <TextBlock Grid.Row="4"
+        <TextBlock Grid.Row="7"
                    Grid.Column="0"
                    Text="Участок" />
-        <TextBox Grid.Row="4"
+        <TextBox Grid.Row="7"
                  Grid.Column="2"
                  Text="{Binding Settings.SiteWidth}" />
         
-        <TextBlock Grid.Row="5"
+        <TextBlock Grid.Row="8"
                    Grid.Column="0"
                    Text="Кабинет" />
-        <TextBox Grid.Row="5"
+        <TextBox Grid.Row="8"
                  Grid.Column="2"
                  Text="{Binding Settings.CabinetWidth}" />
 
-        <TextBlock Grid.Row="6"
+        <TextBlock Grid.Row="9"
                    Grid.Column="0"
                    Text="Специалист" />
-        <TextBox Grid.Row="6"
+        <TextBox Grid.Row="9"
                  Grid.Column="2"
                  Text="{Binding Settings.SpecialistWidth}" />
 
-        <TextBlock Grid.Row="7"
+        <TextBlock Grid.Row="10"
                    Grid.Column="0"
                    Text="Дни недели" />
-        <TextBox Grid.Row="7"
+        <TextBox Grid.Row="10"
                  Grid.Column="2"
                  Text="{Binding Settings.DayOfWeekWidth}" />
 
-        <TextBlock Grid.Row="8"
+        <TextBlock Grid.Row="11"
                    Grid.Column="0"
                    Text="Примечание" />
-        <TextBox Grid.Row="8"
+        <TextBox Grid.Row="11"
                  Grid.Column="2"
                  Text="{Binding Settings.NoteWidth}" />
 

@@ -110,8 +110,11 @@ namespace TimetableScreen.Configurator.Infrastructure
 
         public void Stop()
         {
-            isRunning = false;
-            listener?.Stop();
+            if (isRunning)
+            {
+                isRunning = false;
+                listener?.Stop();
+            }
         }
     }
 

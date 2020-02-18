@@ -14,22 +14,16 @@
 
         MinHeight="400"
         MinWidth="400"
-        Width="1080"
-        Height="1040"
         TextElement.Foreground="DarkGray"
         Background="White"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Cursor="None">
-
-    <!--
-    WindowStyle="None" 
-        ResizeMode="NoResize"     
-        WindowState="Maximized"
-        Topmost="True"
-    -->
+        Cursor="None"
+        WindowStyle="None"
+        ResizeMode="NoResize" 
+        Topmost="{Binding Settings.TopMost}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -39,41 +33,25 @@
         </ResourceDictionary >
     </Window.Resources>
 
-    <!--<Window.Style>
-        <Style>
-            <Setter Property="WindowChrome.WindowChrome">
-                <Setter.Value>
-                    <WindowChrome ResizeBorderThickness="3"
-                                  CaptionHeight="0"
-                                  CornerRadius="0"
-                                  NonClientFrameEdges="None"
-                                  GlassFrameThickness="1" />
-                </Setter.Value>
-            </Setter>
-
-            -->
-    <!--Устраняет растягивание окна на панель задач и выход окна за пределы экрана-->
-    <!--
-
-            <Style.Triggers>
-                <Trigger Property="Window.WindowState"
-                         Value="Maximized">
-                    <Setter Property="Window.BorderThickness"
-                            Value="8" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Style>-->
-
-    <b:Interaction.Behaviors>
+       <b:Interaction.Behaviors>
         <local:DragWindowBehavior />
+        <local:SelectDisplayBehavior />
     </b:Interaction.Behaviors>
 
     <Grid d:DataContext="{d:DesignInstance  local:ScreenViewModel }">
 
-        <Button Panel.ZIndex="2"
+        <StackPanel Orientation="Horizontal"
+                    Panel.ZIndex="2" HorizontalAlignment="Right" VerticalAlignment="Top">
+
+        <Button 
+                Style="{StaticResource MinimizeButton}"
+                Command="{Binding MinimizeCommand}" />
+        
+        <Button 
                 Style="{StaticResource CloseButton}"
                 Command="{Binding CloseCommand}" />
+
+        </StackPanel>
 
         <Border Panel.ZIndex="1"
                 BorderThickness="0"

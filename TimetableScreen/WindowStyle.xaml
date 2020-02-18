@@ -108,7 +108,6 @@
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="RowBorder"
                             Padding="0,4,0,4"
-                            
                             Background="{StaticResource RowBackground}"
                             BorderBrush="{StaticResource RowLineColor}"
                             BorderThickness="0,0,0,1"
@@ -148,10 +147,6 @@
 
     <Style x:Key="CloseButton"
            TargetType="Button">
-        <Setter Property="HorizontalAlignment"
-                Value="Right" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="Foreground"
@@ -181,6 +176,24 @@
                      Value="True">
                 <Setter Property="Background"
                         Value="Red" />
+                <Setter Property="Foreground"
+                        Value="{Binding Background, RelativeSource={RelativeSource  AncestorType={x:Type Window}}}" />
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+    <Style x:Key="MinimizeButton"
+           BasedOn="{StaticResource CloseButton}"
+           TargetType="Button">
+        <Setter Property="Content"
+                Value="__" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="{StaticResource DepartmentBackground}" />
                 <Setter Property="Foreground"
                         Value="{Binding Background, RelativeSource={RelativeSource  AncestorType={x:Type Window}}}" />
             </Trigger>
