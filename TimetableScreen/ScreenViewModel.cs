@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Threading;
 using System.Xml.Serialization;
 using TimetableScreen.Configurator.Infrastructure;
@@ -46,6 +47,8 @@ namespace TimetableScreen
             MoveToNextPageCommand = new DelegateCommand<Timetable>(MoveToNextPageExecute);
 
             Initialize();
+
+            var screens=Screen.AllScreens;
         }
 
         private void OnNetworkTransmission(object obj, NetworkTransmissionEventArgs args)
@@ -68,7 +71,7 @@ namespace TimetableScreen
         private void CloseExecute()
         {
             server.Stop();
-            Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown();
         }
         private void MoveToNextPageExecute(Timetable movingPhysician)
         {
