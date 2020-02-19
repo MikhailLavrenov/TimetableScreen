@@ -39,7 +39,7 @@ namespace TimetableScreen
             server.NetworkTransmissionEvent += OnNetworkTransmission;
 
             timer = new DispatcherTimer();
-            timer.Tick += TimerTick;
+            timer.Tick += OnTimerTick;
 
             CloseCommand = new DelegateCommand(CloseExecute);
             MinimizeCommand = new DelegateCommand(() => System.Windows.Application.Current.MainWindow.WindowState = WindowState.Minimized);
@@ -128,7 +128,7 @@ namespace TimetableScreen
             timer.Interval = TimeSpan.FromSeconds(Settings.ShowPageTime);
             timer.Start();
         }
-        private void TimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object sender, EventArgs e)
         {
             if (Pages.Count == 1)
                 return;

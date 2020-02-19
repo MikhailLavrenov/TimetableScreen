@@ -1,25 +1,39 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
+using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen
 {
     public class SelectDisplayBehavior : Behavior<FrameworkElement>
     {
+        Window window;
+        ScreenViewModel viewModel;
+
         protected override void OnAttached()
         {
-            AssociatedObject.Initialized += Handler;
+            window = AssociatedObject as Window;
+
+            viewModel = (ScreenViewModel)window.DataContext;
+
+            viewModel.PropertyChanged += OnPropertyChanged;
+            AssociatedObject.Initialized += OnInitialized;
+        }
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Settings))
+                System.Windows.Application.Current.Dispatcher.Invoke(() => DisplayManager());
+        }
+        private void OnInitialized(object sender, EventArgs e)
+        {
+            DisplayManager();
         }
 
-        private void Handler(object sender, EventArgs e)
+        private void DisplayManager()
         {
-            var window = AssociatedObject as Window;
-
-            var viewModel = (ScreenViewModel)window.DataContext;
-
             var displayIndex = viewModel.Settings.UseDisplay - 1;
-
 
             if (displayIndex > Screen.AllScreens.Length - 1)
             {
@@ -36,7 +50,8 @@ namespace TimetableScreen
 
         protected override void OnDetaching()
         {
-            AssociatedObject.Initialized += Handler;
+            viewModel.PropertyChanged -= OnPropertyChanged;
+            AssociatedObject.Initialized -= OnInitialized;
         }
     }
 }

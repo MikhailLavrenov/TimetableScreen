@@ -33,8 +33,10 @@ namespace TimetableScreen
             }
             else
             {
+                if (IsUserAdministrator())
+                    RemoveFromAllUserStartup();
+
                 RemoveFromCurrentUserStartup();
-                RemoveFromAllUserStartup();
             }
         }
 
