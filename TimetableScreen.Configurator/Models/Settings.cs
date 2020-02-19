@@ -9,7 +9,7 @@ namespace TimetableScreen.Configurator.Models
     [Serializable]
     public class Settings : BindableBase
     {
-        private static readonly string fileName = "Settings.xml";
+        private static readonly string fileName = $"{System.AppDomain.CurrentDomain.BaseDirectory}Settings.xml";
         private ObservableCollection<Department> departments;
         private string screenAddress = "127.0.0.1";
         private ushort screenPort = 8642;
