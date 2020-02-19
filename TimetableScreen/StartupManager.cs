@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 
@@ -11,28 +12,30 @@ namespace TimetableScreen
     public class ApplicationStartUpManager
     {
         static string registryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
-        static string appFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        static string appName = Path.GetFileName(appFullPath);
+        static string appFullPath = Process.GetCurrentProcess().MainModule.FileName;
+        static string appName = Path.GetFileNameWithoutExtension(appFullPath);
 
-        public static void AddToStartup()
+        public static void Set(bool isEnabled)
         {
-            if (IsUserAdministrator())
+            if (isEnabled)
             {
-                RemoveFromCurrentUserStartup();
-                AddToAllUsersStartup();
+                if (IsUserAdministrator())
+                {
+                    RemoveFromCurrentUserStartup();
+                    AddToAllUsersStartup();
+                }
+                else
+                {
+                    using var key = Registry.LocalMachine.OpenSubKey(registryPath, false);
+                    if (key.GetValue(appName) == null)
+                        AddToCurrentUsersStartup();
+                }
             }
             else
             {
-                using var key = Registry.LocalMachine.OpenSubKey(registryPath, true);
-                if (key.GetValue(appName) == null)
-                    AddToCurrentUsersStartup();
+                RemoveFromCurrentUserStartup();
+                RemoveFromAllUserStartup();
             }
-        }
-
-        public static void DeleteFromStartup()
-        {
-            RemoveFromCurrentUserStartup();
-            RemoveFromAllUserStartup();
         }
 
         private static void AddToCurrentUsersStartup()

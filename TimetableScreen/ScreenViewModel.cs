@@ -28,6 +28,7 @@ namespace TimetableScreen
 
         public DelegateCommand CloseCommand { get; }
         public DelegateCommand MinimizeCommand { get; }
+        public DelegateCommand InitializePagesCommand { get; }
         public DelegateCommand<Timetable> MoveToNextPageCommand { get; }
 
         public ScreenViewModel(Settings settings)
@@ -35,18 +36,20 @@ namespace TimetableScreen
             Settings = settings;
 
             server = new Server();
-            server.NetworkTransmissionEvent += OnNetworkTransmission;           
+            server.NetworkTransmissionEvent += OnNetworkTransmission;
 
             timer = new DispatcherTimer();
             timer.Tick += TimerTick;
 
             CloseCommand = new DelegateCommand(CloseExecute);
             MinimizeCommand = new DelegateCommand(() => System.Windows.Application.Current.MainWindow.WindowState = WindowState.Minimized);
+            InitializePagesCommand = new DelegateCommand(InitializePagesExecute);
             MoveToNextPageCommand = new DelegateCommand<Timetable>(MoveToNextPageExecute);
 
-            Initialize();
-
             SleepMode.PreventOn();
+            ApplicationStartUpManager.Set(Settings.AutoLoad);
+
+            InitializePagesExecute();
         }
 
         private void OnNetworkTransmission(object obj, NetworkTransmissionEventArgs args)
@@ -58,9 +61,11 @@ namespace TimetableScreen
                 timer.Stop();
 
                 Settings = (Settings)args.Object;
-                Settings.Save();             
+                Settings.Save();
 
-                Initialize();
+                ApplicationStartUpManager.Set(Settings.AutoLoad);
+
+                InitializePagesExecute();
             }
         }
         private void CloseExecute()
@@ -107,18 +112,15 @@ namespace TimetableScreen
 
             nextPageDepartment.Timetables.Add(movingPhysician);
         }
-        private void Initialize()
+        private void InitializePagesExecute()
         {
+            timer.Stop();
+
             CurrentPage = new ObservableCollection<Department>();
             CurrentPage.AddRange(Settings.Departments);
             Pages = new List<ObservableCollection<Department>>();
             Pages.Add(CurrentPage);
             CurrentPageIndex = 0;
-
-            if (Settings.AutoLoad)
-                ApplicationStartUpManager.AddToStartup();
-            else
-                ApplicationStartUpManager.DeleteFromStartup();
 
             server.Stop();
             server.Start(IPAddress.Any, Settings.ScreenPort);

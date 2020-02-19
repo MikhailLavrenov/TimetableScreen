@@ -1,27 +1,14 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using TimetableScreen.Configurator.Infrastructure;
-using TimetableScreen.Configurator.Models;
 
 namespace TimetableScreen
 {
-     
-/// <summary>
-/// Позволяет перемещать окно мышью.
-/// </summary>
     public class SelectDisplayBehavior : Behavior<FrameworkElement>
     {
-
         protected override void OnAttached()
         {
-          
-
             AssociatedObject.Initialized += Handler;
         }
 
@@ -29,13 +16,12 @@ namespace TimetableScreen
         {
             var window = AssociatedObject as Window;
 
-            var viewModel=(ScreenViewModel)window.DataContext;
+            var viewModel = (ScreenViewModel)window.DataContext;
 
-            var displayIndex = viewModel.Settings.UseDisplay-1;
+            var displayIndex = viewModel.Settings.UseDisplay - 1;
 
 
-
-            if (displayIndex>Screen.AllScreens.Length-1 )
+            if (displayIndex > Screen.AllScreens.Length - 1)
             {
                 window.WindowState = WindowState.Minimized;
                 return;
@@ -45,13 +31,12 @@ namespace TimetableScreen
 
             window.Top = screenBounds.Top;
             window.Left = screenBounds.Left;
-            window.WindowState = WindowState.Maximized;           
+            window.WindowState = WindowState.Maximized;
         }
 
         protected override void OnDetaching()
         {
             AssociatedObject.Initialized += Handler;
-
         }
     }
 }
