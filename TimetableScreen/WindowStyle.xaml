@@ -30,7 +30,7 @@
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowTextColor"
-                     Color="#424242"
+                     Color="#FF2E2E2E"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowBackground"

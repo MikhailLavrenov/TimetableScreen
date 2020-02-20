@@ -24,10 +24,10 @@ namespace TimetableScreen
             dataContext = (ScreenViewModel)parentListView.DataContext;
             MoveOnNextPageCommand = dataContext.MoveToNextPageCommand;
 
-            listView.Loaded += LoadedHandler;
+            listView.Loaded += OnLoaded;
         }
 
-        private void LoadedHandler(object sender, RoutedEventArgs e) => Handler();
+        private void OnLoaded(object sender, RoutedEventArgs e) => Handler();
 
         private void Handler()
         {
@@ -41,7 +41,7 @@ namespace TimetableScreen
 
         protected override void OnDetaching()
         {
-            listView.Loaded -= LoadedHandler;
+            listView.Loaded -= OnLoaded;
         }
     }
 }

@@ -25,6 +25,7 @@ namespace TimetableScreen
         public List<ObservableCollection<Department>> Pages { get => pages; set => SetProperty(ref pages, value); }
         public ObservableCollection<Department> CurrentPage { get => currentPage; set => SetProperty(ref currentPage, value); }
         public int CurrentPageIndex { get => currentPageIndex; set => SetProperty(ref currentPageIndex, value); }
+        public string PagesTotal { get => $"Страница {CurrentPageIndex+1} из {Pages?.Count??1}"; }
 
         public DelegateCommand CloseCommand { get; }
         public DelegateCommand MinimizeCommand { get; }
@@ -82,6 +83,7 @@ namespace TimetableScreen
             {
                 nextPage = new ObservableCollection<Department>();
                 Pages.Add(nextPage);
+                RaisePropertyChanged(nameof(PagesTotal));
             }
             else
                 nextPage = Pages[CurrentPageIndex + 1];
@@ -121,6 +123,7 @@ namespace TimetableScreen
             Pages = new List<ObservableCollection<Department>>();
             Pages.Add(CurrentPage);
             CurrentPageIndex = 0;
+            RaisePropertyChanged(nameof(PagesTotal));
 
             server.Stop();
             server.Start(IPAddress.Any, Settings.ScreenPort);
@@ -133,9 +136,11 @@ namespace TimetableScreen
             if (Pages.Count == 1)
                 return;
 
-            currentPageIndex = currentPageIndex == Pages.Count - 1 ? 0 : currentPageIndex + 1;
+            CurrentPageIndex = CurrentPageIndex == Pages.Count - 1 ? 0 : CurrentPageIndex + 1;
 
-            CurrentPage = Pages[currentPageIndex];
+            CurrentPage = Pages[CurrentPageIndex];
+
+            RaisePropertyChanged(nameof(PagesTotal));
         }
     }
 }
