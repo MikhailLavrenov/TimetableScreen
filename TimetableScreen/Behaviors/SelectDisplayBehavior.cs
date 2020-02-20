@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 using TimetableScreen.Configurator.Models;
@@ -33,19 +34,28 @@ namespace TimetableScreen
 
         private void DisplayManager()
         {
-            var displayIndex = viewModel.Settings.UseDisplay - 1;
+            var displayIndex = viewModel.Settings.UseDisplay;
 
-            if (displayIndex > Screen.AllScreens.Length - 1)
+            Rectangle screenBounds;
+
+            if (displayIndex < 1 || displayIndex > Screen.AllScreens.Length)
             {
+                screenBounds = Screen.PrimaryScreen.Bounds;
                 window.WindowState = WindowState.Minimized;
-                return;
+            }
+            else
+            {
+                screenBounds = Screen.AllScreens[displayIndex - 1].Bounds;
+                window.WindowState = WindowState.Normal;
             }
 
-            var screenBounds = Screen.AllScreens[displayIndex].Bounds;
+            window.Top = screenBounds.Y;
+            window.Left = screenBounds.X;
+            window.Width = screenBounds.Width;
+            window.Height = screenBounds.Height;
 
-            window.Top = screenBounds.Top;
-            window.Left = screenBounds.Left;
-            window.WindowState = WindowState.Maximized;
+            if (window.WindowState != WindowState.Minimized)
+                window.Activate();
         }
 
         protected override void OnDetaching()

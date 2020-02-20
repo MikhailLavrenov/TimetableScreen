@@ -8,8 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:wpf="http://materialdesigninxaml.net"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"        
         Name="ScreenWindow"
 
         MinHeight="400"
@@ -21,6 +20,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Cursor="None"
+        
         WindowStyle="None"
         ResizeMode="NoResize" 
         Topmost="{Binding Settings.TopMost}">
