@@ -5,11 +5,11 @@
         xmlns:local="clr-namespace:TimetableScreen"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"        
-        x:Class="TimetableScreen.ScreenView"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        x:Name="ScreenWindow"
+        xmlns:wpf="http://materialdesigninxaml.net"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"        
+        Name="ScreenWindow"
+
         MinHeight="400"
         MinWidth="400"
         TextElement.Foreground="DarkGray"
@@ -19,6 +19,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Cursor="None"
+        
         WindowStyle="None"
         ResizeMode="NoResize"
         Topmost="{Binding Settings.TopMost}">
