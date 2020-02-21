@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:TimetableScreen"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:wpf="http://materialdesigninxaml.net"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"        
         Name="ScreenWindow"
@@ -86,7 +85,7 @@
 
                         <Border DockPanel.Dock="Top"
                                 BorderBrush="Transparent"
-                                BorderThickness="0,0,0,1"
+                                BorderThickness="0,0,0,1"                               
                                 Padding="6"
                                 Background="{StaticResource DepartmentBackground}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
@@ -100,8 +99,7 @@
                         </Border>
 
                         <ListView ItemsSource="{Binding Timetables}"
-                                  ItemContainerStyle="{StaticResource GridViewItemStyle}"
-                                  Margin="0,0,0,10">
+                                  ItemContainerStyle="{StaticResource GridViewItemStyle}" Margin="0,0,0,20">
 
                             <b:Interaction.Behaviors>
                                 <local:PagingBehavior />
@@ -119,7 +117,6 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
 
-
                                     <GridViewColumn Header="Каб"
                                                     Width="{Binding DataContext.Settings.CabinetWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                         <GridViewColumn.CellTemplate>
@@ -133,7 +130,7 @@
                                                     Width="{Binding DataContext.Settings.SpecialistWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <StackPanel Orientation="Vertical">
+                                                <StackPanel Orientation="Vertical" >
                                                     <TextBlock Text="{Binding FullName}" />
                                                     <TextBlock Text="{Binding Specialty}"
                                                                FontWeight="Light" />
@@ -247,11 +244,12 @@
 
         </ListView>
 
-        <Border  Grid.Row="1"
+        <Border  x:Name="FooterBorder"
+            Grid.Row="1"                 
                  RenderTransformOrigin="0.5,1"
                  BorderThickness="6,0,6,0"
                  SnapsToDevicePixels="True"
-                 Padding="5"
+                 Padding="6"
                  BorderBrush="Transparent"
                  Background="{StaticResource RowTextColor}">
 
