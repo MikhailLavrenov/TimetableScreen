@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xaml.Behaviors;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,24 +19,32 @@ namespace TimetableScreen
         protected override void OnAttached()
         {
             listView = AssociatedObject as ListView;
-            parentListView = listView.FindVisualParent<ListView>();
-            footerBorder = parentListView.FindVisualParent<Window>().FindVisualChild<Border>("FooterBorder");
+            parentListView = listView.FindVisualParent<ListView>();            
             dataContext = (ScreenViewModel)parentListView.DataContext;
             MoveOnNextPageCommand = dataContext.MoveToNextPageCommand;
+
+            if (!MoveOnNextPageCommand.CanExecute(null))
+                return;
+
+            footerBorder = parentListView.FindVisualParent<Window>().FindVisualChild<Border>("FooterBorder");
 
             listView.Loaded += OnLoaded;
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e) => Handler();
-
-        private void Handler()
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var row = listView.FindVisualChild<Border>("RowBorder");
+            var maxY = parentListView.ActualHeight - footerBorder.ActualHeight * (dataContext.Settings.Scale - 1);
 
-            var y = listView.TranslatePoint(new Point(0, listView.ActualHeight), parentListView).Y * dataContext.Settings.Scale;
+            var rows = new List<Border>();
+            listView.FindVisualChilds("RowBorder", ref rows);
 
-            if (y > parentListView.ActualHeight - footerBorder.ActualHeight * dataContext.Settings.Scale)
-                MoveOnNextPageCommand.Execute((Timetable)row.DataContext);
+            foreach (var row in rows)
+            {
+                var rowY = row.TranslatePoint(new Point(0, row.ActualHeight), parentListView).Y * dataContext.Settings.Scale;
+
+                if (rowY > maxY)
+                    MoveOnNextPageCommand.Execute((Timetable)row.DataContext);
+            }
         }
 
         protected override void OnDetaching()

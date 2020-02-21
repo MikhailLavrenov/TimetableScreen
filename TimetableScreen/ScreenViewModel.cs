@@ -20,13 +20,15 @@ namespace TimetableScreen
         private ObservableCollection<Department> currentPage;
         private int currentPageIndex;
         private DispatcherTimer timer;
+        private bool canMoveToNextPage;
+
 
         public Settings Settings { get => settings; set => SetProperty(ref settings, value); }
         public List<ObservableCollection<Department>> Pages { get => pages; set => SetProperty(ref pages, value); }
         public ObservableCollection<Department> CurrentPage { get => currentPage; set => SetProperty(ref currentPage, value); }
         public int CurrentPageIndex { get => currentPageIndex; set => SetProperty(ref currentPageIndex, value); }
-        public string PagesTotal { get => $"Страница {CurrentPageIndex+1} из {Pages?.Count??1}"; }
-
+        public string PagesTotal { get => $"Страница {CurrentPageIndex + 1} из {Pages?.Count ?? 1}"; }
+       
         public DelegateCommand CloseCommand { get; }
         public DelegateCommand MinimizeCommand { get; }
         public DelegateCommand InitializePagesCommand { get; }
@@ -45,7 +47,7 @@ namespace TimetableScreen
             CloseCommand = new DelegateCommand(CloseExecute);
             MinimizeCommand = new DelegateCommand(() => System.Windows.Application.Current.MainWindow.WindowState = WindowState.Minimized);
             InitializePagesCommand = new DelegateCommand(InitializePagesExecute);
-            MoveToNextPageCommand = new DelegateCommand<Timetable>(MoveToNextPageExecute);
+            MoveToNextPageCommand = new DelegateCommand<Timetable>(MoveToNextPageExecute, (x) => canMoveToNextPage);
 
             SleepMode.PreventOn();
             ApplicationStartUpManager.Set(Settings.AutoLoad);
@@ -123,6 +125,8 @@ namespace TimetableScreen
             Pages = new List<ObservableCollection<Department>>();
             Pages.Add(CurrentPage);
             CurrentPageIndex = 0;
+            canMoveToNextPage = true;
+
             RaisePropertyChanged(nameof(PagesTotal));
 
             server.Stop();
@@ -134,9 +138,20 @@ namespace TimetableScreen
         private void OnTimerTick(object sender, EventArgs e)
         {
             if (Pages.Count == 1)
+            {
+                timer.Stop();
+                canMoveToNextPage = false;
                 return;
+            }
 
-            CurrentPageIndex = CurrentPageIndex == Pages.Count - 1 ? 0 : CurrentPageIndex + 1;
+            if (CurrentPageIndex == Pages.Count - 1)
+            {
+                CurrentPageIndex = 0;
+                canMoveToNextPage = false;
+            }
+            else
+                CurrentPageIndex++;
+
 
             CurrentPage = Pages[CurrentPageIndex];
 

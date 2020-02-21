@@ -102,7 +102,7 @@
                                   ItemContainerStyle="{StaticResource GridViewItemStyle}" Margin="0,0,0,20">
 
                             <b:Interaction.Behaviors>
-                                <local:PagingBehavior />
+                                <local:PagingBehavior/>
                             </b:Interaction.Behaviors>
 
                             <ListView.View>
@@ -247,10 +247,9 @@
         <Border  x:Name="FooterBorder"
             Grid.Row="1"                 
                  RenderTransformOrigin="0.5,1"
-                 BorderThickness="6,0,6,0"
+                 BorderThickness="0"
                  SnapsToDevicePixels="True"
                  Padding="6"
-                 BorderBrush="Transparent"
                  Background="{StaticResource RowTextColor}">
 
             <Border.RenderTransform>

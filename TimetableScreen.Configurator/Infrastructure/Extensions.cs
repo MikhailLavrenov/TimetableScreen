@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
@@ -78,6 +79,21 @@ namespace TimetableScreen.Configurator.Infrastructure
             }
 
             return null;
+        }
+
+        public static void FindVisualChilds<T>(this FrameworkElement element, string name, ref List<T> result) where T : FrameworkElement
+        {
+            int childrenCount = VisualTreeHelper.GetChildrenCount(element);
+
+            for (int i = 0; i < childrenCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(element, i) as FrameworkElement;
+
+                if (child is T correctlyTyped && child.Name == name)
+                    result.Add(correctlyTyped);
+                else
+                    child.FindVisualChilds(name, ref result);
+            }
         }
 
         public static object Deserialize(this byte[] array, Type type)
