@@ -62,7 +62,7 @@
         <Setter Property="Focusable"
                 Value="False" />
         <Setter Property="Foreground"
-                Value="{StaticResource WindowBackground}" />
+                Value="{DynamicResource WindowBackground}" />
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="Template">
@@ -72,7 +72,7 @@
                     <Border BorderThickness="0,0,0,1"
                             Padding="5,3,5,3"
                             BorderBrush="{StaticResource HeaderLineColor}"
-                            Background="{StaticResource HeaderBackground}"
+                            Background="{DynamicResource HeaderBackground}"
                             HorizontalAlignment="Stretch">
 
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"

@@ -46,6 +46,8 @@ namespace TimetableScreen.Infrastructure
         {
             element.Background = brushes[brushIndex];
 
+            //Application.Current.Resources["HeaderBackground"] = brushes[brushIndex];
+
             brushIndex = brushIndex == brushes.Length - 1 ? 0 : brushIndex + 1;
         }
 
@@ -57,7 +59,7 @@ namespace TimetableScreen.Infrastructure
         private static SolidColorBrush GetBrush(string hex)
         {
             var dColor = System.Drawing.ColorTranslator.FromHtml(hex);
-            var mColor = Color.FromArgb(dColor.A, dColor.R, dColor.G, dColor.B);
+            var mColor = Color.FromArgb(dColor.A, dColor.R, dColor.G, dColor.B);            
 
             return new SolidColorBrush(mColor);
         }

@@ -57,7 +57,7 @@
                                 BorderBrush="Transparent"
                                 BorderThickness="0,0,0,1"
                                 Padding="6"
-                                Background="{StaticResource HeaderBackground}"
+                                Background="{DynamicResource HeaderBackground}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 
                             <TextBlock Text="{Binding Name}"
