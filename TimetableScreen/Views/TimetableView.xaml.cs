@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TimetableScreen
+namespace TimetableScreen.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для TimetableView.xaml
     /// </summary>
-    public partial class ScreenView : Window
+    public partial class TimetableView : UserControl
     {
-        public ScreenView()
+        public TimetableView()
         {
             InitializeComponent();
         }

@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using System.Windows;
 using TimetableScreen.Configurator.Models;
+using TimetableScreen.Views;
 
 namespace TimetableScreen
 {
@@ -18,6 +19,11 @@ namespace TimetableScreen
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterInstance(Settings.Load());
+
+            containerRegistry.RegisterForNavigation<TimetableView>();
+            containerRegistry.RegisterForNavigation<TitleView>();
+
+
         }
     }
 }

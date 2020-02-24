@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System;
 using System.Windows;
+using TimetableScreen.ViewModels;
 
-namespace TimetableScreen.Behaviors
+namespace TimetableScreen.Infrastructure
 {
-
     public class WindowSizeChangedBehavior : Behavior<FrameworkElement>
     {
         Window window;
@@ -19,7 +19,7 @@ namespace TimetableScreen.Behaviors
         private void Handler(object sender, EventArgs e)
         {
             var viewModel=(ScreenViewModel)window.DataContext;
-            viewModel.InitializePagesCommand.Execute();
+            viewModel.InitializeCommand.Execute();
         }
 
         protected override void OnDetaching()

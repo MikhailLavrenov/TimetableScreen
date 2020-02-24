@@ -1,73 +1,43 @@
-﻿<Window x:Class="TimetableScreen.ScreenView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TimetableScreen"
-        xmlns:prism="http://prismlibrary.com/"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d"        
-        Name="ScreenWindow"
+﻿<UserControl x:Class="TimetableScreen.Views.TimetableView"
+             x:Name="HostElement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:TimetableScreen.Views"
+             xmlns:vm="clr-namespace:TimetableScreen.ViewModels"
+             xmlns:i="clr-namespace:TimetableScreen.Infrastructure"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="800"
+             prism:ViewModelLocator.AutoWireViewModel="True">
 
-        MinHeight="400"
-        MinWidth="400"
-        TextElement.Foreground="DarkGray"
-        Background="White"
-        TextElement.FontWeight="Medium"
-        TextElement.FontSize="14"
-        FontFamily="{materialDesign:MaterialDesignFont}"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        Cursor="None"
+    <DockPanel  d:DataContext="{d:DesignInstance {x:Type vm:TimetableViewModel}}">
+
+        <Border  x:Name="FooterBorder"
+                 DockPanel.Dock="Bottom"
+                 RenderTransformOrigin="0.5,1"
+                 BorderThickness="0"
+                 SnapsToDevicePixels="True"
+                 Padding="6"
+                 Panel.ZIndex="1"
+                 Background="{StaticResource RowTextColor}">
+
+            <Border.RenderTransform>
+                <ScaleTransform ScaleX="{Binding Settings.Scale}"
+                                ScaleY="{Binding Settings.Scale}" />
+            </Border.RenderTransform>
+
+            <TextBlock Text="{Binding PageIndicator}"
+                       Foreground="{StaticResource DepartmentTextColor}"
+                       HorizontalAlignment="Center" />
+
+        </Border>
         
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        Topmost="{Binding Settings.TopMost}">
-
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TimetableScreen;component/WindowStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
-    <b:Interaction.Behaviors>
-        <local:DragWindowBehavior />
-        <local:SelectDisplayBehavior />
-    </b:Interaction.Behaviors>
-
-    <b:Interaction.Triggers>
-        <b:EventTrigger EventName="SizeChanged">
-            <b:InvokeCommandAction Command="{Binding InitializePagesCommand}" />
-        </b:EventTrigger>
-    </b:Interaction.Triggers>
-
-    <Grid d:DataContext="{d:DesignInstance {x:Type local:ScreenViewModel}}">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal"
-                    Panel.ZIndex="2"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top">
-
-            <Button Style="{StaticResource MinimizeButton}"
-                    Command="{Binding MinimizeCommand}" />
-
-            <Button Style="{StaticResource CloseButton}"
-                    Command="{Binding CloseCommand}" />
-
-        </StackPanel>
-
-        <Border Panel.ZIndex="1"
-                BorderThickness="0"
-                Background="Transparent"
-                Cursor="None" />
-
+        
         <ListView  ItemsSource="{Binding CurrentPage}">
 
             <ListView.RenderTransform>
@@ -75,9 +45,9 @@
                                 ScaleY="{Binding Settings.Scale}" />
             </ListView.RenderTransform>
 
-            <b:Interaction.Behaviors>
-                <local:CircleAnimationBehavior AnimationParametersTarget="ScreenWindow" />
-            </b:Interaction.Behaviors>
+            <!--<b:Interaction.Behaviors>
+                <i:CircleAnimationBehavior AnimationParametersTarget="HostElement" />
+            </b:Interaction.Behaviors>-->
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -85,7 +55,7 @@
 
                         <Border DockPanel.Dock="Top"
                                 BorderBrush="Transparent"
-                                BorderThickness="0,0,0,1"                               
+                                BorderThickness="0,0,0,1"
                                 Padding="6"
                                 Background="{StaticResource DepartmentBackground}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
@@ -99,10 +69,11 @@
                         </Border>
 
                         <ListView ItemsSource="{Binding Timetables}"
-                                  ItemContainerStyle="{StaticResource GridViewItemStyle}" Margin="0,0,0,20">
+                                  ItemContainerStyle="{StaticResource GridViewItemStyle}"
+                                  Margin="0,0,0,20">
 
                             <b:Interaction.Behaviors>
-                                <local:PagingBehavior/>
+                                <i:PagingBehavior />
                             </b:Interaction.Behaviors>
 
                             <ListView.View>
@@ -130,7 +101,7 @@
                                                     Width="{Binding DataContext.Settings.SpecialistWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <StackPanel Orientation="Vertical" >
+                                                <StackPanel Orientation="Vertical">
                                                     <TextBlock Text="{Binding FullName}" />
                                                     <TextBlock Text="{Binding Specialty}"
                                                                FontWeight="Light" />
@@ -244,25 +215,8 @@
 
         </ListView>
 
-        <Border  x:Name="FooterBorder"
-            Grid.Row="1"                 
-                 RenderTransformOrigin="0.5,1"
-                 BorderThickness="0"
-                 SnapsToDevicePixels="True"
-                 Padding="6"
-                 Background="{StaticResource RowTextColor}">
 
-            <Border.RenderTransform>
-                <ScaleTransform ScaleX="{Binding Settings.Scale}"
-                                ScaleY="{Binding Settings.Scale}" />
-            </Border.RenderTransform>
 
-            <TextBlock Text="{Binding PagesTotal}"
-                       Foreground="{StaticResource DepartmentTextColor}"
-                       HorizontalAlignment="Center" />
-
-        </Border>
-
-    </Grid>
-
-</Window>
+    </DockPanel>
+    
+</UserControl>

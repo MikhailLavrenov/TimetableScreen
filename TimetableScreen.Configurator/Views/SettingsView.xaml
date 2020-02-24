@@ -43,6 +43,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <FrameworkElement Grid.Column="1"
@@ -100,41 +102,58 @@
 
         <TextBlock Grid.Row="6"
                    Grid.Column="0"
-                   Text="Ширина солбцов"
-                   Margin="5,10,5,10" />
+                   Text="Время показа начальной страницы (секунд)" />
+        <TextBox Grid.Row="6"
+                 Grid.Column="2"
+                 Text="{Binding Settings.ShowTitlePageTime}" />
 
         <TextBlock Grid.Row="7"
                    Grid.Column="0"
-                   Text="Участок" />
+                   Text="Текст начальной страницы" />
         <TextBox Grid.Row="7"
                  Grid.Column="2"
-                 Text="{Binding Settings.SiteWidth}" />
-        
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Stretch"
+                 AcceptsReturn="True"
+                 Text="{Binding Settings.TitleText}" />
+
         <TextBlock Grid.Row="8"
                    Grid.Column="0"
-                   Text="Кабинет" />
-        <TextBox Grid.Row="8"
-                 Grid.Column="2"
-                 Text="{Binding Settings.CabinetWidth}" />
+                   Text="Ширина солбцов"
+                   Margin="5,10,5,10" />
 
         <TextBlock Grid.Row="9"
                    Grid.Column="0"
-                   Text="Специалист" />
+                   Text="Участок" />
         <TextBox Grid.Row="9"
                  Grid.Column="2"
-                 Text="{Binding Settings.SpecialistWidth}" />
-
+                 Text="{Binding Settings.SiteWidth}" />
+        
         <TextBlock Grid.Row="10"
                    Grid.Column="0"
-                   Text="Дни недели" />
+                   Text="Кабинет" />
         <TextBox Grid.Row="10"
                  Grid.Column="2"
-                 Text="{Binding Settings.DayOfWeekWidth}" />
+                 Text="{Binding Settings.CabinetWidth}" />
 
         <TextBlock Grid.Row="11"
                    Grid.Column="0"
-                   Text="Примечание" />
+                   Text="Специалист" />
         <TextBox Grid.Row="11"
+                 Grid.Column="2"
+                 Text="{Binding Settings.SpecialistWidth}" />
+
+        <TextBlock Grid.Row="12"
+                   Grid.Column="0"
+                   Text="Дни недели" />
+        <TextBox Grid.Row="12"
+                 Grid.Column="2"
+                 Text="{Binding Settings.DayOfWeekWidth}" />
+
+        <TextBlock Grid.Row="13"
+                   Grid.Column="0"
+                   Text="Примечание" />
+        <TextBox Grid.Row="13"
                  Grid.Column="2"
                  Text="{Binding Settings.NoteWidth}" />
 

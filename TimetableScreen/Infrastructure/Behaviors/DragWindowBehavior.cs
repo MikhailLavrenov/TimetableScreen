@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace TimetableScreen
+namespace TimetableScreen.Infrastructure
 {
     /// <summary>
     /// Позволяет перемещать окно мышью.

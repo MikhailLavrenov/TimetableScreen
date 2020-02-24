@@ -2,18 +2,20 @@
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using TimetableScreen.Configurator.Infrastructure;
+using TimetableScreen.ViewModels;
 
-namespace TimetableScreen
+namespace TimetableScreen.Infrastructure
 {
     public class CircleAnimationBehavior : Behavior<FrameworkElement>
     {
         private FrameworkElement animatedElement;
         //элемент относительно которого расчитываются параметры (размеры) анимации
         private FrameworkElement animationParametersTargetElement;
-        private ScreenViewModel dataContext;
+        private TimetableViewModel dataContext;
         /// <summary>
         /// Имя элемента относительно которого расчитываются параметры (размеры) анимации
         /// </summary>
@@ -22,9 +24,9 @@ namespace TimetableScreen
         protected override void OnAttached()
         {
             animatedElement = AssociatedObject;
-            animationParametersTargetElement = AssociatedObject.FindLogicalParent(AnimationParametersTarget);
+            animationParametersTargetElement = animatedElement.FindLogicalParent(AnimationParametersTarget);
 
-            dataContext = (ScreenViewModel)AssociatedObject.DataContext;
+            dataContext = (TimetableViewModel)AssociatedObject.DataContext;
             dataContext.PropertyChanged += EventHandler;
         }
         protected override void OnDetaching()
@@ -33,7 +35,7 @@ namespace TimetableScreen
         }
         protected void EventHandler(object sender, PropertyChangedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 if (e.PropertyName != nameof(dataContext.CurrentPage))
                     return;
@@ -52,29 +54,29 @@ namespace TimetableScreen
                 var ease = new ExponentialEase
                 {
                     EasingMode = EasingMode.EaseIn,
-                    Exponent = 1.3
-                };
-
-                var ease2 = new ExponentialEase
-                {
-                    EasingMode = EasingMode.EaseIn,
                     Exponent = 0.5
                 };
 
                 var animationOpacity = new DoubleAnimation(0, 1, duration);
-                animationOpacity.EasingFunction = ease2;
+                animationOpacity.EasingFunction = ease;
                 animatedElement.BeginAnimation(UIElement.OpacityProperty, animationOpacity);
 
+                var ease2 = new ExponentialEase
+                {
+                    EasingMode = EasingMode.EaseIn,
+                    Exponent = 1.3
+                };
+
                 var animationX = new DoubleAnimation(0, radius, duration);
-                animationX.EasingFunction = ease;
+                animationX.EasingFunction = ease2;
                 elipseGeometry.BeginAnimation(EllipseGeometry.RadiusXProperty, animationX);
 
                 var animationY = new DoubleAnimation(0, radius, duration);
-                animationY.EasingFunction = ease;
+                animationY.EasingFunction = ease2;
                 animationY.Completed += (sndr, args) => animatedElement.Clip = null;
                 elipseGeometry.BeginAnimation(EllipseGeometry.RadiusYProperty, animationY);
 
-            }));
+            });
         }
     }
 }

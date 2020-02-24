@@ -5,8 +5,9 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 using TimetableScreen.Configurator.Models;
+using TimetableScreen.ViewModels;
 
-namespace TimetableScreen
+namespace TimetableScreen.Infrastructure
 {
     public class SelectDisplayBehavior : Behavior<FrameworkElement>
     {

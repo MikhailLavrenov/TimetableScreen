@@ -5,8 +5,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using TimetableScreen.Configurator.Infrastructure;
 using TimetableScreen.Configurator.Models;
+using TimetableScreen.ViewModels;
+using TimetableScreen.Views;
 
-namespace TimetableScreen
+namespace TimetableScreen.Infrastructure
 {
     public class PagingBehavior : Behavior<FrameworkElement>
     {
@@ -14,19 +16,19 @@ namespace TimetableScreen
         private ListView listView;
         private Border footerBorder;
         private ICommand MoveOnNextPageCommand;
-        private ScreenViewModel dataContext;
+        private TimetableViewModel dataContext;
 
         protected override void OnAttached()
         {
             listView = AssociatedObject as ListView;
             parentListView = listView.FindVisualParent<ListView>();            
-            dataContext = (ScreenViewModel)parentListView.DataContext;
+            dataContext = (TimetableViewModel)parentListView.DataContext;
             MoveOnNextPageCommand = dataContext.MoveToNextPageCommand;
 
             if (!MoveOnNextPageCommand.CanExecute(null))
                 return;
 
-            footerBorder = parentListView.FindVisualParent<Window>().FindVisualChild<Border>("FooterBorder");
+            footerBorder = parentListView.FindVisualParent<TimetableView>().FindVisualChild<Border>("FooterBorder");
 
             listView.Loaded += OnLoaded;
         }

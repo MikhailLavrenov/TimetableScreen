@@ -53,7 +53,7 @@ namespace TimetableScreen.Configurator.Infrastructure
             while (element != null)
             {
                 if (element.Name == foundName)
-                    return element;
+                    return element;               
 
                 element = element.Parent as FrameworkElement;
             }

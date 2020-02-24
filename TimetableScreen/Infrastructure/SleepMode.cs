@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace TimetableScreen
+namespace TimetableScreen.Infrastructure
 {
     public static class SleepMode
     {

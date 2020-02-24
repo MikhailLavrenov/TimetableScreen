@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 
-namespace TimetableScreen
+namespace TimetableScreen.Infrastructure
 {
     /// <summary>
     /// Управляет автозапуском приложения

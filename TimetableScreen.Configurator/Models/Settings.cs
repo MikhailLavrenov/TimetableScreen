@@ -23,6 +23,8 @@ namespace TimetableScreen.Configurator.Models
         private int useDisplay = 1;
         private bool topMost = true;
         private bool autoLoad = true;
+        private int showTitlePageTime=10;
+        private string titleText = "Расписания приема специалистов";
 
 
         public int UseDisplay { get => useDisplay; set => SetProperty(ref useDisplay, value); }
@@ -35,6 +37,9 @@ namespace TimetableScreen.Configurator.Models
         public int SiteWidth { get => siteWidth; set => SetProperty(ref siteWidth, value); }
         public int DayOfWeekWidth { get => dayOfWeekWidth; set => SetProperty(ref dayOfWeekWidth, value); }
         public int NoteWidth { get => noteWidth; set => SetProperty(ref noteWidth, value); }
+        public int ShowTitlePageTime { get => showTitlePageTime; set => SetProperty(ref showTitlePageTime, value); }
+        public string TitleText { get => titleText; set => SetProperty(ref titleText, value); }
+
 
         public ObservableCollection<Department> Departments { get => departments; set => SetProperty(ref departments, value); }
         public string ScreenAddress { get => screenAddress; set => SetProperty(ref screenAddress, value); }
