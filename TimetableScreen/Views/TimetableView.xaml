@@ -32,7 +32,7 @@
             </Border.RenderTransform>
 
             <TextBlock Text="{Binding PageIndicator}"
-                       Foreground="{StaticResource DepartmentTextColor}"
+                       Foreground="{StaticResource WindowBackground}"
                        HorizontalAlignment="Center" />
 
         </Border>
@@ -57,11 +57,11 @@
                                 BorderBrush="Transparent"
                                 BorderThickness="0,0,0,1"
                                 Padding="6"
-                                Background="{StaticResource DepartmentBackground}"
+                                Background="{StaticResource HeaderBackground}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 
                             <TextBlock Text="{Binding Name}"
-                                       Foreground="{StaticResource DepartmentTextColor}"
+                                       Foreground="{StaticResource WindowBackground}"
                                        FontSize="16"
                                        FontWeight="Medium"
                                        HorizontalAlignment="Center" />

@@ -8,24 +8,16 @@
                      Color="White"
                      po:Freeze="True" />
 
-    <SolidColorBrush x:Key="DepartmentTextColor"
+    <!--<SolidColorBrush x:Key="HeaderTextColor"
                      Color="White"
-                     po:Freeze="True" />
-
-    <SolidColorBrush x:Key="DepartmentBackground"
-                     Color="#FF0067B8"
-                     po:Freeze="True" />
-
-    <SolidColorBrush x:Key="HeaderTextColor"
-                     Color="White"
-                     po:Freeze="True" />
+                     po:Freeze="True" />-->
 
     <SolidColorBrush x:Key="HeaderBackground"
                      Color="#FF0067B8"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="HeaderLineColor"
-                     Color="White"
+                     Color="Transparent"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowTextColor"
@@ -70,7 +62,7 @@
         <Setter Property="Focusable"
                 Value="False" />
         <Setter Property="Foreground"
-                Value="{StaticResource HeaderTextColor}" />
+                Value="{StaticResource WindowBackground}" />
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="Template">
@@ -196,7 +188,7 @@
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{StaticResource DepartmentBackground}" />
+                        Value="{StaticResource HeaderBackground}" />
                 <Setter Property="Foreground"
                         Value="{Binding Background, RelativeSource={RelativeSource  AncestorType={x:Type Window}}}" />
             </Trigger>
