@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="TimetableScreen.Views.TitleView"
+             x:Name="userControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,8 +23,9 @@
 
     <Border d:DataContext="{d:DesignInstance {x:Type vm:TitleViewModel}}"
             BorderThickness="0">
-
+        
         <b:Interaction.Behaviors>
+            <i:CircleAnimationBehavior AnimationParametersTarget="userControl" />
             <i:TitleBackgroundGeneratorBehavior />
         </b:Interaction.Behaviors>
 

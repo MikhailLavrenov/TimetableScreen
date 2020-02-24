@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using TimetableScreen.Configurator.Infrastructure;
@@ -26,22 +25,32 @@ namespace TimetableScreen.Infrastructure
             animatedElement = AssociatedObject;
             animationParametersTargetElement = animatedElement.FindLogicalParent(AnimationParametersTarget);
 
-            dataContext = (TimetableViewModel)AssociatedObject.DataContext;
-            dataContext.PropertyChanged += EventHandler;
+            dataContext = AssociatedObject.DataContext as TimetableViewModel;
+
+            animationParametersTargetElement.Loaded += OnLoaded;
+
+            if (dataContext != null)
+                dataContext.PropertyChanged += OnPropertyChanged;
         }
         protected override void OnDetaching()
         {
-            dataContext.PropertyChanged -= EventHandler;
+            animationParametersTargetElement.Loaded -= OnLoaded;
+
+            if (dataContext != null)
+                dataContext.PropertyChanged -= OnPropertyChanged;
         }
-        protected void EventHandler(object sender, PropertyChangedEventArgs e)
+
+        protected void OnLoaded(object sender, EventArgs e) => Handler();
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(dataContext.CurrentPage))
+                Handler();
+        }
+
+        protected void Handler()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                if (e.PropertyName != nameof(dataContext.CurrentPage))
-                    return;
-
-                var scale = dataContext.Settings.Scale;
-
                 var center = new Point(0, 0);
                 var elipseGeometry = new EllipseGeometry(center, 0, 0);
                 var x = animationParametersTargetElement.ActualWidth;
