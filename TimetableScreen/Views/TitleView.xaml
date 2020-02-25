@@ -15,12 +15,8 @@
              d:DesignHeight="800"
              d:DesignWidth="800"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <UserControl.Resources>
-        <sys:Double x:Key="FontSizeRes">48</sys:Double>
-    </UserControl.Resources>
 
-
-
+    
     <Border d:DataContext="{d:DesignInstance {x:Type vm:TitleViewModel}}"
             BorderThickness="0">
         
@@ -36,7 +32,13 @@
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    Foreground="White"
-                   FontWeight="Medium" />
+                   FontWeight="Medium" >
+            
+            <b:Interaction.Behaviors>
+                <i:TitleRandomMoveBehavior  />
+            </b:Interaction.Behaviors>
+            
+        </TextBlock>
 
     </Border>
 </UserControl>

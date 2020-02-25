@@ -16,6 +16,10 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <DockPanel  d:DataContext="{d:DesignInstance {x:Type vm:TimetableViewModel}}">
+        
+        <b:Interaction.Behaviors>
+            <i:HorizontalRandomMoveBehavior RandomBounds="10"/>
+        </b:Interaction.Behaviors>
 
         <Border  x:Name="FooterBorder"
                  DockPanel.Dock="Bottom"

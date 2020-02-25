@@ -20,7 +20,7 @@ namespace TimetableScreen.ViewModels
         {
             Settings = settings;
             this.regionManager = regionManager;
-            FontSize = Settings.Scale * 52;
+            FontSize = Settings.Scale * 72;
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(Settings.ShowTitlePageTime);
