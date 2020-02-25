@@ -3,18 +3,21 @@
                     xmlns:local="clr-namespace:TimetableScreen.Views"
                     xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
+    <SolidColorBrush x:Key="PrimaryHueLightBrush"
+                     Color="#FF0067B8"
+                     po:Freeze="True" />
+
+    <SolidColorBrush x:Key="PrimaryHueMidBrush"
+                     Color="#FF0067B8"
+                     po:Freeze="True" />
+
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush"
+                     Color="#FF0067B8"
+                     po:Freeze="True" />
 
     <SolidColorBrush x:Key="WindowBackground"
                      Color="White"
                      po:Freeze="True" />
-
-    <!--<SolidColorBrush x:Key="HeaderTextColor"
-                     Color="White"
-                     po:Freeze="True" />-->
-
-    <SolidColorBrush x:Key="HeaderBackground"
-                     Color="#FF0067B8"
-                     po:Freeze="True"/>
 
     <SolidColorBrush x:Key="HeaderLineColor"
                      Color="Transparent"
@@ -65,7 +68,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource WindowBackground}" />
         <Setter Property="Background"
-                Value="{DynamicResource HeaderBackground}" />
+                Value="{DynamicResource PrimaryHueMidBrush}" />
         <Setter Property="BorderBrush"
                 Value="{StaticResource HeaderLineColor}" />
         <Setter Property="BorderThickness"
@@ -195,7 +198,7 @@
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{DynamicResource HeaderBackground}" />
+                        Value="{DynamicResource PrimaryHueDarkBrush}" />
                 <Setter Property="Foreground"
                         Value="{StaticResource WindowBackground}" />
             </Trigger>

@@ -10,7 +10,6 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DesignHeight="800"
              d:DesignWidth="800"
@@ -18,11 +17,12 @@
 
     
     <Border d:DataContext="{d:DesignInstance {x:Type vm:TitleViewModel}}"
-            BorderThickness="0">
+            BorderThickness="0"
+            Background="{DynamicResource PrimaryHueMidBrush}">
         
         <b:Interaction.Behaviors>
             <i:CircleAnimationBehavior AnimationParametersTarget="userControl" />
-            <i:TitleBackgroundGeneratorBehavior />
+            <i:ColorSelectorBehavior />
         </b:Interaction.Behaviors>
 
         <TextBlock Text="{Binding Settings.TitleText}"

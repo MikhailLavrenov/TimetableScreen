@@ -2,8 +2,8 @@
              x:Name="userControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:v="clr-namespace:TimetableScreen.Views"
              xmlns:vm="clr-namespace:TimetableScreen.ViewModels"
              xmlns:i="clr-namespace:TimetableScreen.Infrastructure"
@@ -17,32 +17,28 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <DockPanel  d:DataContext="{d:DesignInstance {x:Type vm:TimetableViewModel}}">
-        
+
         <b:Interaction.Behaviors>
-            <i:HorizontalRandomMoveBehavior RandomBounds="10"/>
+            <i:HorizontalRandomMoveBehavior RandomBounds="10" />
         </b:Interaction.Behaviors>
 
-        <Border  x:Name="FooterBorder"
-                 DockPanel.Dock="Bottom"
-                 RenderTransformOrigin="0.5,1"
-                 BorderThickness="0"
-                 SnapsToDevicePixels="True"
-                 Padding="6"
-                 Panel.ZIndex="1"
-                 Background="{StaticResource WindowBackground}">
+        <TextBlock x:Name="Footer"
+                   DockPanel.Dock="Bottom"
+                   Panel.ZIndex="1"
+                   Padding="0,8,0,5"                  
+                   Text="{Binding PageIndicator}"
+                   Foreground="{DynamicResource PrimaryHueMidBrush}"
+                   HorizontalAlignment="Center"
+                   RenderTransformOrigin="0.5,1">
 
-            <Border.RenderTransform>
+            <TextBlock.RenderTransform>
                 <ScaleTransform ScaleX="{Binding Settings.Scale}"
                                 ScaleY="{Binding Settings.Scale}" />
-            </Border.RenderTransform>
+            </TextBlock.RenderTransform>
 
-            <TextBlock Text="{Binding PageIndicator}"
-                       Foreground="{DynamicResource HeaderBackground}"
-                       HorizontalAlignment="Center" />
+        </TextBlock>
 
-        </Border>
-        
-        
+
         <ListView  ItemsSource="{Binding CurrentPage}">
 
             <ListView.RenderTransform>
@@ -62,7 +58,7 @@
                                 BorderBrush="Transparent"
                                 BorderThickness="0,0,0,1"
                                 Padding="6"
-                                Background="{DynamicResource HeaderBackground}"
+                                Background="{DynamicResource PrimaryHueMidBrush}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 
                             <TextBlock Text="{Binding Name}"
@@ -223,5 +219,5 @@
 
 
     </DockPanel>
-    
+
 </UserControl>

@@ -14,7 +14,7 @@ namespace TimetableScreen.Infrastructure
     {
         private ListView parentListView;
         private ListView listView;
-        private Border footerBorder;
+        private FrameworkElement footer;
         private ICommand MoveOnNextPageCommand;
         private TimetableViewModel dataContext;
 
@@ -28,14 +28,14 @@ namespace TimetableScreen.Infrastructure
             if (!MoveOnNextPageCommand.CanExecute(null))
                 return;
 
-            footerBorder = parentListView.FindVisualParent<TimetableView>().FindVisualChild<Border>("FooterBorder");
+            footer = parentListView.FindVisualParent<TimetableView>().FindVisualChild<FrameworkElement>("Footer");
 
             listView.Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var maxY = parentListView.ActualHeight - footerBorder.ActualHeight * (dataContext.Settings.Scale - 1);
+            var maxY = parentListView.ActualHeight - footer.ActualHeight * (dataContext.Settings.Scale - 1);
 
             var rows = new List<Border>();
             listView.FindVisualChilds("RowBorder", ref rows);
