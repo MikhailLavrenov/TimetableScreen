@@ -29,7 +29,7 @@
                  SnapsToDevicePixels="True"
                  Padding="6"
                  Panel.ZIndex="1"
-                 Background="{StaticResource RowTextColor}">
+                 Background="{StaticResource WindowBackground}">
 
             <Border.RenderTransform>
                 <ScaleTransform ScaleX="{Binding Settings.Scale}"
@@ -37,7 +37,7 @@
             </Border.RenderTransform>
 
             <TextBlock Text="{Binding PageIndicator}"
-                       Foreground="{StaticResource WindowBackground}"
+                       Foreground="{DynamicResource HeaderBackground}"
                        HorizontalAlignment="Center" />
 
         </Border>
@@ -75,7 +75,7 @@
 
                         <ListView ItemsSource="{Binding Timetables}"
                                   ItemContainerStyle="{StaticResource GridViewItemStyle}"
-                                  Margin="0,0,0,20">
+                                  Margin="0,0,0,28">
 
                             <b:Interaction.Behaviors>
                                 <i:PagingBehavior />

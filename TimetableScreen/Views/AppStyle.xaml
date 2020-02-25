@@ -14,7 +14,7 @@
 
     <SolidColorBrush x:Key="HeaderBackground"
                      Color="#FF0067B8"
-                     po:Freeze="True" />
+                     po:Freeze="True"/>
 
     <SolidColorBrush x:Key="HeaderLineColor"
                      Color="Transparent"
@@ -25,7 +25,7 @@
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowBackground"
-                     Color="Transparent"
+                     Color="Transparent" 
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowLineColor"
@@ -64,16 +64,20 @@
                 Value="False" />
         <Setter Property="Foreground"
                 Value="{DynamicResource WindowBackground}" />
+        <Setter Property="Background"
+                Value="{DynamicResource HeaderBackground}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource HeaderLineColor}" />
         <Setter Property="BorderThickness"
-                Value="0" />
+                Value="0,0,0,0.8" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GridViewColumnHeader">
 
-                    <Border BorderThickness="0,0,0,1"
-                            Padding="5,3,5,3"
-                            BorderBrush="{StaticResource HeaderLineColor}"
-                            Background="{DynamicResource HeaderBackground}"
+                    <Border BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="5,7,5,7"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
                             HorizontalAlignment="Stretch">
 
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -95,16 +99,18 @@
                 Value="{StaticResource RowBackground}" />
         <Setter Property="Foreground"
                 Value="{StaticResource RowTextColor}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource RowLineColor}" />
         <Setter Property="BorderThickness"
-                Value="0" />
+                Value="0,0,0,0.8" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="RowBorder"
                             Padding="0,4,0,4"
-                            Background="{StaticResource RowBackground}"
-                            BorderBrush="{StaticResource RowLineColor}"
-                            BorderThickness="0,0,0,0.8"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                         <GridViewRowPresenter />
                     </Border>

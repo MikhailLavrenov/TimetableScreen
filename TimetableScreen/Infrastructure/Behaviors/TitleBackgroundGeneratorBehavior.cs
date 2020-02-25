@@ -29,7 +29,7 @@ namespace TimetableScreen.Infrastructure
             GetBrush("#FF9800"),
             GetBrush("#FF5722"),
             GetBrush("#795548"),
-            GetBrush("#9E9E9E"),
+            //GetBrush("#9E9E9E"),
             GetBrush("#607D8B"),
         };
 
@@ -61,7 +61,7 @@ namespace TimetableScreen.Infrastructure
             var dColor = System.Drawing.ColorTranslator.FromHtml(hex);
             var mColor = Color.FromArgb(dColor.A, dColor.R, dColor.G, dColor.B);            
 
-            return new SolidColorBrush(mColor);
+            return new SolidColorBrush(mColor) { Opacity=0.9};
         }
     }
 }
