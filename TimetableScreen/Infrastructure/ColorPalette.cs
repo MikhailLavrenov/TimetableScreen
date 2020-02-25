@@ -48,6 +48,7 @@ namespace TimetableScreen.Infrastructure
             //GetColor("#BDBDBD"),
             GetColor("#78909C"),
         };
+
         public static Color[] colors300 = new Color[]{
             GetColor("#e57373"),
             GetColor("#F06292"),
@@ -70,17 +71,73 @@ namespace TimetableScreen.Infrastructure
             GetColor("#90A4AE"),
         };
 
-        public static int Count;
+        public static Color[] colors200 = new Color[]{
+            GetColor("#ef9a9a"),
+            GetColor("#F48FB1"),
+            GetColor("#CE93D8"),
+            GetColor("#B39DDB"),
+            GetColor("#9FA8DA"),
+            GetColor("#90CAF9"),
+            GetColor("#81D4FA"),
+            GetColor("#80DEEA"),
+            GetColor("#80CBC4"),
+            GetColor("#A5D6A7"),
+            GetColor("#C5E1A5"),
+            GetColor("#E6EE9C"),
+            //GetColor("#FFF59D"),
+            GetColor("#FFE082"),
+            GetColor("#FFCC80"),
+            GetColor("#FFAB91"),
+            GetColor("#BCAAA4"),
+            //GetColor("#EEEEEE"),
+            GetColor("#B0BEC5"),
+        };
+
+        public static Color[] colors100 = new Color[]{
+            GetColor("#ffebee"),
+            GetColor("#FCE4EC"),
+            GetColor("#F3E5F5"),
+            GetColor("#EDE7F6"),
+            GetColor("#E8EAF6"),
+            GetColor("#E3F2FD"),
+            GetColor("#E1F5FE"),
+            GetColor("#E0F7FA"),
+            GetColor("#E0F2F1"),
+            GetColor("#E8F5E9"),
+            GetColor("#F1F8E9"),
+            GetColor("#F9FBE7"),
+            //GetColor("#FFFDE7"),
+            GetColor("#FFF8E1"),
+            GetColor("#FFF3E0"),
+            GetColor("#FBE9E7"),
+            GetColor("#EFEBE9"),
+            //GetColor("#FAFAFA"),
+            GetColor("#ECEFF1"),
+        };
+
+        public static (Color, Color)[] gradientsColors = new[]
+        {
+            (GetColor("#29B6F6"),GetColor("#5C6BC0")),
+            //(GetColor("#26C6DA"),GetColor("#26A69A")),
+            //(GetColor("#26C6DA"),GetColor("#00695C")),
+            //(GetColor("#"),GetColor("#"))
+        };
+            
+
+
+        public static int ColorsCount;
+        public static int GradientsCount;
 
         static ColorPalette()
         {
-            Count = colors300.Length;
+            ColorsCount = colors400.Length;
+            GradientsCount = gradientsColors.Length;
 
-            if (colors300.Length != colors400.Length || colors300.Length != colors500.Length)
+            if (colors100.Length != colors200.Length || colors100.Length != colors300.Length || colors100.Length != colors400.Length || colors100.Length != colors500.Length)
                 throw new InvalidOperationException("Наборы цветовой палитры имкют различные размеры.");
         }
 
-        private static Color GetColor(string colorCode)
+        public static Color GetColor(string colorCode)
         {
             return (Color)ColorConverter.ConvertFromString(colorCode);
         }

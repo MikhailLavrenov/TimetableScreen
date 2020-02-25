@@ -18,7 +18,7 @@
     
     <Border d:DataContext="{d:DesignInstance {x:Type vm:TitleViewModel}}"
             BorderThickness="0"
-            Background="{DynamicResource PrimaryHueMidBrush}">
+            Background="{DynamicResource PrimaryGradient}">
         
         <b:Interaction.Behaviors>
             <i:CircleAnimationBehavior AnimationParametersTarget="userControl" />

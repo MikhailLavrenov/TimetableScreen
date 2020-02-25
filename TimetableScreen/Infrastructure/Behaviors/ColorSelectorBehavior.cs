@@ -20,7 +20,12 @@ namespace TimetableScreen.Infrastructure
             Application.Current.Resources["PrimaryHueMidBrush"] = new SolidColorBrush(ColorPalette.colors400[brushIndex]);
             Application.Current.Resources["PrimaryHueDarkBrush"] = new SolidColorBrush(ColorPalette.colors500[brushIndex]);
 
-            brushIndex = brushIndex == ColorPalette.Count - 1 ? 0 : brushIndex + 1;
+            var color1 = ColorPalette.GetColor("#134E5E");
+            var color2 = ColorPalette.GetColor("#71B280");
+
+            Application.Current.Resources["PrimaryGradient"] = new LinearGradientBrush(color1, color2, 45);
+
+            brushIndex = brushIndex == ColorPalette.ColorsCount - 1 ? 0 : brushIndex + 1;
         }
 
         protected override void OnDetaching()
