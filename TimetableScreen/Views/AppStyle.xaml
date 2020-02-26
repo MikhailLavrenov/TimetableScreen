@@ -4,7 +4,7 @@
                     xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
     <LinearGradientBrush x:Key="PrimaryGradient"
-                     po:Freeze="True" />
+                         po:Freeze="True" />
 
     <SolidColorBrush x:Key="PrimaryHueLightBrush"
                      Color="#FF0067B8"
@@ -23,7 +23,8 @@
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="HeaderTextColor"
-                     Color="White" Opacity="0.8"
+                     Color="White"
+                     Opacity="0.8"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="HeaderBakground"
@@ -32,15 +33,16 @@
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="HeaderLineColor"
-                     Color="Transparent" 
+                     Color="Transparent"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowTextColor"
-                     Color="Black" Opacity="0.9"
+                     Color="#FF292929"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowBackground"
-                     Color="White" Opacity="0.7"
+                     Color="White"
+                     Opacity="0.7"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowLineColor"
@@ -57,7 +59,8 @@
                 Value="Normal" />
         <Setter Property="BorderThickness"
                 Value="0" />
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background"
+                Value="Transparent" />
         <Setter Property="HorizontalAlignment"
                 Value="Center" />
         <Setter Property="RenderTransformOrigin"
@@ -76,7 +79,8 @@
                 Value="Center" />
         <Setter Property="Focusable"
                 Value="False" />
-        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontWeight"
+                Value="Medium" />
         <Setter Property="Foreground"
                 Value="{DynamicResource HeaderTextColor}" />
         <Setter Property="Background"
@@ -85,18 +89,20 @@
                 Value="{StaticResource HeaderLineColor}" />
         <Setter Property="BorderThickness"
                 Value="0" />
-        <Setter Property="Margin" Value="0,0,0,1"/>
-        <Setter Property="Padding" Value="6"/>
+        <Setter Property="Margin"
+                Value="0,0,0,1" />
+        <Setter Property="Padding"
+                Value="6" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GridViewColumnHeader">
 
                     <Border BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="{TemplateBinding Padding}"    
-                            Margin="{TemplateBinding Margin}"   
+                            Padding="{TemplateBinding Padding}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             Background="{TemplateBinding Background}"
-                            HorizontalAlignment="Stretch">
+                            HorizontalAlignment="Stretch"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -121,14 +127,16 @@
                 Value="{StaticResource RowLineColor}" />
         <Setter Property="BorderThickness"
                 Value="0,0,0,1" />
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="0,4,0,4"/>
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="Padding"
+                Value="0,4,0,4" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="RowBorder"
-                            Padding="{TemplateBinding Padding}"    
-                            Margin="{TemplateBinding Margin}"  
+                            Padding="{TemplateBinding Padding}"
+                            Margin="{TemplateBinding Margin}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -142,9 +150,12 @@
 
 
     <Style TargetType="ListViewItem">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="BorderThickness"
+                Value="0" />
     </Style>
 
 

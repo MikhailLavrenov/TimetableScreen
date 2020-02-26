@@ -70,7 +70,7 @@
 
                             <ListView ItemsSource="{Binding Timetables}"
                                       ItemContainerStyle="{StaticResource GridViewItemStyle}"
-                                      Margin="0,0,0,20">
+                                      Margin="0,0,0,15">
 
                                 <b:Interaction.Behaviors>
                                     <i:PagingBehavior />
