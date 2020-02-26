@@ -13,6 +13,8 @@ namespace TimetableScreen.Infrastructure
     /// </summary>
     public class TitleRandomMoveBehavior:Behavior<FrameworkElement>
     {
+        private static Random random = new Random();
+
         protected override void OnAttached()
         {
             AssociatedObject.Loaded += OnLoaded;
@@ -23,15 +25,13 @@ namespace TimetableScreen.Infrastructure
             AssociatedObject.Loaded -= OnLoaded;
         }
 
-        protected void OnLoaded(object sender, EventArgs e)
-        {
-            var random = new Random();
+        private void OnLoaded(object sender, EventArgs e)
+        {            
             var randomBounds=(int)((TextBlock)AssociatedObject).FontSize;
 
             var marging = AssociatedObject.Margin;
 
-            marging.Top= random.Next(-randomBounds, randomBounds);
-            marging.Top = -randomBounds;
+            marging.Top = random.Next(-randomBounds, randomBounds);
 
             AssociatedObject.Margin = marging;
         }
