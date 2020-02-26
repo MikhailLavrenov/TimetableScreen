@@ -8,6 +8,8 @@ namespace TimetableScreen.Infrastructure
 {
     public class HorizontalRandomMoveBehavior :Behavior<FrameworkElement>
     {
+        private Random random = new Random();
+
         public int RandomBounds { get; set; }
 
         protected override void OnAttached()
@@ -21,9 +23,7 @@ namespace TimetableScreen.Infrastructure
         }
 
         protected void OnLoaded(object sender, EventArgs e)
-        {
-            var random = new Random();
-
+        {            
             var marging = AssociatedObject.Margin;
 
             marging.Left = random.Next(-RandomBounds, RandomBounds);
