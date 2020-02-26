@@ -33,7 +33,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
-                   Foreground="White"
+                   Foreground="{StaticResource TitleTextColor}"
                    FontWeight="Medium" >
             
             <b:Interaction.Behaviors>
