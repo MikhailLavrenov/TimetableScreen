@@ -31,8 +31,10 @@
                        DockPanel.Dock="Bottom"
                        Panel.ZIndex="1"
                        Padding="0,8,0,5"
+                       FontWeight="Medium"
+                       FontSize="16"
                        Text="{Binding PageIndicator}"
-                       Foreground="{DynamicResource WindowBackground}"
+                       Foreground="{DynamicResource HeaderTextColor}"
                        HorizontalAlignment="Center"
                        RenderTransformOrigin="0.5,1">
 
@@ -44,7 +46,8 @@
             </TextBlock>
 
 
-            <ListView  ItemsSource="{Binding CurrentPage}">
+
+            <ListView  ItemsSource="{Binding CurrentPage}" >
 
                 <ListView.RenderTransform>
                     <ScaleTransform ScaleX="{Binding Settings.Scale}"
@@ -53,26 +56,21 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
+
                         <DockPanel>
 
-                            <Border DockPanel.Dock="Top"
-                                    BorderBrush="Transparent"
-                                    BorderThickness="0,0,0,1"
-                                    Padding="6"
-                                    Background="Transparent"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-
-                                <TextBlock Text="{Binding Name}"
-                                           Foreground="{StaticResource WindowBackground}"
+                            <TextBlock  DockPanel.Dock="Top"                                    
+                                        Text="{Binding Name}"                                           
+                                        Foreground="{StaticResource HeaderTextColor}"
                                            FontSize="16"
                                            FontWeight="Medium"
+                                           Padding="10"
                                            HorizontalAlignment="Center" />
 
-                            </Border>
 
                             <ListView ItemsSource="{Binding Timetables}"
                                       ItemContainerStyle="{StaticResource GridViewItemStyle}"
-                                      Margin="0,0,0,28">
+                                      Margin="0,0,0,20">
 
                                 <b:Interaction.Behaviors>
                                     <i:PagingBehavior />

@@ -22,8 +22,12 @@
                      Color="White"
                      po:Freeze="True" />
 
+    <SolidColorBrush x:Key="HeaderTextColor"
+                     Color="White" Opacity="0.8"
+                     po:Freeze="True" />
+
     <SolidColorBrush x:Key="HeaderLineColor"
-                     Color="White"
+                     Color="White" Opacity="0.8"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowTextColor"
@@ -31,13 +35,12 @@
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowBackground"
-                     Color="Transparent" 
+                     Color="White" Opacity="0.7"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowLineColor"
-                     Color="White"
+                     Color="Transparent"
                      po:Freeze="True" />
-
 
 
     <Style TargetType="ListView">
@@ -68,20 +71,24 @@
                 Value="Center" />
         <Setter Property="Focusable"
                 Value="False" />
+        <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Foreground"
-                Value="{DynamicResource WindowBackground}" />
+                Value="{DynamicResource HeaderTextColor}" />
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="BorderBrush"
-                Value="{StaticResource RowLineColor}" />
+                Value="{StaticResource HeaderLineColor}" />
         <Setter Property="BorderThickness"
-                Value="0,0,0,0.3" />
+                Value="0,1,0,0" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="5"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GridViewColumnHeader">
 
                     <Border BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="5,7,5,7"
+                            Padding="{TemplateBinding Padding}"    
+                            Margin="{TemplateBinding Margin}"   
                             BorderBrush="{TemplateBinding BorderBrush}"
                             Background="{TemplateBinding Background}"
                             HorizontalAlignment="Stretch">
@@ -104,16 +111,19 @@
         <Setter Property="Background"
                 Value="{StaticResource RowBackground}" />
         <Setter Property="Foreground"
-                Value="{StaticResource WindowBackground}" />
+                Value="{StaticResource RowTextColor}" />
         <Setter Property="BorderBrush"
                 Value="{StaticResource RowLineColor}" />
         <Setter Property="BorderThickness"
-                Value="0,0,0,0.3" />
+                Value="0,0,0,1" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0,4,0,4"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="RowBorder"
-                            Padding="0,4,0,4"
+                            Padding="{TemplateBinding Padding}"    
+                            Margin="{TemplateBinding Margin}"  
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -124,6 +134,14 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <Style TargetType="ListViewItem">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
 
     <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}"
            TargetType="{x:Type ScrollViewer}">
@@ -149,6 +167,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
 
 
     <Style x:Key="CloseButton"

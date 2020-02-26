@@ -8,6 +8,7 @@ namespace TimetableScreen.Infrastructure
     public class ColorSelectorBehavior : Behavior<FrameworkElement>
     {
         int brushIndex = 0;
+        int gradientIndex = 0;
 
         protected override void OnAttached()
         {
@@ -20,12 +21,13 @@ namespace TimetableScreen.Infrastructure
             Application.Current.Resources["PrimaryHueMidBrush"] = new SolidColorBrush(ColorPalette.colors400[brushIndex]);
             Application.Current.Resources["PrimaryHueDarkBrush"] = new SolidColorBrush(ColorPalette.colors500[brushIndex]);
 
-            var color1 = ColorPalette.GetColor("#134E5E");
-            var color2 = ColorPalette.GetColor("#71B280");
+            var color1 = ColorPalette.gradientsColors[gradientIndex].Item1;
+            var color2 = ColorPalette.gradientsColors[gradientIndex].Item2;
 
             Application.Current.Resources["PrimaryGradient"] = new LinearGradientBrush(color1, color2, 45);
 
             brushIndex = brushIndex == ColorPalette.ColorsCount - 1 ? 0 : brushIndex + 1;
+            gradientIndex = gradientIndex == ColorPalette.GradientsCount - 1 ? 0 : gradientIndex + 1;
         }
 
         protected override void OnDetaching()

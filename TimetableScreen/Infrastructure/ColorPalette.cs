@@ -117,14 +117,25 @@ namespace TimetableScreen.Infrastructure
 
         public static (Color, Color)[] gradientsColors = new[]
         {
-            (GetColor("#29B6F6"),GetColor("#5C6BC0")),
-            //(GetColor("#26C6DA"),GetColor("#26A69A")),
-            //(GetColor("#26C6DA"),GetColor("#00695C")),
-            //(GetColor("#"),GetColor("#"))
+            (GetColor("#26C6DA"),GetColor("#00695C")),
+            (GetColor("#5433FF"),GetColor("#20BDFF")),
+            (GetColor("#2980B9"),GetColor("#6DD5FA")),
+            (GetColor("#7F7FD5"),GetColor("#91EAE4")),
+            (GetColor("#00B4DB"),GetColor("#0083B0")),
+            (GetColor("#667db6"),GetColor("#0082c8")),
+            (GetColor("#06beb6"),GetColor("#48b1bf")),
+            (GetColor("#36D1DC"),GetColor("#5B86E5")),
+            (GetColor("#159957"),GetColor("#155799")),
+            (GetColor("#000046"),GetColor("#1CB5E0")),
+            (GetColor("#56CCF2"),GetColor("#2F80ED")),
+            (GetColor("#4ECDC4"),GetColor("#556270")),
+            (GetColor("#000428"),GetColor("#004e92")),
+            (GetColor("#3a7bd5"),GetColor("#3a6073")),
+            (GetColor("#2980b9"),GetColor("#2c3e50")),
+            (GetColor("#136a8a"),GetColor("#267871")),
+            (GetColor("#2193b0"),GetColor("#6dd5ed"))
         };
             
-
-
         public static int ColorsCount;
         public static int GradientsCount;
 
