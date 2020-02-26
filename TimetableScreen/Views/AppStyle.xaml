@@ -26,12 +26,17 @@
                      Color="White" Opacity="0.8"
                      po:Freeze="True" />
 
+    <SolidColorBrush x:Key="HeaderBakground"
+                     Color="White"
+                     Opacity="0.2"
+                     po:Freeze="True" />
+
     <SolidColorBrush x:Key="HeaderLineColor"
-                     Color="White" Opacity="0.8"
+                     Color="Transparent" 
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowTextColor"
-                     Color="#FF4B4B4B"
+                     Color="Black" Opacity="0.9"
                      po:Freeze="True" />
 
     <SolidColorBrush x:Key="RowBackground"
@@ -75,13 +80,13 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource HeaderTextColor}" />
         <Setter Property="Background"
-                Value="Transparent" />
+                Value="{StaticResource HeaderBakground}" />
         <Setter Property="BorderBrush"
                 Value="{StaticResource HeaderLineColor}" />
         <Setter Property="BorderThickness"
-                Value="0,1,0,0" />
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="5"/>
+                Value="0" />
+        <Setter Property="Margin" Value="0,0,0,1"/>
+        <Setter Property="Padding" Value="6"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GridViewColumnHeader">
