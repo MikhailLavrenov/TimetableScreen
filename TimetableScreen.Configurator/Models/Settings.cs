@@ -14,16 +14,16 @@ namespace TimetableScreen.Configurator.Models
         private string screenAddress = "127.0.0.1";
         private ushort screenPort = 8642;
         private double scale = 1;
-        private int showPageTime = 60;
+        private int showPageTime = 20;
         private int specialistWidth = 240;
-        private int cabinetWidth = 40;
+        private int cabinetWidth = 50;
         private int siteWidth = 0;
-        private int dayOfWeekWidth = 50;
+        private int dayOfWeekWidth = 55;
         private int noteWidth = 0;
         private int useDisplay = 1;
         private bool topMost = true;
         private bool autoLoad = true;
-        private int showTitlePageTime=10;
+        private int showTitlePageTime=7;
         private string titleText = "Расписания приема специалистов";
 
 
