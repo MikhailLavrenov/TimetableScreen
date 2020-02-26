@@ -12,7 +12,7 @@
         xmlns:i="clr-namespace:TimetableScreen.Configurator.Infrastructure"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Конфигуратор табло"
+        Title="{Binding ApplicationTitle}"
         Height="800"
         Width="1000"
         MinHeight="800"
@@ -105,6 +105,12 @@
                                  Style="{StaticResource TabRadioButton}"
                                  Command="{Binding NavigateCommand}"
                                  CommandParameter="{x:Type v:TimetablesView}" />
+
+                    <RadioButton Content="О программе"
+                                 IsChecked="False"
+                                 Style="{StaticResource TabRadioButton}"
+                                 Command="{Binding NavigateCommand}"
+                                 CommandParameter="{x:Type v:AboutView}" />
 
                 </StackPanel>
 

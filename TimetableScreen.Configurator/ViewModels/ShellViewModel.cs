@@ -3,6 +3,8 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using TimetableScreen.Configurator.Infrastructure;
 using TimetableScreen.Configurator.Models;
@@ -16,6 +18,7 @@ namespace TimetableScreen.Configurator.ViewModels
         Type lastNavigation;
         bool isScreenOnline;
 
+        public string ApplicationTitle { get; }
         public Settings Settings { get; set; }
         public bool IsScreenOnline
         {
@@ -39,6 +42,9 @@ namespace TimetableScreen.Configurator.ViewModels
             this.container = container;
             this.regionManager = regionManager;
             Settings = settings;
+
+            var assembly = Assembly.GetExecutingAssembly();
+            ApplicationTitle = ((AssemblyProductAttribute)assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false).First()).Product;
 
             NavigateCommand = new DelegateCommand<Type>(NavigateExecute);
             SaveSettingsCommand = new DelegateCommand(() => Settings.Save());
