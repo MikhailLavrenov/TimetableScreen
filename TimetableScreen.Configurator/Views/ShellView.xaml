@@ -95,7 +95,7 @@
                                  Command="{Binding NavigateCommand}"
                                  CommandParameter="{x:Type v:SettingsView}" />
 
-                    <RadioButton Content="Цвета"
+                    <RadioButton Content="Цвета фона"
                                  Style="{StaticResource TabRadioButton}"
                                  Command="{Binding NavigateCommand}"
                                  CommandParameter="{x:Type v:ColorsView}" />

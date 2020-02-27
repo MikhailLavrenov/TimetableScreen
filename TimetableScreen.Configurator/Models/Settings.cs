@@ -26,7 +26,7 @@ namespace TimetableScreen.Configurator.Models
         private bool autoLoad = true;
         private int showTitlePageTime = 7;
         private string titleText = "Расписания приема специалистов";
-        private ObservableCollection<ColorsPair> backgroundColors;
+        private ObservableCollection<ColorPair> backgroundColors;
 
 
         public int UseDisplay { get => useDisplay; set => SetProperty(ref useDisplay, value); }
@@ -41,7 +41,7 @@ namespace TimetableScreen.Configurator.Models
         public int NoteWidth { get => noteWidth; set => SetProperty(ref noteWidth, value); }
         public int ShowTitlePageTime { get => showTitlePageTime; set => SetProperty(ref showTitlePageTime, value); }
         public string TitleText { get => titleText; set => SetProperty(ref titleText, value); }
-        public ObservableCollection<ColorsPair> BackgroundColors { get => backgroundColors; set => SetProperty(ref backgroundColors, value); }
+        public ObservableCollection<ColorPair> BackgroundColors { get => backgroundColors; set => SetProperty(ref backgroundColors, value); }
 
 
         public ObservableCollection<Department> Departments { get => departments; set => SetProperty(ref departments, value); }
@@ -51,7 +51,7 @@ namespace TimetableScreen.Configurator.Models
         public Settings()
         {
             Departments = new ObservableCollection<Department>();
-            BackgroundColors = new ObservableCollection<ColorsPair>();
+            BackgroundColors = new ObservableCollection<ColorPair>();
         }
 
         //сохраняет настройки в xml
