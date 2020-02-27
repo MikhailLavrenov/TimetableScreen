@@ -90,6 +90,17 @@
 
                 <StackPanel Orientation="Horizontal">
 
+                    <RadioButton Content="Расписания"
+                                 IsChecked="True"
+                                 Style="{StaticResource TabRadioButton}"
+                                 Command="{Binding NavigateCommand}"
+                                 CommandParameter="{x:Type v:TimetablesView}" />
+
+                    <RadioButton Content="Отделения"
+                                 Style="{StaticResource TabRadioButton}"
+                                 Command="{Binding NavigateCommand}"
+                                 CommandParameter="{x:Type v:DepartmentsView}" />
+
                     <RadioButton Content="Разное"
                                  Style="{StaticResource TabRadioButton}"
                                  Command="{Binding NavigateCommand}"
@@ -99,17 +110,6 @@
                                  Style="{StaticResource TabRadioButton}"
                                  Command="{Binding NavigateCommand}"
                                  CommandParameter="{x:Type v:ColorsView}" />
-
-                    <RadioButton Content="Отделения"
-                                 Style="{StaticResource TabRadioButton}"
-                                 Command="{Binding NavigateCommand}"
-                                 CommandParameter="{x:Type v:DepartmentsView}" />
-
-                    <RadioButton Content="Расписания"
-                                 IsChecked="True"
-                                 Style="{StaticResource TabRadioButton}"
-                                 Command="{Binding NavigateCommand}"
-                                 CommandParameter="{x:Type v:TimetablesView}" />
 
                     <RadioButton Content="О программе"
                                  IsChecked="False"

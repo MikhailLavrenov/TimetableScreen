@@ -18,13 +18,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary >
     </UserControl.Resources>
-       
+
 
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
@@ -45,7 +45,9 @@
                   SelectedItem="{Binding SelectedDepartment}"
                   DisplayMemberPath="Name" />
 
-        <FrameworkElement Grid.Row="1" Grid.Column="1" Style="{StaticResource Separator}" />
+        <FrameworkElement Grid.Row="1"
+                          Grid.Column="1"
+                          Style="{StaticResource Separator}" />
 
         <DataGrid Grid.Row="2"
                   Grid.Column="0"
@@ -60,13 +62,12 @@
 
                 <DataGridTextColumn Header="Каб."
                                     Binding="{Binding Cabinet}" />
-                
+
                 <DataGridTextColumn Header="Специальность"
                                     Binding="{Binding Specialty}" />
 
                 <DataGridTextColumn Header="ФИО"
                                     Binding="{Binding FullName}" />
-
 
                 <DataGridTextColumn Header="Пн от"
                                     Binding="{Binding MondayBegin}" />
@@ -106,26 +107,32 @@
                 <DataGridTextColumn Header="Прмечание"
                                     Binding="{Binding Note}" />
 
-
             </DataGrid.Columns>
 
         </DataGrid>
 
-        <StackPanel  Grid.Row="2" Grid.Column="3"
-                     Margin="4"
-                     VerticalAlignment="Center">
 
-            <Button Style="{StaticResource IconButton}"
-                    Command="{Binding MoveUpCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon ArrowUpThick}" />
+        <Border Grid.Row="2"
+                Grid.Column="3"
+                VerticalAlignment="Top"
+                Margin="4"
+                Height="{Binding ElementName=DataGrid1, Path=ActualHeight}">
 
-            <Button Style="{StaticResource IconButton}"
-                    Command="{Binding MoveDownCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon ArrowDownThick}" />
+            <StackPanel VerticalAlignment="Center">
 
-        </StackPanel>
+                <Button Style="{StaticResource IconButton}"
+                        Command="{Binding MoveUpCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                        Content="{materialDesign:PackIcon ArrowUpThick}" />
+
+                <Button Style="{StaticResource IconButton}"
+                        Command="{Binding MoveDownCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                        Content="{materialDesign:PackIcon ArrowDownThick}" />
+
+            </StackPanel>
+
+        </Border>
 
     </Grid>
 

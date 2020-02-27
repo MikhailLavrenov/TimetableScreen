@@ -27,30 +27,37 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1"
-                    Margin="4"
-                    VerticalAlignment="Center" HorizontalAlignment="Left">
+        <Border Grid.Column="1"
+                VerticalAlignment="Top"
+                Margin="4"
+                Height="{Binding ElementName=DataGrid1, Path=ActualHeight}">
 
-            <Button Style="{StaticResource IconButton}"
-                    Command="{Binding MoveUpCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon ArrowUpThick}" />
+            <StackPanel VerticalAlignment="Center">
 
-            <Button Style="{StaticResource IconButton}"
-                    Command="{Binding ExchangeCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon TumblrReblog}" />
+                <Button Style="{StaticResource IconButton}"
+                        Command="{Binding MoveUpCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                        Content="{materialDesign:PackIcon ArrowUpThick}" />
 
-            <Button Style="{StaticResource IconButton}"
-                    Command="{Binding MoveDownCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon ArrowDownThick}" />
+                <Button Style="{StaticResource IconButton}"
+                        Command="{Binding ExchangeCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                        Content="{materialDesign:PackIcon TumblrReblog}" />
 
-        </StackPanel>
+                <Button Style="{StaticResource IconButton}"
+                        Command="{Binding MoveDownCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                        Content="{materialDesign:PackIcon ArrowDownThick}" />
+
+            </StackPanel>
+
+        </Border>
 
 
-        <DataGrid Grid.Column="0" x:Name="DataGrid1" ItemsSource="{Binding Settings.BackgroundColors}"
-                  d:DataContext="{d:DesignInstance vm:ColorsViewModel }" HorizontalAlignment="Left">
+        <DataGrid Grid.Column="0"
+                  x:Name="DataGrid1"
+                  ItemsSource="{Binding Settings.BackgroundColors}"
+                  d:DataContext="{d:DesignInstance vm:ColorsViewModel }" VerticalAlignment="Top">
 
             <DataGrid.Columns>
 
@@ -78,9 +85,7 @@
 
                 <DataGridTextColumn Header="Цвет 2"
                                     Width="120"
-                                Binding="{Binding Color2, Converter={i:ColorToHexConverter}}" />
-
-
+                                    Binding="{Binding Color2, Converter={i:ColorToHexConverter}}" />
 
                 <DataGridTemplateColumn Header="Градиент"
                                         Width="150">
@@ -92,14 +97,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-
-
-
-
             </DataGrid.Columns>
 
         </DataGrid>
-        
+
     </Grid>
 
 </UserControl>

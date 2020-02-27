@@ -11,8 +11,10 @@
                 Value="0,5,0,5" />
         <Setter Property="Padding"
                 Value="5" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
         <Setter Property="MinHeight"
-                Value="100" />
+                Value="120" />
         <Setter Property="AutoGenerateColumns"
                 Value="False" />
         <Setter Property="CanUserSortColumns"

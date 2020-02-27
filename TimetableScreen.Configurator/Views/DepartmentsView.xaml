@@ -18,38 +18,50 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary >
     </UserControl.Resources>
-    
 
-    <DockPanel Width="450" HorizontalAlignment="Left">
 
-        <StackPanel DockPanel.Dock="Right"  Grid.Row="2" Grid.Column="3"
-                     Margin="4"
-                     VerticalAlignment="Center">
+    <Grid>
 
-            <Button Style="{StaticResource IconButton}"
-                    Command="{Binding MoveUpCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon ArrowUpThick}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
 
-            <Button Style="{StaticResource IconButton}"
-                    Command="{Binding MoveDownCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon ArrowDownThick}" />
+        <Border Grid.Column="1"
+                VerticalAlignment="Top"
+                Margin="4"
+                Height="{Binding ElementName=DataGrid1, Path=ActualHeight}">
 
-        </StackPanel>
+            <StackPanel VerticalAlignment="Center">
+
+                <Button Style="{StaticResource IconButton}"
+                        Command="{Binding MoveUpCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                        Content="{materialDesign:PackIcon ArrowUpThick}" />
+
+                <Button Style="{StaticResource IconButton}"
+                        Command="{Binding MoveDownCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
+                        Content="{materialDesign:PackIcon ArrowDownThick}" />
+
+            </StackPanel>
+
+        </Border>
 
         <DataGrid x:Name="DataGrid1"
+                  Grid.Column="0"                  
                   ItemsSource="{Binding Settings.Departments}">
 
             <DataGrid.Columns>
-                
-                <DataGridTextColumn Header="Название отделения"
-                                    Binding="{Binding Name}" Width="*" />
-                
-            </DataGrid.Columns>
 
+                <DataGridTextColumn Header="Название отделения"
+                                    Binding="{Binding Name}"
+                                    Width="400" />
+
+            </DataGrid.Columns>
 
         </DataGrid>
 
-    </DockPanel>
+    </Grid>
+
 </UserControl>
