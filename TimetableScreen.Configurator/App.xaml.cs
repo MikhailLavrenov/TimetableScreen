@@ -30,6 +30,7 @@ namespace TimetableScreen.Configurator
             containerRegistry.RegisterForNavigation<TimetablesView>();
             containerRegistry.RegisterForNavigation<SettingsView>();
             containerRegistry.RegisterForNavigation<AboutView>();
+            containerRegistry.RegisterForNavigation<ColorsView>();
         }
 
         protected override void OnInitialized()
