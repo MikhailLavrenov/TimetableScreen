@@ -13,18 +13,16 @@
              mc:Ignorable="d"
              d:DesignHeight="800"
              d:DesignWidth="800"
-             
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             >
+             prism:ViewModelLocator.AutoWireViewModel="True">
 
-    
+
     <Border d:DataContext="{d:DesignInstance {x:Type vm:TitleViewModel}}"
             BorderThickness="0"
             Background="{DynamicResource PrimaryGradient}">
-        
+
         <b:Interaction.Behaviors>
             <i:CircleAnimationBehavior AnimationParametersTarget="userControl" />
-            <i:ColorSelectorBehavior />
+            <i:ColorSelectorBehavior ColorPairs="{Binding Settings.BackgroundColors}" />
         </b:Interaction.Behaviors>
 
         <TextBlock Text="{Binding Settings.TitleText}"
@@ -34,12 +32,12 @@
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    Foreground="{StaticResource TitleTextColor}"
-                   FontWeight="Medium" >
+                   FontWeight="Medium">
             
             <b:Interaction.Behaviors>
-                <i:TitleRandomMoveBehavior  />
+                <i:TitleRandomMoveBehavior />
             </b:Interaction.Behaviors>
-            
+
         </TextBlock>
 
     </Border>

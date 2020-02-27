@@ -25,8 +25,8 @@ namespace TimetableScreen.Configurator.ViewModels
         }
         public ObservableCollection<Timetable> Timetables { get => timetables; set => SetProperty(ref timetables, value); }
 
-        public DelegateCommand<Timetable> MoveUpCommand { get; }
-        public DelegateCommand<Timetable> MoveDownCommand { get; }
+        public DelegateCommand<object> MoveUpCommand { get; }
+        public DelegateCommand<object> MoveDownCommand { get; }
 
         public TimetablesViewModel(Settings settings)
         {
@@ -34,21 +34,27 @@ namespace TimetableScreen.Configurator.ViewModels
 
             SelectedDepartment = Settings.Departments.FirstOrDefault();
 
-            MoveUpCommand = new DelegateCommand<Timetable>(MoveUpExecute);
-            MoveDownCommand = new DelegateCommand<Timetable>(MoveDownExecute);
+            MoveUpCommand = new DelegateCommand<object>(MoveUpExecute);
+            MoveDownCommand = new DelegateCommand<object>(MoveDownExecute);
         }
 
-        public void MoveUpExecute(Timetable item)
+        public void MoveUpExecute(object item)
         {
-            var itemIndex = Timetables.IndexOf(item);
-            if (itemIndex > 0)
-                Timetables.Move(itemIndex, itemIndex - 1);
+            if (item is Timetable timetable)
+            {
+                var itemIndex = Timetables.IndexOf(timetable);
+                if (itemIndex > 0)
+                    Timetables.Move(itemIndex, itemIndex - 1);
+            }
         }
-        public void MoveDownExecute(Timetable item)
+        public void MoveDownExecute(object item)
         {
-            var itemIndex = Timetables.IndexOf(item);
-            if (itemIndex >= 0 && itemIndex < Timetables.Count - 1)
-                Timetables.Move(itemIndex, itemIndex + 1);
+            if (item is Timetable timetable)
+            {
+                var itemIndex = Timetables.IndexOf(timetable);
+                if (itemIndex >= 0 && itemIndex < Timetables.Count - 1)
+                    Timetables.Move(itemIndex, itemIndex + 1);
+            }
         }
 
     }

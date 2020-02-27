@@ -29,8 +29,7 @@
             <Button Style="{StaticResource IconButton}"
                     Command="{Binding MoveUpCommand}"
                     CommandParameter="{Binding SelectedItem, ElementName=DataGrid1}"
-                    Content="{materialDesign:PackIcon ArrowUpThick}"
-                    Cursor="Hand" />
+                    Content="{materialDesign:PackIcon ArrowUpThick}" />
 
             <Button Style="{StaticResource IconButton}"
                     Command="{Binding MoveDownCommand}"

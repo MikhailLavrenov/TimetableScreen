@@ -3,8 +3,14 @@
                     xmlns:local="clr-namespace:TimetableScreen.Views"
                     xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
-    <!--<LinearGradientBrush x:Key="PrimaryGradient"
-                         po:Freeze="True" />
+    <LinearGradientBrush x:Key="PrimaryGradient"
+                         po:Freeze="True" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#6dd5ed" Offset="0"/>
+            <GradientStop Color="#2193b0"
+                          Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
 
     <SolidColorBrush x:Key="PrimaryHueLightBrush"
                      Color="#FF0067B8"
@@ -12,7 +18,7 @@
 
     <SolidColorBrush x:Key="PrimaryHueMidBrush"
                      Color="#FF0067B8"
-                     po:Freeze="True" />-->
+                     po:Freeze="True" />
 
     <SolidColorBrush x:Key="PrimaryHueDarkBrush"
                      Color="#FF0067B8"
