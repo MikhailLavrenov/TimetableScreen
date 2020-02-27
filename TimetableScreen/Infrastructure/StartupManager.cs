@@ -57,14 +57,14 @@ namespace TimetableScreen.Infrastructure
         private static void RemoveFromCurrentUserStartup()
         {
             using var key = Registry.CurrentUser.OpenSubKey(registryPath, true);
-            if (key.GetValue(appName) == null)
+            if (key.GetValue(appName) != null)
                 key.DeleteValue(appName, false);
         }
 
         private static void RemoveFromAllUserStartup()
         {
             using var key = Registry.LocalMachine.OpenSubKey(registryPath, true);
-            if (key.GetValue(appName) == null)
+            if (key.GetValue(appName) != null)
                 key.DeleteValue(appName, false);
         }
 
