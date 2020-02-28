@@ -27,7 +27,7 @@ namespace TimetableScreen.Infrastructure
 
         private void OnLoaded(object sender, EventArgs e)
         {            
-            var randomBounds=(int)((TextBlock)AssociatedObject).FontSize;
+            var randomBounds=(int)((TextBlock)AssociatedObject).FontSize/2;
 
             var marging = AssociatedObject.Margin;
 
