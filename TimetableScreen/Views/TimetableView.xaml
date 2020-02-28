@@ -25,28 +25,30 @@
     <Grid>
 
         <Border Background="{DynamicResource PrimaryGradient}"
-            x:Name="hostContainer">
+                x:Name="hostContainer">
 
             <b:Interaction.Behaviors>
                 <i:CircleAnimationBehavior AnimationParametersTarget="hostContainer" />
             </b:Interaction.Behaviors>
 
-            <Grid  d:DataContext="{d:DesignInstance {x:Type vm:TimetableViewModel}}" x:Name="Grid1">
+            <Grid  d:DataContext="{d:DesignInstance {x:Type vm:TimetableViewModel}}"
+                   x:Name="Grid1">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <b:Interaction.Behaviors>
-                    <i:HorizontalRandomMoveBehavior RandomBounds="10" Scale="{Binding Settings.Scale}" />
+                    <i:HorizontalRandomMoveBehavior RandomBounds="10"
+                                                    Scale="{Binding Settings.Scale}" />
                 </b:Interaction.Behaviors>
 
                 <ListView  ItemsSource="{Binding CurrentPage}">
 
                     <ListView.RenderTransform>
                         <ScaleTransform ScaleX="{Binding Settings.Scale}"
-                                    ScaleY="{Binding Settings.Scale}" />
+                                        ScaleY="{Binding Settings.Scale}" />
                     </ListView.RenderTransform>
 
                     <ListView.ItemTemplate>
@@ -54,18 +56,18 @@
 
                             <DockPanel>
 
-                                <TextBlock  DockPanel.Dock="Top"                                    
-                                        Text="{Binding Name}"                                           
-                                        Foreground="{StaticResource HeaderTextColor}"
-                                           FontSize="16"
-                                           FontWeight="Medium"
-                                           Padding="10"
-                                           HorizontalAlignment="Center" />
+                                <TextBlock  DockPanel.Dock="Top"
+                                            Text="{Binding Name}"
+                                            Foreground="{StaticResource HeaderTextColor}"
+                                            FontSize="16"
+                                            FontWeight="Medium"
+                                            Padding="10"
+                                            HorizontalAlignment="Center" />
 
 
                                 <ListView ItemsSource="{Binding Timetables}"
-                                      ItemContainerStyle="{StaticResource GridViewItemStyle}"
-                                      Margin="0,0,0,15">
+                                          ItemContainerStyle="{StaticResource GridViewItemStyle}"
+                                          Margin="0,0,0,15">
 
                                     <b:Interaction.Behaviors>
                                         <i:PagingBehavior />
@@ -75,7 +77,7 @@
                                         <GridView>
 
                                             <GridViewColumn Header="Участ"
-                                                        Width="{Binding DataContext.Settings.SiteWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.SiteWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding Site}" />
@@ -84,7 +86,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Каб"
-                                                        Width="{Binding DataContext.Settings.CabinetWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.CabinetWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding Cabinet}" />
@@ -93,20 +95,20 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Специалист"
-                                                        Width="{Binding DataContext.Settings.SpecialistWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.SpecialistWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
                                                             <TextBlock Text="{Binding FullName}" />
                                                             <TextBlock Text="{Binding Specialty}"
-                                                                   FontWeight="Light" />
+                                                                       FontWeight="Light" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Пн"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
@@ -118,7 +120,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Вт"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
@@ -130,7 +132,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Ср"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
@@ -142,7 +144,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Чт"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
@@ -154,7 +156,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Пт"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
@@ -166,7 +168,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Сб"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
@@ -178,7 +180,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Вс"
-                                                        Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.DayOfWeekWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Vertical">
@@ -190,7 +192,7 @@
                                             </GridViewColumn>
 
                                             <GridViewColumn Header="Примечание"
-                                                        Width="{Binding DataContext.Settings.NoteWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                                            Width="{Binding DataContext.Settings.NoteWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding Note}" />
@@ -211,19 +213,19 @@
                 </ListView>
 
                 <TextBlock x:Name="Footer"
-                       Grid.Row="1"
-                       Panel.ZIndex="1"
-                       Padding="0,8,0,3"
-                       FontWeight="Medium"
-                       FontSize="16"
-                       Text="{Binding PageIndicator}"
-                       Foreground="{DynamicResource HeaderTextColor}"
-                       HorizontalAlignment="Center"
-                       RenderTransformOrigin="0.5,1">
+                           Grid.Row="1"
+                           Panel.ZIndex="1"
+                           Padding="0,8,0,4"
+                           FontWeight="Medium"
+                           FontSize="16"
+                           Text="{Binding PageIndicator}"
+                           Foreground="{DynamicResource HeaderTextColor}"
+                           HorizontalAlignment="Center"
+                           RenderTransformOrigin="0.5,1">
 
                     <TextBlock.RenderTransform>
                         <ScaleTransform ScaleX="{Binding Settings.Scale}"
-                                    ScaleY="{Binding Settings.Scale}" />
+                                        ScaleY="{Binding Settings.Scale}" />
                     </TextBlock.RenderTransform>
 
                 </TextBlock>
@@ -232,19 +234,20 @@
 
         </Border>
 
-        <ProgressBar VerticalAlignment="Bottom" 
-                         Height="2" 
-                         Background="{StaticResource ProgressBarBackgrouns}"
+        <ProgressBar VerticalAlignment="Bottom"
+                     Height="3"
+                     Background="{StaticResource ProgressBarBackgrouns}"
                      BorderThickness="0"
-                         Foreground="{StaticResource HeaderTextColor}" 
-                         RenderTransformOrigin="0.5,1"  >
+                     Margin="0,0,0,1"
+                     Foreground="{StaticResource HeaderTextColor}"
+                     RenderTransformOrigin="0.5,1">
 
             <ProgressBar.RenderTransform>
                 <ScaleTransform  ScaleY="{Binding Settings.Scale}" />
             </ProgressBar.RenderTransform>
 
             <b:Interaction.Behaviors>
-                <i:ProgressBarBehavior TimeInterval="{Binding Settings.ShowPageTime}"/>
+                <i:ProgressBarBehavior TimeInterval="{Binding Settings.ShowPageTime}" />
             </b:Interaction.Behaviors>
 
         </ProgressBar>
