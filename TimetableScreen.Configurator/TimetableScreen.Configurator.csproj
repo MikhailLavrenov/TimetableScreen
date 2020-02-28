@@ -4,11 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Description></Description>
     <ApplicationIcon>Configurator.ico</ApplicationIcon>
     <Product>Конфигуратор табло расписаний</Product>
     <PackageId>TimetableScreen.Configurator</PackageId>
-    <AssemblyName>TimetableScreen.Configurator</AssemblyName>
     <Company />
     <Authors />
   </PropertyGroup>

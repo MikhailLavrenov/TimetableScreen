@@ -8,14 +8,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<materialDesign:BundledTheme BaseTheme="Light"
-                                             PrimaryColor="DeepPurple"
-                                             SecondaryColor="LightGreen" />-->
                 <materialDesign:CustomColorTheme BaseTheme="Light"
                                                  PrimaryColor="#FF0067B8"
                                                  SecondaryColor="White" />
                 <ResourceDictionary  Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <!--<ResourceDictionary Source="/CHI.Application;component/Views/Resources/Icons.xaml" />-->
                 <ResourceDictionary Source="/TimetableScreen.Configurator;component/Views/AppStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary >

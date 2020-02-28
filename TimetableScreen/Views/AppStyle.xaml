@@ -60,6 +60,10 @@
                      Color="Transparent"
                      po:Freeze="True" />
 
+    <SolidColorBrush x:Key="ProgressBarBackgrouns"
+                     Color="White" Opacity="0.3"
+                     po:Freeze="True" />
+
 
     <Style TargetType="ListView">
         <Setter Property="SnapsToDevicePixels"
