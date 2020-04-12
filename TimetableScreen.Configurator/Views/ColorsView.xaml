@@ -20,7 +20,7 @@
         </ResourceDictionary >
     </UserControl.Resources>
 
-    <Grid>
+    <Grid d:DataContext="{d:DesignInstance vm:ColorsViewModel }">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -57,7 +57,7 @@
         <DataGrid Grid.Column="0"
                   x:Name="DataGrid1"
                   ItemsSource="{Binding Settings.BackgroundColors}"
-                  d:DataContext="{d:DesignInstance vm:ColorsViewModel }" VerticalAlignment="Top">
+                  VerticalAlignment="Top">
 
             <DataGrid.Columns>
 
