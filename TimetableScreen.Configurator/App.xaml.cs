@@ -23,6 +23,7 @@ namespace TimetableScreen.Configurator
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance(containerRegistry.GetContainer());
             containerRegistry.RegisterInstance(Settings.Load());
             containerRegistry.RegisterInstance<ILogger>(LogManager.GetCurrentClassLogger());
 
